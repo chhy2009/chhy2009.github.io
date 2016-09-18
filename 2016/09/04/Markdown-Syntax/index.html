@@ -4,17 +4,34 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>chenhy&#39;s blog</title>
+  <title>Markdown Syntax | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="keep learning">
-<meta property="og:type" content="website">
-<meta property="og:title" content="chenhy's blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="Mou
+OverviewMou, the missing Markdown editor for web developers.
+SyntaxStrong and Emphasizestrong or strong ( Cmd + B )
+emphasize or emphasize ( Cmd + I )
+Sometimes I want a lot of text to be bold.Lik">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown Syntax">
+<meta property="og:url" content="http://yoursite.com/2016/09/04/Markdown-Syntax/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="keep learning">
+<meta property="og:description" content="Mou
+OverviewMou, the missing Markdown editor for web developers.
+SyntaxStrong and Emphasizestrong or strong ( Cmd + B )
+emphasize or emphasize ( Cmd + I )
+Sometimes I want a lot of text to be bold.Lik">
+<meta property="og:image" content="http://25.io/mou/Mou_128.png">
+<meta property="og:image" content="http://25.io/smaller/favicon.ico">
+<meta property="og:image" content="http://resizesafari.com/favicon.ico">
+<meta property="og:updated_time" content="2016-09-15T10:19:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="chenhy's blog">
-<meta name="twitter:description" content="keep learning">
+<meta name="twitter:title" content="Markdown Syntax">
+<meta name="twitter:description" content="Mou
+OverviewMou, the missing Markdown editor for web developers.
+SyntaxStrong and Emphasizestrong or strong ( Cmd + B )
+emphasize or emphasize ( Cmd + I )
+Sometimes I want a lot of text to be bold.Lik">
+<meta name="twitter:image" content="http://25.io/mou/Mou_128.png">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -194,245 +211,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-Markdown-Advance" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/15/Markdown-Advance/" class="article-date">
-  	<time datetime="2016-09-15T08:08:00.000Z" itemprop="datePublished">2016-09-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/15/Markdown-Advance/">Markdown 中调整插入图片的大小</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用html语法"><span class="toc-text">使用html语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用支持图片缩放的图床接口函数"><span class="toc-text">使用支持图片缩放的图床接口函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用支持缩放功能的Markdown语法编辑器"><span class="toc-text">使用支持缩放功能的Markdown语法编辑器</span></a></li></ol>
-</div>
-
-         
-        <h2 id="使用html语法"><a href="#使用html语法" class="headerlink" title="使用html语法"></a>使用html语法</h2><pre><code>&lt;img src=&quot;imgUrl&quot; width = &quot;300&quot; height = &quot;200&quot; alt=&quot;图片名称&quot; align=center /&gt;
-</code></pre><h2 id="使用支持图片缩放的图床接口函数"><a href="#使用支持图片缩放的图床接口函数" class="headerlink" title="使用支持图片缩放的图床接口函数"></a>使用支持图片缩放的图床接口函数</h2><p>如七牛图床中有图片处理接口函数imgView及imgView2，使用该接口可以对图片进行裁剪，缩放等操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">imageView2/&lt;mode&gt;/w/&lt;LongEdge&gt;</div><div class="line">                 /h/&lt;ShortEdge&gt;</div><div class="line">                 /format/&lt;Format&gt;</div><div class="line">                 /interlace/&lt;Interlace&gt;</div><div class="line">                 /q/&lt;Quality&gt;</div><div class="line">                 /ignore-error/&lt;ignoreError&gt;</div></pre></td></tr></table></figure>
-<p>接口说明见：<br><a href="http://o9gnz92z5.bkt.clouddn.com/code/v6/api/kodo-api/image/imageview2.html" target="_blank" rel="external">http://o9gnz92z5.bkt.clouddn.com/code/v6/api/kodo-api/image/imageview2.html</a><br>示例：<br>图片URL为：<a href="http://imgurl/img.png,需要缩放为width为100px，则URL应使用：" target="_blank" rel="external">http://imgurl/img.png,需要缩放为width为100px，则URL应使用：</a> <a href="http://imgurl/img.png?imgView2/w/100" target="_blank" rel="external">http://imgurl/img.png?imgView2/w/100</a>  (高度根据宽度自动调整)</p>
-<h2 id="使用支持缩放功能的Markdown语法编辑器"><a href="#使用支持缩放功能的Markdown语法编辑器" class="headerlink" title="使用支持缩放功能的Markdown语法编辑器"></a>使用支持缩放功能的Markdown语法编辑器</h2><pre><code>![](./pic/pic1_50.png =100x20)
-</code></pre><p>注意 =前有个空格，可以只写宽度</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-GithubPage-2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/15/GithubPage-2/" class="article-date">
-  	<time datetime="2016-09-15T07:48:36.000Z" itemprop="datePublished">2016-09-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/15/GithubPage-2/">使用Hexo搭建GitHub Pages进阶</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-         
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-GithubPage-1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/05/GithubPage-1/" class="article-date">
-  	<time datetime="2016-09-05T14:49:22.000Z" itemprop="datePublished">2016-09-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/05/GithubPage-1/">使用hexo搭建github博客</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Github建立属于自己的博客"><span class="toc-text">使用Github建立属于自己的博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用hexo发布博文"><span class="toc-text">使用hexo发布博文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo环境搭建"><span class="toc-text">hexo环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hexo发布博客"><span class="toc-text">使用hexo发布博客</span></a></li></ol></li></ol>
-</div>
-
-         
-        <h1 id="使用Github建立属于自己的博客"><a href="#使用Github建立属于自己的博客" class="headerlink" title="使用Github建立属于自己的博客"></a><strong>使用Github建立属于自己的博客</strong></h1><hr>
-<p>Github提供了Github pages功能，建立个人博客需采用username.github.io作为仓库名，然后你可以使用usrname.github.io访问该博客。建立方式如下：</p>
-<ol>
-<li>登陆Github，创建一个名为username.github.io的仓库</li>
-<li>为github关联ssh key，具体见<a href="http://blog.csdn.net/codingcs/article/details/50532282" target="_blank" rel="external">http://blog.csdn.net/codingcs/article/details/50532282</a>中的“配置ssh访问github”</li>
-</ol>
-<h1 id="使用hexo发布博文"><a href="#使用hexo发布博文" class="headerlink" title="使用hexo发布博文"></a><strong>使用hexo发布博文</strong></h1><hr>
-<h2 id="hexo环境搭建"><a href="#hexo环境搭建" class="headerlink" title="hexo环境搭建"></a>hexo环境搭建</h2><ol>
-<li>What’s hexo<br>hexo是一个简单快速的静态博客框架，你可以使用Markdown语法进行博客写作，然后执行几个命令hexo就能生成指定主题的静态页面。</li>
-<li>安装hexo<br>安装hexo前需要先安装Node.js及git。<br>安装Node.js及Git后执行后，执行 <code>$ npm install -g hexo-cli</code> 安装hexo即可<br>具体步骤可以参考hexo官方文档说明：<a href="https://hexo.io/docs/" target="_blank" rel="external">https://hexo.io/docs/</a></li>
-<li>hexo环境配置<br>安装好hexo后，执行如下命令在<folder>目录中初始化</folder></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo init &lt;folder&gt;</div><div class="line">$ cd &lt;folder&gt;</div><div class="line">$ npm install</div></pre></td></tr></table></figure>
-<p>执行后hexo目录如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── _config.yml</div><div class="line">├── package.json</div><div class="line">├── scaffolds</div><div class="line">├── source</div><div class="line">|   ├── _drafts</div><div class="line">|   └── _posts</div><div class="line">└── themes</div></pre></td></tr></table></figure>
-<p>其中_config.yml 是配置文件，其中各个配置项参见hexo官方文档说明。这边仅几个常用的项说明如下：source/_posts目录下是发布的文章目录，theme用于存放安装的主题。Deploy用于配置git repository，对于github pages而言，配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Deployment</div><div class="line">## Docs: https://hexo.io/docs/deployment.html</div><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repository: https://github.com/username/username.github.io</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
-<p>这样，就完成了hexo和github仓库的绑定，就可以使用命令来发布博文了。</p>
-<h2 id="使用hexo发布博客"><a href="#使用hexo发布博客" class="headerlink" title="使用hexo发布博客"></a>使用hexo发布博客</h2><p>安装完成后，便可以使用hexo命令来发布博客了。下面对hexo命令进行介绍：</p>
-<ol>
-<li><p>新建文章</p>
-<p>$ hexo new [layout] <title></title></p>
-</li>
-<li><p>生成静态文件</p>
-<p> $ hexo generate</p>
-</li>
-<li><p>启动hexo server，这时可用用 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 来预览博客</p>
-<p> $ hexo server</p>
-</li>
-</ol>
-<p>使用该命令之前需要先执行<code>$ npm install hexo-server --save</code>安装hexo server</p>
-<ol>
-<li><p>上传资源到博客上，即部署</p>
-<p> $ hexo deploy</p>
-</li>
-<li><p>清除cache文件（db.json）并产生public文件</p>
-<p> $ hexo clean</p>
-</li>
-</ol>
-<p>常用组合命令如下：<br>发布博文：<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code><br>预览博文：<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> ， 然后使用 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 打开</p>
-<hr>
-<p>以上步骤完成了简单博客的搭建，后面会进行一些进阶的配置：包括如何进行博文分类，创建文章目录，设置头像，配置主题等，欢迎阅读。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Markdown-Syntax" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Markdown-Syntax" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/09/04/Markdown-Syntax/" class="article-date">
@@ -448,12 +227,27 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/04/Markdown-Syntax/">Markdown Syntax</a>
+    <h1 class="article-title" itemprop="name">
+      Markdown Syntax
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -648,98 +442,77 @@ var Mou = exactlyTheAppIwant;
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-essay" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/03/essay/" class="article-date">
-  	<time datetime="2016-09-03T14:09:30.000Z" itemprop="datePublished">2016-09-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+<nav id="article-nav">
+  
+    <a href="/2016/09/05/GithubPage-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
         
+          使用hexo搭建github博客
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/03/essay/">Myblog</a>
-    </h1>
   
+    <a href="/2016/09/03/essay/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Myblog</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-         
-        <p>hello, github pages!</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Github-pages/">Github pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/essay/">随笔</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
 
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Markdown-Syntax" data-title="Markdown Syntax" data-url="http://yoursite.com/2016/09/04/Markdown-Syntax/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-  
-  
+
+
+
 </div>
       <footer id="footer">
   <div class="outer">
@@ -769,8 +542,8 @@ var Mou = exactlyTheAppIwant;
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
