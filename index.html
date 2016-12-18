@@ -233,7 +233,7 @@
 <h2 id="证书吊销"><a href="#证书吊销" class="headerlink" title="证书吊销"></a>证书吊销</h2><ol>
 <li>吊销证书<br><code>openssl ca －revoke newcerts/username.pem -config openssl.cnf</code></li>
 <li>重新生成证书吊销列表<br><code>openssl ca -config openssl.cnf -gencrl -out crl/ca.crl</code></li>
-<li>生成hash码链接文件<br> ln -s ca.crl <code>openssl crl -hash -noout -in ca.crl</code>.r0</li>
+<li>生成hash码链接文件<br> ln -s ca.crl `openssl crl -hash -noout -in ca.crl`.r0</li>
 <li>把ca.crl及hash码文件拷贝到应用证书吊销列表文件夹</li>
 </ol>
 
@@ -794,7 +794,7 @@
 <h4 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h4><blockquote>
 <p>Right angle brackets &gt; are used for block quotes.</p>
 </blockquote>
-<h4 id="Links-and-Email"><a href="#Links-and-Email" class="headerlink" title="Links and Email"></a>Links and Email</h4><p>An email <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#x65;&#64;&#x65;&#120;&#97;&#109;&#x70;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#109;">&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#x65;&#64;&#x65;&#120;&#97;&#109;&#x70;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#109;</a> link.</p>
+<h4 id="Links-and-Email"><a href="#Links-and-Email" class="headerlink" title="Links and Email"></a>Links and Email</h4><p>An email <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#101;&#x78;&#x61;&#x6d;&#112;&#x6c;&#101;&#x40;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;">&#101;&#x78;&#x61;&#x6d;&#112;&#x6c;&#101;&#x40;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;</a> link.</p>
 <p>Simple inline link <a href="http://chenluois.com" target="_blank" rel="external">http://chenluois.com</a>, another inline link <a href="http://25.io/smaller/" target="_blank" rel="external">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension" target="_blank" rel="external">Resize</a>.</p>
 <p>A <a href="http://25.io/mou/" title="Markdown editor on Mac OS X" target="_blank" rel="external">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
 <p>Titles ( or called tool tips ) in the links are optional.</p>
