@@ -4,18 +4,33 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>categories | chenhy&#39;s blog</title>
+  <title>openssl命令 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="keep learning">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+  <meta name="description" content="生成证书请参考使用openssl生成证书
+证书签名请参考使用openssl生成证书
+证书吊销
+吊销证书openssl ca －revoke newcerts/username.pem -config openssl.cnf
+重新生成证书吊销列表openssl ca -config openssl.cnf -gencrl -out crl/ca.crl
+生成hash码链接文件 ln -s ca.cr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openssl命令">
+<meta property="og:url" content="http://yoursite.com/2016/12/18/openssl-cmd/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="keep learning">
-<meta property="og:updated_time" content="2016-09-04T03:01:54.000Z">
+<meta property="og:description" content="生成证书请参考使用openssl生成证书
+证书签名请参考使用openssl生成证书
+证书吊销
+吊销证书openssl ca －revoke newcerts/username.pem -config openssl.cnf
+重新生成证书吊销列表openssl ca -config openssl.cnf -gencrl -out crl/ca.crl
+生成hash码链接文件 ln -s ca.cr">
+<meta property="og:updated_time" content="2016-12-18T04:46:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="keep learning">
+<meta name="twitter:title" content="openssl命令">
+<meta name="twitter:description" content="生成证书请参考使用openssl生成证书
+证书签名请参考使用openssl生成证书
+证书吊销
+吊销证书openssl ca －revoke newcerts/username.pem -config openssl.cnf
+重新生成证书吊销列表openssl ca -config openssl.cnf -gencrl -out crl/ca.crl
+生成hash码链接文件 ln -s ca.cr">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -195,11 +210,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-openssl-cmd" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/categories/index.html" class="article-date">
-  	<time datetime="2016-09-04T03:01:54.000Z" itemprop="datePublished">2016-09-04</time>
+      <a href="/2016/12/18/openssl-cmd/" class="article-date">
+  	<time datetime="2016-12-18T03:15:15.000Z" itemprop="datePublished">2016-12-18</time>
 </a>
     </div>
   
@@ -212,7 +227,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      categories
+      openssl命令
     </h1>
   
 
@@ -220,7 +235,15 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openssl/">openssl</a></li></ul>
+	</div>
+
         
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
 
         <div class="clearfix"></div>
       </div>
@@ -230,17 +253,35 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成证书"><span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#证书签名"><span class="toc-text">证书签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#证书吊销"><span class="toc-text">证书吊销</span></a></li></ol>
 </div>
 
          
-        
+        <h2 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h2><p>请参考<a href="http://blog.csdn.net/codingcs/article/details/51816115" target="_blank" rel="external">使用openssl生成证书</a></p>
+<h2 id="证书签名"><a href="#证书签名" class="headerlink" title="证书签名"></a>证书签名</h2><p>请参考<a href="http://blog.csdn.net/codingcs/article/details/51816115" target="_blank" rel="external">使用openssl生成证书</a></p>
+<h2 id="证书吊销"><a href="#证书吊销" class="headerlink" title="证书吊销"></a>证书吊销</h2><ol>
+<li>吊销证书<br><code>openssl ca －revoke newcerts/username.pem -config openssl.cnf</code></li>
+<li>重新生成证书吊销列表<br><code>openssl ca -config openssl.cnf -gencrl -out crl/ca.crl</code></li>
+<li>生成hash码链接文件<br> ln -s ca.crl <code>openssl crl -hash -noout -in ca.crl</code>.r0</li>
+<li>把ca.crl及hash码文件拷贝到应用证书吊销列表文件夹</li>
+</ol>
+
       
     </div>
     
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/02/Makefile/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一个工程的Makefile模版</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -270,7 +311,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="categories" data-url="http://yoursite.com/categories/index.html"></div>
+	<div class="ds-thread" data-thread-key="openssl-cmd" data-title="openssl命令" data-url="http://yoursite.com/2016/12/18/openssl-cmd/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -320,7 +361,7 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
