@@ -296,15 +296,13 @@
 
          
         <h2 id="epoll三部曲"><a href="#epoll三部曲" class="headerlink" title="epoll三部曲"></a>epoll三部曲</h2><p>头文件:#include<sys epoll.h=""><br>可以通过man查看对应函数的帮助信息</sys></p>
-<h3 id="创建epoll实例"><a href="#创建epoll实例" class="headerlink" title="创建epoll实例"></a>创建epoll实例</h3><pre><code>int epoll_create(int size); 
-int epoll_create1(int flag); 
-</code></pre><p>epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8<br>epoll_create1中flag取值如下：    </p>
+<h3 id="创建epoll实例"><a href="#创建epoll实例" class="headerlink" title="创建epoll实例"></a>创建epoll实例</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>; </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create1</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;</div></pre></td></tr></table></figure>
+<p>epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8<br>epoll_create1中flag取值如下：    </p>
 <ul>
 <li>0:epoll_create1 == epoll_create (size argument is dropped)  </li>
-<li><p>EPOLL_CLOEXEC:含义同open函数的O_CLOEXEC选项；当执行execve创建新进程时，打开的描述符自动关闭<br>p.s: 当使用完毕时，需要调用close关闭epoll实例句柄</p>
-<h3 id="管理epoll事件"><a href="#管理epoll事件" class="headerlink" title="管理epoll事件"></a>管理epoll事件</h3><p>  int epoll_ctl (int epfd, int op, int fd, struct epoll_event *event);  </p>
-</li>
+<li>EPOLL_CLOEXEC:含义同open函数的O_CLOEXEC选项；当执行execve创建新进程时，打开的描述符自动关闭<br>p.s: 当使用完毕时，需要调用close关闭epoll实例句柄<h3 id="管理epoll事件"><a href="#管理epoll事件" class="headerlink" title="管理epoll事件"></a>管理epoll事件</h3></li>
 </ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span> <span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, <span class="keyword">struct</span> epoll_event *event)</span></span>;</div></pre></td></tr></table></figure>
 <p>其中struct epoll_event定义如下:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> epoll_data</div><div class="line">&#123;</div><div class="line">  <span class="keyword">void</span> *ptr;</div><div class="line">  <span class="keyword">int</span> fd;</div><div class="line">  <span class="keyword">uint32_t</span> u32;</div><div class="line">  <span class="keyword">uint64_t</span> u64;</div><div class="line">&#125; <span class="keyword">epoll_data_t</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> epoll_event</div><div class="line">&#123;</div><div class="line">  <span class="keyword">uint32_t</span> events;	<span class="comment">/* Epoll events */</span></div><div class="line">  <span class="keyword">epoll_data_t</span> data;	<span class="comment">/* User data variable */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>其中events可以包含以下事件类型：  </p>
