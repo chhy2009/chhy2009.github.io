@@ -1488,16 +1488,20 @@ a {
 }
 .article-entry pre,
 .article-entry .highlight {
-  background: #272822;
-  margin: 10px 0;
-  padding: 10px 10px;
+  background: #2d2d2d;
+  margin: 0 -20px;
+  padding: 10px article-paddin;
+  border-style: solid;
+  border-color: #ddd;
+  border-width: 1px 0;
   overflow: auto;
-  color: #4c4c4c;
+  color: highlight-foreground;
   line-height: 22.400000000000002px;
 }
 .article-entry .highlight .gutter pre,
 .article-entry .gist .gist-file .gist-data .line-numbers {
   color: #666;
+  font-size: 0.85em;
 }
 .article-entry pre,
 .article-entry code {
@@ -1558,15 +1562,14 @@ a {
   text-shadow: none;
 }
 .article-entry .highlight .line {
-  font-size: 15px;
-  height: 15px;
+  font-size: 12px;
 }
 .article-entry .gist {
   margin: 0 -20px;
   border-style: solid;
   border-color: #ddd;
   border-width: 1px 0;
-  background: #272822;
+  background: #2d2d2d;
   padding: 15px 20px 15px 0;
 }
 .article-entry .gist .gist-file {

@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a>
+						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 15px;">openssl</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a>
 					</div>
 				</section>
 				
@@ -196,6 +196,245 @@
 
       <div class="body-wrap">
   
+    <article id="post-Markdown-Advance" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/15/Markdown-Advance/" class="article-date">
+  	<time datetime="2016-09-15T08:08:00.000Z" itemprop="datePublished">2016-09-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/15/Markdown-Advance/">Markdown 语法进阶</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Markdown-中调整插入图片的大小"><span class="toc-text">Markdown 中调整插入图片的大小</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用html语法"><span class="toc-text">使用html语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用支持图片缩放的图床接口函数"><span class="toc-text">使用支持图片缩放的图床接口函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用支持缩放功能的Markdown语法编辑器"><span class="toc-text">使用支持缩放功能的Markdown语法编辑器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markdown代码段语法高亮"><span class="toc-text">Markdown代码段语法高亮</span></a></li></ol>
+</div>
+
+         
+        <h2 id="Markdown-中调整插入图片的大小"><a href="#Markdown-中调整插入图片的大小" class="headerlink" title="Markdown 中调整插入图片的大小"></a>Markdown 中调整插入图片的大小</h2><h3 id="使用html语法"><a href="#使用html语法" class="headerlink" title="使用html语法"></a>使用html语法</h3><pre><code>&lt;img src=&quot;imgUrl&quot; width = &quot;300&quot; height = &quot;200&quot; alt=&quot;图片名称&quot; align=center /&gt;
+</code></pre><h3 id="使用支持图片缩放的图床接口函数"><a href="#使用支持图片缩放的图床接口函数" class="headerlink" title="使用支持图片缩放的图床接口函数"></a>使用支持图片缩放的图床接口函数</h3><p>如七牛图床中有图片处理接口函数imgView及imgView2，使用该接口可以对图片进行裁剪，缩放等操作：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">imageView2/<span class="params">&lt;mode&gt;</span><span class="meta-keyword">/w/</span><span class="params">&lt;LongEdge&gt;</span></div><div class="line">                 <span class="meta-keyword">/h/</span><span class="params">&lt;ShortEdge&gt;</span></div><div class="line">                 <span class="meta-keyword">/format/</span><span class="params">&lt;Format&gt;</span></div><div class="line">                 <span class="meta-keyword">/interlace/</span><span class="params">&lt;Interlace&gt;</span></div><div class="line">                 <span class="meta-keyword">/q/</span><span class="params">&lt;Quality&gt;</span></div><div class="line">                 <span class="meta-keyword">/ignore-error/</span><span class="params">&lt;ignoreError&gt;</span></div></pre></td></tr></table></figure>
+<p>接口说明见：<br><a href="http://o9gnz92z5.bkt.clouddn.com/code/v6/api/kodo-api/image/imageview2.html" target="_blank" rel="external">http://o9gnz92z5.bkt.clouddn.com/code/v6/api/kodo-api/image/imageview2.html</a><br>示例：<br>图片URL为：<a href="http://imgurl/img.png,需要缩放为width为100px，则URL应使用：" target="_blank" rel="external">http://imgurl/img.png,需要缩放为width为100px，则URL应使用：</a> <a href="http://imgurl/img.png?imgView2/w/100" target="_blank" rel="external">http://imgurl/img.png?imgView2/w/100</a>  (高度根据宽度自动调整)</p>
+<h3 id="使用支持缩放功能的Markdown语法编辑器"><a href="#使用支持缩放功能的Markdown语法编辑器" class="headerlink" title="使用支持缩放功能的Markdown语法编辑器"></a>使用支持缩放功能的Markdown语法编辑器</h3><pre><code>![](./pic/pic1_50.png =100x20)
+</code></pre><p>注意 =前有个空格，可以只写宽度</p>
+<h2 id="Markdown代码段语法高亮"><a href="#Markdown代码段语法高亮" class="headerlink" title="Markdown代码段语法高亮"></a>Markdown代码段语法高亮</h2><p>Markdown中，代码段用3个连续的 ` 号包围，在开头的符号后加上对应语言的名字即可实现该语言的语法高亮。如cpp 语法高亮，效果为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</div></pre></td></tr></table></figure>
+<p>当使用yilia主题时，代码块高亮配置文件：themes/yilia/source/css/_partial/highlight.styl,可以通过此文件更改默认的字号，行号大小等，我的配置文件<a href="https://github.com/chhy2009/hexo-theme-yilia/blob/master/source/css/_partial/highlight.styl" target="_blank" rel="external">highlight.styl</a><br>参考链接：<a href="http://blog.sunnyxx.com/2014/03/07/hexo_customize/" target="_blank" rel="external">hexo的私人订制</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-GithubPage-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/15/GithubPage-2/" class="article-date">
+  	<time datetime="2016-09-15T07:48:36.000Z" itemprop="datePublished">2016-09-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/15/GithubPage-2/">使用Hexo搭建GitHub Pages进阶</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+         
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-GithubPage-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/05/GithubPage-1/" class="article-date">
+  	<time datetime="2016-09-05T14:49:22.000Z" itemprop="datePublished">2016-09-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/05/GithubPage-1/">使用hexo搭建github博客</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Github建立属于自己的博客"><span class="toc-text">使用Github建立属于自己的博客</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用hexo发布博文"><span class="toc-text">使用hexo发布博文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo环境搭建"><span class="toc-text">hexo环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用hexo发布博客"><span class="toc-text">使用hexo发布博客</span></a></li></ol></li></ol>
+</div>
+
+         
+        <h1 id="使用Github建立属于自己的博客"><a href="#使用Github建立属于自己的博客" class="headerlink" title="使用Github建立属于自己的博客"></a><strong>使用Github建立属于自己的博客</strong></h1><hr>
+<p>Github提供了Github pages功能，建立个人博客需采用username.github.io作为仓库名，然后你可以使用usrname.github.io访问该博客。建立方式如下：</p>
+<ol>
+<li>登陆Github，创建一个名为username.github.io的仓库</li>
+<li>为github关联ssh key，具体见<a href="http://blog.csdn.net/codingcs/article/details/50532282" target="_blank" rel="external">http://blog.csdn.net/codingcs/article/details/50532282</a>中的“配置ssh访问github”</li>
+</ol>
+<h1 id="使用hexo发布博文"><a href="#使用hexo发布博文" class="headerlink" title="使用hexo发布博文"></a><strong>使用hexo发布博文</strong></h1><hr>
+<h2 id="hexo环境搭建"><a href="#hexo环境搭建" class="headerlink" title="hexo环境搭建"></a>hexo环境搭建</h2><ol>
+<li>What’s hexo<br>hexo是一个简单快速的静态博客框架，你可以使用Markdown语法进行博客写作，然后执行几个命令hexo就能生成指定主题的静态页面。</li>
+<li>安装hexo<br>安装hexo前需要先安装Node.js及git。<br>安装Node.js及Git后执行后，执行 <code>$ npm install -g hexo-cli</code> 安装hexo即可<br>具体步骤可以参考hexo官方文档说明：<a href="https://hexo.io/docs/" target="_blank" rel="external">https://hexo.io/docs/</a></li>
+<li>hexo环境配置<br>安装好hexo后，执行如下命令在<folder>目录中初始化</folder></li>
+</ol>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>hexo init &lt;folder&gt;</div><div class="line"><span class="variable">$ </span>cd &lt;folder&gt;</div><div class="line"><span class="variable">$ </span>npm install</div></pre></td></tr></table></figure>
+<p>执行后hexo目录如下：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── _config.yml</div><div class="line">├── package.json</div><div class="line">├── scaffolds</div><div class="line">├── source</div><div class="line"><span class="string">|   ├── _drafts</span></div><div class="line"><span class="string">|   └── _posts</span></div><div class="line">└── themes</div></pre></td></tr></table></figure>
+<p>其中_config.yml 是配置文件，其中各个配置项参见hexo官方文档说明。这边仅几个常用的项说明如下：source/_posts目录下是发布的文章目录，theme用于存放安装的主题。Deploy用于配置git repository，对于github pages而言，配置如下：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># Deployment</span></div><div class="line"><span class="meta">## Docs: https:<span class="comment">//hexo.io/docs/deployment.html</span></span></div><div class="line"><span class="symbol">deploy:</span></div><div class="line"><span class="symbol">  type:</span> git</div><div class="line"><span class="symbol">  repository:</span> https:<span class="comment">//github.com/username/username.github.io</span></div><div class="line"><span class="symbol">  branch:</span> master</div></pre></td></tr></table></figure>
+<p>这样，就完成了hexo和github仓库的绑定，就可以使用命令来发布博文了。</p>
+<h2 id="使用hexo发布博客"><a href="#使用hexo发布博客" class="headerlink" title="使用hexo发布博客"></a>使用hexo发布博客</h2><p>安装完成后，便可以使用hexo命令来发布博客了。下面对hexo命令进行介绍：</p>
+<ol>
+<li><p>新建文章</p>
+<p>$ hexo new [layout] <title></title></p>
+</li>
+<li><p>生成静态文件</p>
+<p> $ hexo generate</p>
+</li>
+<li><p>启动hexo server，这时可用用 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 来预览博客</p>
+<p> $ hexo server</p>
+</li>
+</ol>
+<p>使用该命令之前需要先执行<code>$ npm install hexo-server --save</code>安装hexo server</p>
+<ol>
+<li><p>上传资源到博客上，即部署</p>
+<p> $ hexo deploy</p>
+</li>
+<li><p>清除cache文件（db.json）并产生public文件</p>
+<p> $ hexo clean</p>
+</li>
+</ol>
+<p>常用组合命令如下：<br>发布博文：<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code><br>预览博文：<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code> ， 然后使用 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 打开</p>
+<hr>
+<p>以上步骤完成了简单博客的搭建，后面会进行一些进阶的配置：包括如何进行博文分类，创建文章目录，设置头像，配置主题等，欢迎阅读。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Markdown-Syntax" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -236,7 +475,7 @@
 <h4 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h4><blockquote>
 <p>Right angle brackets &gt; are used for block quotes.</p>
 </blockquote>
-<h4 id="Links-and-Email"><a href="#Links-and-Email" class="headerlink" title="Links and Email"></a>Links and Email</h4><p>An email <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x65;&#120;&#97;&#109;&#112;&#108;&#x65;&#64;&#101;&#x78;&#x61;&#109;&#112;&#x6c;&#x65;&#46;&#x63;&#x6f;&#109;">&#x65;&#120;&#97;&#109;&#112;&#108;&#x65;&#64;&#101;&#x78;&#x61;&#109;&#112;&#x6c;&#x65;&#46;&#x63;&#x6f;&#109;</a> link.</p>
+<h4 id="Links-and-Email"><a href="#Links-and-Email" class="headerlink" title="Links and Email"></a>Links and Email</h4><p>An email <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#101;&#x78;&#97;&#x6d;&#x70;&#x6c;&#x65;&#x40;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#46;&#x63;&#x6f;&#109;">&#101;&#x78;&#97;&#x6d;&#x70;&#x6c;&#x65;&#x40;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#46;&#x63;&#x6f;&#109;</a> link.</p>
 <p>Simple inline link <a href="http://chenluois.com" target="_blank" rel="external">http://chenluois.com</a>, another inline link <a href="http://25.io/smaller/" target="_blank" rel="external">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension" target="_blank" rel="external">Resize</a>.</p>
 <p>A <a href="http://25.io/mou/" title="Markdown editor on Mac OS X" target="_blank" rel="external">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
 <p>Titles ( or called tool tips ) in the links are optional.</p>
@@ -513,7 +752,7 @@ var Mou = exactlyTheAppIwant;
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 chenhy
+    		&copy; 2017 chenhy
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
