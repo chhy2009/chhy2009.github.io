@@ -291,15 +291,22 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll三部曲"><span class="toc-text">epoll三部曲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac下的kqueue"><span class="toc-text">mac下的kqueue</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll三部曲"><span class="toc-text">epoll三部曲</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建epoll实例"><span class="toc-text">创建epoll实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理epoll事件"><span class="toc-text">管理epoll事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac下的kqueue"><span class="toc-text">mac下的kqueue</span></a></li></ol>
 </div>
 
          
-        <h2 id="epoll三部曲"><a href="#epoll三部曲" class="headerlink" title="epoll三部曲"></a>epoll三部曲</h2><p>头文件sys/epoll.h<br>创建<br>epoll_create1</p>
-<p>epoll_ctrl<br><strong>synopsis</strong>:  </p>
-<pre><code>int epoll_ctl (int epfd, int op, int fd, struct epoll_event *event);  
-</code></pre><p>其中struct epoll_event定义如下:</p>
-<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">typedef <span class="class"><span class="keyword">union</span> <span class="title">epoll_data</span></span></div><div class="line">&#123;</div><div class="line">  void *ptr;</div><div class="line">  int fd;</div><div class="line">  uint32_t u32;</div><div class="line">  uint64_t u64;</div><div class="line">&#125; epoll_data_t;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span></span></div><div class="line">&#123;</div><div class="line">  uint32_t events;	<span class="regexp">/* Epoll events */</span></div><div class="line">  epoll_data_t data;	<span class="regexp">/* User data variable */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+        <h2 id="epoll三部曲"><a href="#epoll三部曲" class="headerlink" title="epoll三部曲"></a>epoll三部曲</h2><p>头文件:#include<sys epoll.h=""><br>可以通过man查看对应函数的帮助信息</sys></p>
+<h3 id="创建epoll实例"><a href="#创建epoll实例" class="headerlink" title="创建epoll实例"></a>创建epoll实例</h3><pre><code>int epoll_create(int size); 
+int epoll_create1(int flag); 
+</code></pre><p>epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8<br>epoll_create1中flag取值如下：    </p>
+<ul>
+<li>0:epoll_create1 == epoll_create (size argument is dropped)  </li>
+<li><p>EPOLL_CLOEXEC:含义同open函数的O_CLOEXEC选项；当执行execve创建新进程时，打开的描述符自动关闭<br>p.s: 当使用完毕时，需要调用close关闭epoll实例句柄</p>
+<h3 id="管理epoll事件"><a href="#管理epoll事件" class="headerlink" title="管理epoll事件"></a>管理epoll事件</h3><p>  int epoll_ctl (int epfd, int op, int fd, struct epoll_event *event);  </p>
+</li>
+</ul>
+<p>其中struct epoll_event定义如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> epoll_data</div><div class="line">&#123;</div><div class="line">  <span class="keyword">void</span> *ptr;</div><div class="line">  <span class="keyword">int</span> fd;</div><div class="line">  <span class="keyword">uint32_t</span> u32;</div><div class="line">  <span class="keyword">uint64_t</span> u64;</div><div class="line">&#125; <span class="keyword">epoll_data_t</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> epoll_event</div><div class="line">&#123;</div><div class="line">  <span class="keyword">uint32_t</span> events;	<span class="comment">/* Epoll events */</span></div><div class="line">  <span class="keyword">epoll_data_t</span> data;	<span class="comment">/* User data variable */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>其中events可以包含以下事件类型：  </p>
 <ol>
 <li>EPOLLIN —— 描述符可读</li>
