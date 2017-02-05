@@ -295,7 +295,7 @@
 </div>
 
          
-        <h2 id="epoll接口函数"><a href="#epoll接口函数" class="headerlink" title="epoll接口函数"></a>epoll接口函数</h2><p>头文件:#include\<sys epoll.h\=""><br>可以通过man epoll查看对应的帮助信息<br>最大描述符限制：/proc/sys/fs/epoll/max_user_watches  </sys></p>
+        <h2 id="epoll接口函数"><a href="#epoll接口函数" class="headerlink" title="epoll接口函数"></a>epoll接口函数</h2><p>头文件: #include&lt;sys/epoll.h&gt;<br>可以通过man epoll查看对应的帮助信息<br>最大描述符限制：/proc/sys/fs/epoll/max_user_watches  </p>
 <h3 id="创建epoll实例"><a href="#创建epoll实例" class="headerlink" title="创建epoll实例"></a><strong>创建epoll实例</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>; </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create1</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;</div></pre></td></tr></table></figure>
 <p>epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8<br>epoll_create1中flag取值如下：    </p>
 <ul>
@@ -880,7 +880,7 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#标题"><span class="toc-text">标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#强调"><span class="toc-text">强调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字体，大小及颜色设置"><span class="toc-text">字体，大小及颜色设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设定字体"><span class="toc-text">设定字体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设定字体大小"><span class="toc-text">设定字体大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设定字体颜色"><span class="toc-text">设定字体颜色</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#首行缩进"><span class="toc-text">首行缩进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#换行"><span class="toc-text">换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#超链接使用"><span class="toc-text">超链接使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用Blockquotes"><span class="toc-text">引用Blockquotes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用标号"><span class="toc-text">引用标号</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#标题"><span class="toc-text">标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#强调"><span class="toc-text">强调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字体，大小及颜色设置"><span class="toc-text">字体，大小及颜色设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设定字体"><span class="toc-text">设定字体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设定字体大小"><span class="toc-text">设定字体大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设定字体颜色"><span class="toc-text">设定字体颜色</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#首行缩进"><span class="toc-text">首行缩进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尖括号使用"><span class="toc-text">尖括号使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#换行"><span class="toc-text">换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#超链接使用"><span class="toc-text">超链接使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用Blockquotes"><span class="toc-text">引用Blockquotes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用标号"><span class="toc-text">引用标号</span></a></li></ol>
 </div>
 
          
@@ -903,6 +903,7 @@
 <h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>首行缩进两个字符：(每个表示一个空格，连续使用两个即可）</p>
 <p><code>&amp;ensp;</code> 表示半角的空格</p>
 <p><code>&amp;emsp;</code> 表示全角的空格</p>
+<h2 id="尖括号使用"><a href="#尖括号使用" class="headerlink" title="尖括号使用"></a>尖括号使用</h2><p>所有“&lt; &gt;”之间的内容都会被默认被HTML的标签而不予显示。此时，就需要使用转义字符以示区别， “ &lt;”使用”&lt;”代替，而”&gt;”则使用”&gt;”代替</p>
 <h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><p>果另起一行，只需在当前行结尾加 2 个空格，或是用html语法\<br\></br\></p>
 <h2 id="超链接使用"><a href="#超链接使用" class="headerlink" title="超链接使用"></a>超链接使用</h2><p><strong>URL超链接</strong><br>以下两种方式效果一致，都为<a href="http://www.google.com.hk" target="_blank" rel="external">Google</a></p>
 <p>1)</p>
