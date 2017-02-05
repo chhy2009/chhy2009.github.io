@@ -196,6 +196,81 @@
 
       <div class="body-wrap">
   
+    <article id="post-Markdown-Advance" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/15/Markdown-Advance/" class="article-date">
+  	<time datetime="2016-09-15T08:08:00.000Z" itemprop="datePublished">2016-09-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/15/Markdown-Advance/">Markdown 语法进阶</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Markdown-中调整插入图片的大小"><span class="toc-text">Markdown 中调整插入图片的大小</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用html语法"><span class="toc-text">使用html语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用支持图片缩放的图床接口函数"><span class="toc-text">使用支持图片缩放的图床接口函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用支持缩放功能的Markdown语法编辑器"><span class="toc-text">使用支持缩放功能的Markdown语法编辑器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Markdown代码段语法高亮"><span class="toc-text">Markdown代码段语法高亮</span></a></li></ol>
+</div>
+
+         
+        <h2 id="Markdown-中调整插入图片的大小"><a href="#Markdown-中调整插入图片的大小" class="headerlink" title="Markdown 中调整插入图片的大小"></a>Markdown 中调整插入图片的大小</h2><h3 id="使用html语法"><a href="#使用html语法" class="headerlink" title="使用html语法"></a>使用html语法</h3><pre><code>&lt;img src=&quot;imgUrl&quot; width = &quot;300&quot; height = &quot;200&quot; alt=&quot;图片名称&quot; align=center /&gt;
+</code></pre><h3 id="使用支持图片缩放的图床接口函数"><a href="#使用支持图片缩放的图床接口函数" class="headerlink" title="使用支持图片缩放的图床接口函数"></a>使用支持图片缩放的图床接口函数</h3><p>如七牛图床中有图片处理接口函数imgView及imgView2，使用该接口可以对图片进行裁剪，缩放等操作：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">imageView2/<span class="params">&lt;mode&gt;</span><span class="meta-keyword">/w/</span><span class="params">&lt;LongEdge&gt;</span></div><div class="line">                 <span class="meta-keyword">/h/</span><span class="params">&lt;ShortEdge&gt;</span></div><div class="line">                 <span class="meta-keyword">/format/</span><span class="params">&lt;Format&gt;</span></div><div class="line">                 <span class="meta-keyword">/interlace/</span><span class="params">&lt;Interlace&gt;</span></div><div class="line">                 <span class="meta-keyword">/q/</span><span class="params">&lt;Quality&gt;</span></div><div class="line">                 <span class="meta-keyword">/ignore-error/</span><span class="params">&lt;ignoreError&gt;</span></div></pre></td></tr></table></figure>
+<p>接口说明见：<br><a href="http://o9gnz92z5.bkt.clouddn.com/code/v6/api/kodo-api/image/imageview2.html" target="_blank" rel="external">http://o9gnz92z5.bkt.clouddn.com/code/v6/api/kodo-api/image/imageview2.html</a><br>示例：<br>图片URL为：<a href="http://imgurl/img.png,需要缩放为width为100px，则URL应使用：" target="_blank" rel="external">http://imgurl/img.png,需要缩放为width为100px，则URL应使用：</a> <a href="http://imgurl/img.png?imgView2/w/100" target="_blank" rel="external">http://imgurl/img.png?imgView2/w/100</a>  (高度根据宽度自动调整)</p>
+<h3 id="使用支持缩放功能的Markdown语法编辑器"><a href="#使用支持缩放功能的Markdown语法编辑器" class="headerlink" title="使用支持缩放功能的Markdown语法编辑器"></a>使用支持缩放功能的Markdown语法编辑器</h3><pre><code>![](./pic/pic1_50.png =100x20)
+</code></pre><p>注意 =前有个空格，可以只写宽度</p>
+<h2 id="Markdown代码段语法高亮"><a href="#Markdown代码段语法高亮" class="headerlink" title="Markdown代码段语法高亮"></a>Markdown代码段语法高亮</h2><p>Markdown中，代码段用3个连续的 ` 号包围，在开头的符号后加上对应语言的名字即可实现该语言的语法高亮。如cpp 语法高亮，效果为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</div></pre></td></tr></table></figure>
+<p>当使用yilia主题时，代码块高亮配置文件：themes/yilia/source/css/_partial/highlight.styl,可以通过此文件更改默认的字号，行号大小等，我的配置文件<a href="https://github.com/chhy2009/hexo-theme-yilia/blob/master/source/css/_partial/highlight.styl" target="_blank" rel="external">highlight.styl</a><br>参考链接：<a href="http://blog.sunnyxx.com/2014/03/07/hexo_customize/" target="_blank" rel="external">hexo的私人订制</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-GithubPage-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -400,7 +475,7 @@
 <h4 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h4><blockquote>
 <p>Right angle brackets &gt; are used for block quotes.</p>
 </blockquote>
-<h4 id="Links-and-Email"><a href="#Links-and-Email" class="headerlink" title="Links and Email"></a>Links and Email</h4><p>An email <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#101;&#x78;&#97;&#109;&#112;&#108;&#101;&#64;&#x65;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#46;&#x63;&#111;&#109;">&#101;&#x78;&#97;&#109;&#112;&#108;&#101;&#64;&#x65;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#46;&#x63;&#111;&#109;</a> link.</p>
+<h4 id="Links-and-Email"><a href="#Links-and-Email" class="headerlink" title="Links and Email"></a>Links and Email</h4><p>An email <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#101;&#x40;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#x65;&#x2e;&#99;&#x6f;&#x6d;">&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#101;&#x40;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#x65;&#x2e;&#99;&#x6f;&#x6d;</a> link.</p>
 <p>Simple inline link <a href="http://chenluois.com" target="_blank" rel="external">http://chenluois.com</a>, another inline link <a href="http://25.io/smaller/" target="_blank" rel="external">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension" target="_blank" rel="external">Resize</a>.</p>
 <p>A <a href="http://25.io/mou/" title="Markdown editor on Mac OS X" target="_blank" rel="external">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
 <p>Titles ( or called tool tips ) in the links are optional.</p>
