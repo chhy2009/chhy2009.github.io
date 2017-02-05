@@ -17,7 +17,7 @@
 设置vim搜索路径如set path＝.,/usr/include,/usr/local/include，当使用find, gf, ctrl+W f(水平分割窗口打开)命令时vim会去path变量设置的目录下搜索.使用时可以把需要做的设置写到workspace.vim文件中，然后在打开工程的时候加载
 保存vim session及viminfo使用会话(session)和vimi">
 <meta property="og:image" content="http://odix5916v.bkt.clouddn.com/vim_minibufexpl.png?imageView2/2/w/300">
-<meta property="og:updated_time" content="2016-12-25T10:36:39.000Z">
+<meta property="og:updated_time" content="2017-02-05T07:13:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vim_configuration">
 <meta name="twitter:description" content="保存及应用工程配置
@@ -127,7 +127,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 15px;">openssl</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a>
+						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a>
 					</div>
 				</section>
 				
@@ -264,7 +264,9 @@
 <li>目录查找：LUWalk</li>
 <li>tag查找：LUTags </li>
 </ul>
-<h2 id="cscope使用"><a href="#cscope使用" class="headerlink" title="cscope使用"></a>cscope使用</h2><p>如果你需求查找函数调用或者变量使用的地方，ctags就无能为力了，这时候就得用cscope了。<br>用法：<br>cscope默认只生成.c文件的索引，如果是c++或者java等其他语言，需要自行增加索引文件表。可以使用如下命令：<br><code>find . -name &quot;*.h&quot; -o -name &quot;*.c&quot; -o -name &quot;*.cc&quot; &gt; cscope.files</code><br><code>cscope -bkq -i cscope.files</code><br>然后在工程vim中执行: <code>cscope add cscope.out</code>,导入cscope索引。之后就可以使用cscope操作了，其操作命令如下：<br>man cscope或者vim中执行help cscope<br>：cs find s —- 查找C语言符号，即查找函数名、宏、枚举值等出现的地方<br>：cs find g —- 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能<br>：cs find d —- 查找本函数调用的函数<br>：cs find c —- 查找调用本函数的函数<br>：cs find t —- 查找指定的字符串<br>：cs find e —- 查找egrep模式，相当于egrep功能，但查找速度快多了<br>：cs find f —- 查找并打开文件，类似vim的find功能<br>：cs find i —- 查找包含本文件的文件<br>使用时，可以把cscope的查找结果输出到quickfix窗口，需要在~/.vimrc中加入下面这行：<br>set cscopequickfix=s-,c-,d-,i-,t-,e-<br>p.s:<br>打开quickfix —— copen<br>关闭quickfix —— cclose<br>查找下一个 —— cn<br>查找上一个 —— cp<br>浏览位置间跳转 —— ctrl+o(往前)，ctrl+i(往后)  </p>
+<h2 id="cscope使用"><a href="#cscope使用" class="headerlink" title="cscope使用"></a>cscope使用</h2><p>如果你需求查找函数调用或者变量使用的地方，ctags就无能为力了，这时候就得用cscope了。<br>用法：<br>cscope默认只生成.c文件的索引，如果是c++或者java等其他语言，需要自行增加索引文件表。可以使用如下命令：<br><code>find . -name &quot;*.h&quot; -o -name &quot;*.c&quot; -o -name &quot;*.cc&quot; &gt; cscope.files</code><br><code>cscope -bkq -i cscope.files</code><br>然后在工程vim中执行: <code>cscope add cscope.out</code>,导入cscope索引。之后就可以使用cscope操作了，其操作命令如下：<br>man cscope或者vim中执行help cscope  </p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> s ---- 查找C语言符号，即查找函数名、宏、枚举值等出现的地方  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> g ---- 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> d ---- 查找本函数调用的函数  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> <span class="keyword">c</span> ---- 查找调用本函数的函数  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> t ---- 查找指定的字符串  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> <span class="keyword">e</span> ---- 查找egrep模式，相当于egrep功能，但查找速度快多了  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> <span class="keyword">f</span> ---- 查找并打开文件，类似<span class="keyword">vim</span>的<span class="keyword">find</span>功能  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> i ---- 查找包含本文件的文件</div></pre></td></tr></table></figure>
+<p>使用时，可以把cscope的查找结果输出到quickfix窗口，需要在~/.vimrc中加入下面这行：<br>set cscopequickfix=s-,c-,d-,i-,t-,e-<br>p.s:<br>打开quickfix —— copen<br>关闭quickfix —— cclose<br>查找下一个 —— cn<br>查找上一个 —— cp<br>浏览位置间跳转 —— ctrl+o(往前)，ctrl+i(往后)  </p>
 <h2 id="自动刷新工程中的tags"><a href="#自动刷新工程中的tags" class="headerlink" title="自动刷新工程中的tags"></a>自动刷新工程中的tags</h2><p>未完待续</p>
 <p>可以点击<a href="https://github.com/chhy2009/my_vimconfig" target="_blank" rel="external">my vimrc</a>访问我的vimrc配置</p>
 

@@ -22,7 +22,7 @@
 吊销证书openssl ca －revoke newcerts/username.pem -config openssl.cnf
 重新生成证书吊销列表openssl ca -config openssl.cnf -gencrl -out crl/ca.crl
 生成hash码链接文件 ln -s ca.cr">
-<meta property="og:updated_time" content="2017-01-05T14:57:09.000Z">
+<meta property="og:updated_time" content="2017-02-05T07:08:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="openssl命令">
 <meta name="twitter:description" content="生成证书请参考使用openssl生成证书
@@ -134,7 +134,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 15px;">openssl</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a>
+						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a>
 					</div>
 				</section>
 				
@@ -267,8 +267,8 @@
 </ol>
 <h2 id="生成RSA密钥对"><a href="#生成RSA密钥对" class="headerlink" title="生成RSA密钥对"></a>生成RSA密钥对</h2><ol>
 <li>生成私钥<br><code>openssl genrsa -out rsa_private_key.pem 1024</code></li>
-<li>生成公钥<br><code>openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem</code> </li>
-<li>查看私钥<br><code>openssl rsa -in rsa_private_key.pem -text -noout</code></li>
+<li>生成公钥<br><code>openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem</code></li>
+<li>查看私钥信息<br><code>openssl rsa -in rsa_private_key.pem -text -noout</code></li>
 </ol>
 
       
@@ -279,11 +279,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/12/18/生成证书/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/12/18/software-of-mac/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          openssl命令
+          mac下的各种常用软件
         
       </div>
     </a>
