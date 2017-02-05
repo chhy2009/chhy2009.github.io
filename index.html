@@ -295,7 +295,7 @@
 </div>
 
          
-        <h2 id="epoll接口函数"><a href="#epoll接口函数" class="headerlink" title="epoll接口函数"></a>epoll接口函数</h2><p>头文件:#include<sys epoll.h=""><br>可以通过man epoll查看对应的帮助信息<br>最大描述符限制：/proc/sys/fs/epoll/max_user_watches  </sys></p>
+        <h2 id="epoll接口函数"><a href="#epoll接口函数" class="headerlink" title="epoll接口函数"></a>epoll接口函数</h2><p>头文件:#include\<sys epoll.h\=""><br>可以通过man epoll查看对应的帮助信息<br>最大描述符限制：/proc/sys/fs/epoll/max_user_watches  </sys></p>
 <h3 id="创建epoll实例"><a href="#创建epoll实例" class="headerlink" title="创建epoll实例"></a><strong>创建epoll实例</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>; </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create1</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;</div></pre></td></tr></table></figure>
 <p>epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8<br>epoll_create1中flag取值如下：    </p>
 <ul>
