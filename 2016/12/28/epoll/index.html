@@ -4,24 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>epoll | chenhy&#39;s blog</title>
+  <title>epoll讲解 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="epoll三部曲头文件:#include可以通过man查看对应函数的帮助信息
+  <meta name="description" content="epoll接口函数头文件:#include可以通过man epoll查看对应的帮助信息最大描述符限制：/proc/sys/fs/epoll/max_user_watches  
 创建epoll实例12int epoll_create(int size); int epoll_create1(int flag);
-epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8epoll_cr">
+epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，N">
 <meta property="og:type" content="article">
-<meta property="og:title" content="epoll">
+<meta property="og:title" content="epoll讲解">
 <meta property="og:url" content="http://yoursite.com/2016/12/28/epoll/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="epoll三部曲头文件:#include可以通过man查看对应函数的帮助信息
+<meta property="og:description" content="epoll接口函数头文件:#include可以通过man epoll查看对应的帮助信息最大描述符限制：/proc/sys/fs/epoll/max_user_watches  
 创建epoll实例12int epoll_create(int size); int epoll_create1(int flag);
-epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8epoll_cr">
-<meta property="og:updated_time" content="2017-02-05T08:36:42.000Z">
+epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，N">
+<meta property="og:updated_time" content="2017-02-05T10:28:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="epoll">
-<meta name="twitter:description" content="epoll三部曲头文件:#include可以通过man查看对应函数的帮助信息
+<meta name="twitter:title" content="epoll讲解">
+<meta name="twitter:description" content="epoll接口函数头文件:#include可以通过man epoll查看对应的帮助信息最大描述符限制：/proc/sys/fs/epoll/max_user_watches  
 创建epoll实例12int epoll_create(int size); int epoll_create1(int flag);
-epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8epoll_cr">
+epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，N">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -218,7 +218,7 @@ epoll_create中，size只是给内核的一个维数提示，并不是队列中�
         
   
     <h1 class="article-title" itemprop="name">
-      epoll
+      epoll讲解
     </h1>
   
 
@@ -244,11 +244,11 @@ epoll_create中，size只是给内核的一个维数提示，并不是队列中�
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll三部曲"><span class="toc-text">epoll三部曲</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建epoll实例"><span class="toc-text">创建epoll实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理epoll事件"><span class="toc-text">管理epoll事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac下的kqueue"><span class="toc-text">mac下的kqueue</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll接口函数"><span class="toc-text">epoll接口函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建epoll实例"><span class="toc-text">创建epoll实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理epoll事件"><span class="toc-text">管理epoll事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#等待epoll事件"><span class="toc-text">等待epoll事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mac下的kqueue"><span class="toc-text">mac下的kqueue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll实例"><span class="toc-text">epoll实例</span></a></li></ol>
 </div>
 
          
-        <h2 id="epoll三部曲"><a href="#epoll三部曲" class="headerlink" title="epoll三部曲"></a>epoll三部曲</h2><p>头文件:#include<sys epoll.h=""><br>可以通过man查看对应函数的帮助信息</sys></p>
+        <h2 id="epoll接口函数"><a href="#epoll接口函数" class="headerlink" title="epoll接口函数"></a>epoll接口函数</h2><p>头文件:#include<sys epoll.h=""><br>可以通过man epoll查看对应的帮助信息<br>最大描述符限制：/proc/sys/fs/epoll/max_user_watches  </sys></p>
 <h3 id="创建epoll实例"><a href="#创建epoll实例" class="headerlink" title="创建epoll实例"></a>创建epoll实例</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>; </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create1</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;</div></pre></td></tr></table></figure>
 <p>epoll_create中，size只是给内核的一个维数提示，并不是队列中的最大数，Now days， size is ignored since Linux 2.6.8<br>epoll_create1中flag取值如下：    </p>
 <ul>
@@ -256,26 +256,53 @@ epoll_create中，size只是给内核的一个维数提示，并不是队列中�
 <li>EPOLL_CLOEXEC:含义同open函数的O_CLOEXEC选项；当执行execve创建新进程时，打开的描述符自动关闭<br>p.s: 当使用完毕时，需要调用close关闭epoll实例句柄<h3 id="管理epoll事件"><a href="#管理epoll事件" class="headerlink" title="管理epoll事件"></a>管理epoll事件</h3></li>
 </ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span> <span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, <span class="keyword">struct</span> epoll_event *event)</span></span>;</div></pre></td></tr></table></figure>
-<p>其中struct epoll_event定义如下:</p>
+<p>参数说明：  </p>
+<ul>
+<li>epfd: epoll_create返回的epoll实例    </li>
+<li>op: 对应的操作  </li>
+<li>fd: 监听的fd  </li>
+<li>event: 监听的事件<br>其中op取值如下：    </li>
+<li>EPOLL_CTL_ADD:添加监听的事件  </li>
+<li>EPOLL_CTL_DEL:删除监听的事件  </li>
+<li>EPOLL_CTL_MOD:修改监听的事件<br>struct epoll_event定义如下:</li>
+</ul>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> epoll_data</div><div class="line">&#123;</div><div class="line">  <span class="keyword">void</span> *ptr;</div><div class="line">  <span class="keyword">int</span> fd;</div><div class="line">  <span class="keyword">uint32_t</span> u32;</div><div class="line">  <span class="keyword">uint64_t</span> u64;</div><div class="line">&#125; <span class="keyword">epoll_data_t</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> epoll_event</div><div class="line">&#123;</div><div class="line">  <span class="keyword">uint32_t</span> events;	<span class="comment">/* Epoll events */</span></div><div class="line">  <span class="keyword">epoll_data_t</span> data;	<span class="comment">/* User data variable */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>其中events可以包含以下事件类型：  </p>
+<p>其中events可以包含以下事件类型：    </p>
+<ul>
+<li>EPOLLIN: 描述符可读  </li>
+<li>EPOLLOUT: 描述符可写  </li>
+<li>EPOLLRDHUP(since Linux 2.6.17): 流套接字对端关闭连接或者关闭写端  </li>
+<li>EPOLLPRI: 紧急数据可读  </li>
+<li>EPOLLERR: 描述符发生错误，该事件由内核一直监听  </li>
+<li>EPOLLHUP: 文件秒杀符被中断，该事件由内核一直监听  </li>
+<li>EPOLLET: 开启边缘触发，默认是水平触发</li>
+<li>EPOLLONESHOT: 一个事件发生并读取之后，fd自动不再监控；若要重新监控需要使用EPOLL_CTL_MOD重新设置<br>返回值: 成功返回0，失败返回－1并设置errno  <h3 id="等待epoll事件"><a href="#等待epoll事件" class="headerlink" title="等待epoll事件"></a>等待epoll事件</h3></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">struct</span> epoll_event *events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</div></pre></td></tr></table></figure>
+<p>参数说明：  </p>
+<ul>
+<li>epfd: epoll_create返回的epoll实例    </li>
+<li>events: 存储epoll_event的数组地址  </li>
+<li>maxevents: 最大事件的数量，需&gt;0  </li>
+<li>timeout: 等待的最长时间<br>返回值:<br>成功时返回就绪的监听文件描述符数；当超出timeout指定的时间后如果无就绪的文件描述符，返回0；发生错误时返回－1并设置errno<br>另外，Linux kernel 2.6.19 引入了epoll_pwait，可以在等待时设置信号掩码，其使用方式类似pselect  </li>
+</ul>
+<p>some problems:   </p>
 <ol>
-<li>EPOLLIN —— 描述符可读</li>
-<li>EPOLLOUT —— 描述符可写</li>
-<li>EPOLLRDHUP(since Linux 2.6.17) —— 流套接字对端关闭连接或者关闭写端</li>
-<li>EPOLLPRI —— 紧急数据可读</li>
-<li>EPOLLERR —— 描述符发生错误</li>
-<li>EPOLLHUP —— ？？</li>
-<li>epoll_wait</li>
+<li>epoll 怎么判断是connect请求还是有数据可读？<br>ans: 判断events[i].data.fd == listen_fd      </li>
+<li>read 返回值说明：  </li>
 </ol>
-<p>a well write paper : <a href="https://banu.com/blog/2/how-to-use-epoll-a-complete-example-in-c/" target="_blank" rel="external">How to use epoll? A complete example in C</a></p>
-<p>problem:  </p>
+<ul>
+<li>return -1 and errno == EAGAIN: 数据已经读完，没有可读数据  </li>
+<li>return 0: end of file，对端关闭连接  </li>
+</ul>
+<p><strong><em>关于水平触发(Level-Triggered)和边缘触发(Edge-Triggered)</em></strong><br>当缓冲区有数据可读时，ET会触发一次事件，之后就不会再触发；而LT只要我们没有读完缓冲区的数据，事件就会一直触发。<br>推荐使用的epoll ET方式如下：</p>
 <ol>
-<li>epoll 怎么判断是connect请求还是有数据可读？<br>ans: 判断events[i].data.fd == listen_fd    </li>
-<li>read 返回值说明：<br>return -1 and errno == EAGAIN  //数据已经读完，没有可读数据<br>return 0  //end of file，对端关闭连接</li>
+<li>设置fd为非阻塞  </li>
+<li>当调用read或write读写时，在其返回-1，且errno == EAGAIN 后再调用epoll_wait等待<br>tips:<br>ET模式只能用于设置了O_NONBLOCK的fd，而LT则同时支持同步及异步。如果将ET模式应用与阻塞情况，将出现如下问题：<br>当对端send 2 byte数据，而服务端只读取了1 byte后再去调用epoll_wait，这时将不产生读事件。直到对端又有数据发送过来，epoll_wait才会再次返回<br>补充：<br>Q：当又有事件产生时会怎么样，原来的数据还在吗？<br>A：原来的数据还在socket缓冲区  <h2 id="mac下的kqueue"><a href="#mac下的kqueue" class="headerlink" title="mac下的kqueue"></a>mac下的kqueue</h2>mac os不支持俄 poll，其使用kqueue代替，头文件 sys/event.h<br>link：<a href="https://zhuanlan.zhihu.com/p/21375144" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/21375144</a></li>
 </ol>
-<h2 id="mac下的kqueue"><a href="#mac下的kqueue" class="headerlink" title="mac下的kqueue"></a>mac下的kqueue</h2><p>头文件 sys/event.h</p>
-<p>link：<a href="https://zhuanlan.zhihu.com/p/21375144" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/21375144</a></p>
+<h2 id="epoll实例"><a href="#epoll实例" class="headerlink" title="epoll实例"></a>epoll实例</h2><p>epoll使用参考：<br>服务端代码：<a href="https://banu.com/blog/2/how-to-use-epoll-a-complete-example-in-c/" target="_blank" rel="external">How to use epoll? A complete example in C</a>, it’s a well write paper.<br>客户端代码： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">create_and_connect</span><span class="params">(<span class="keyword">char</span> * port)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == port)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">struct</span> addrinfo hints;</div><div class="line">    <span class="built_in">memset</span>(&amp;hints, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> addrinfo));</div><div class="line">    hints.ai_family = AF_UNSPEC;</div><div class="line">    hints.ai_socktype = SOCK_STREAM;</div><div class="line">    hints.ai_flags = AI_PASSIVE;</div><div class="line"></div><div class="line">    <span class="keyword">struct</span> addrinfo *result;</div><div class="line">    <span class="keyword">int</span> ret = getaddrinfo(<span class="literal">NULL</span>, port, &amp;hints, &amp;result);</div><div class="line">    <span class="keyword">if</span>(ret != <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"getaddrinfo error: %s\n"</span>, gai_strerror(ret));</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">struct</span> addrinfo *rp;</div><div class="line">    <span class="keyword">int</span> cfd;</div><div class="line">    <span class="keyword">for</span>(rp = result; rp != <span class="literal">NULL</span>; rp = rp-&gt;ai_next)</div><div class="line">    &#123;</div><div class="line">        cfd = socket(rp-&gt;ai_family, rp-&gt;ai_socktype, rp-&gt;ai_protocol);</div><div class="line">        <span class="keyword">if</span>(<span class="number">-1</span> == cfd)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">        <span class="comment">//client connect</span></div><div class="line">        ret = connect(cfd, rp-&gt;ai_addr, rp-&gt;ai_addrlen);</div><div class="line">        <span class="keyword">if</span>(<span class="number">0</span> == ret)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        close(cfd);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == rp)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"connect to port failed!\n"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    freeaddrinfo(result);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cfd;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Usage: %s [port]\n"</span>, argv[<span class="number">0</span>]);</div><div class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//clinet send something</span></div><div class="line">    <span class="keyword">int</span> cfd = create_and_connect(argv[<span class="number">1</span>]);</div><div class="line">    <span class="keyword">if</span>(<span class="number">-1</span> == cfd)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"create_and_connect failed\n"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;    </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">char</span> *pData = <span class="string">"Client hello!"</span>;</div><div class="line">    <span class="keyword">int</span> dataLen = <span class="built_in">strlen</span>(pData);</div><div class="line">    send(cfd, pData, dataLen, <span class="number">0</span>);</div><div class="line">    sleep(<span class="number">1</span>);</div><div class="line">    </div><div class="line">    send(cfd, pData, dataLen, <span class="number">0</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>参考博客：<a href="http://blog.lucode.net/linux/epoll-tutorial.html" target="_blank" rel="external">Linux epoll 详解</a></p>
 
       
     </div>
@@ -331,7 +358,7 @@ epoll_create中，size只是给内核的一个维数提示，并不是队列中�
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="epoll" data-title="epoll" data-url="http://yoursite.com/2016/12/28/epoll/"></div>
+	<div class="ds-thread" data-thread-key="epoll" data-title="epoll讲解" data-url="http://yoursite.com/2016/12/28/epoll/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
