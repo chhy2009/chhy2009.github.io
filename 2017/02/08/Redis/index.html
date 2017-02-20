@@ -34,7 +34,7 @@ mget
 getset:设">
 <meta property="og:image" content="http://yoursite.com/img/redis_operate1.png">
 <meta property="og:image" content="http://yoursite.com/img/redis_replication_info.png">
-<meta property="og:updated_time" content="2017-02-12T15:03:18.000Z">
+<meta property="og:updated_time" content="2017-02-12T15:07:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis讲解">
 <meta name="twitter:description" content="Redis数据结构及操作string
@@ -523,7 +523,7 @@ getset:设">
 </ul>
 <h3 id="Pipeline-批量发送请求"><a href="#Pipeline-批量发送请求" class="headerlink" title="Pipeline 批量发送请求"></a>Pipeline 批量发送请求</h3><p>由于redis server处理命令的速度很快，如果客户端命令多的话，可以一起打包发送给server，从而减少大部分的网络延迟，达到提高性能的目的。我们可以利用 pipeline 的方式 从 client 打包多条命令一起发出,不需要等待单条命令的响应返回,而 redis 服务端会处理 完多条命令后会将多条命令的处理结果打包到一起返回给客户端。同时，打包的命令越多,缓存消耗内存也越多。所以并不是打包的命令 越多越好。具体多少合适需要根据具体情况测试。  </p>
 <p>java代码：  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//use pipeline</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">usePipeline</span><span class="params">()</span> </span>&#123;<span class="keyword">try</span> &#123;ConnectionSpec spec = DefaultConnectionSpec.newSpec(<span class="string">"192.168.115.170"</span>, <span class="number">6379</span>, <span class="number">0</span>, <span class="keyword">null</span>); JRedis jredis = <span class="keyword">new</span> JRedisPipelineService(spec);<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123; jredis.incr(<span class="string">"test2"</span>);&#125;jredis.quit();&#125; <span class="keyword">catch</span> (Exception e) &#123;&#125;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//usepipeline</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">usePipeline</span><span class="params">()</span> </span>&#123;<span class="keyword">try</span> &#123;ConnectionSpec spec = DefaultConnectionSpec.newSpec(<span class="string">"192.168.115.170"</span>, <span class="number">6379</span>, <span class="number">0</span>, <span class="keyword">null</span>); JRedis jredis = <span class="keyword">new</span> JRedisPipelineService(spec);<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123; jredis.incr(<span class="string">"test2"</span>);&#125;jredis.quit();&#125; <span class="keyword">catch</span> (Exception e) &#123;&#125;&#125;</div></pre></td></tr></table></figure>
 <pre><code class="java"><span class="comment">//withoutPipleline</span>
 <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">withoutPipeline</span><span class="params">()</span> </span>{
 <span class="keyword">try</span> {
@@ -548,6 +548,15 @@ jredis.quit();
   
     
 <nav id="article-nav">
+  
+    <a href="/2017/02/20/signal/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          信号处理机制
+        
+      </div>
+    </a>
   
   
     <a href="/2017/02/08/Mysql/" id="article-nav-older" class="article-nav-link-wrap">
