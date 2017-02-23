@@ -4,18 +4,33 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Myblog | chenhy&#39;s blog</title>
+  <title>tcp_keepalive编程 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="hello, github pages!">
+  <meta name="description" content="KeepAlive机制中设置的参数包含如下：  
+
+SO_KEEPALIVE  设置套接字的keepalive状态
+TCP_KEEPIDLE  关闭一个非活跃连接之前进行探测的最大时长，默认值为2h
+TCP_KEEINTVL  两次探测的时间间隔，默认值为150s，即每次间隔75s
+TCP_KEEPCNT 关闭一个非活跃连接之前进行的最大操作次数，默认值为8这些默认值位于/proc/sys/net">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Myblog">
-<meta property="og:url" content="http://yoursite.com/2016/09/03/essay/index.html">
+<meta property="og:title" content="tcp_keepalive编程">
+<meta property="og:url" content="http://yoursite.com/2017/02/23/tcp-keepalive/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="hello, github pages!">
-<meta property="og:updated_time" content="2016-09-15T09:51:53.000Z">
+<meta property="og:description" content="KeepAlive机制中设置的参数包含如下：  
+
+SO_KEEPALIVE  设置套接字的keepalive状态
+TCP_KEEPIDLE  关闭一个非活跃连接之前进行探测的最大时长，默认值为2h
+TCP_KEEINTVL  两次探测的时间间隔，默认值为150s，即每次间隔75s
+TCP_KEEPCNT 关闭一个非活跃连接之前进行的最大操作次数，默认值为8这些默认值位于/proc/sys/net">
+<meta property="og:updated_time" content="2017-02-23T14:58:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Myblog">
-<meta name="twitter:description" content="hello, github pages!">
+<meta name="twitter:title" content="tcp_keepalive编程">
+<meta name="twitter:description" content="KeepAlive机制中设置的参数包含如下：  
+
+SO_KEEPALIVE  设置套接字的keepalive状态
+TCP_KEEPIDLE  关闭一个非活跃连接之前进行探测的最大时长，默认值为2h
+TCP_KEEINTVL  两次探测的时间间隔，默认值为150s，即每次间隔75s
+TCP_KEEPCNT 关闭一个非活跃连接之前进行的最大操作次数，默认值为8这些默认值位于/proc/sys/net">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -195,11 +210,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-essay" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-tcp-keepalive" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/09/03/essay/" class="article-date">
-  	<time datetime="2016-09-03T14:09:30.000Z" itemprop="datePublished">2016-09-03</time>
+      <a href="/2017/02/23/tcp-keepalive/" class="article-date">
+  	<time datetime="2017-02-23T14:50:10.000Z" itemprop="datePublished">2017-02-23</time>
 </a>
     </div>
   
@@ -212,7 +227,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Myblog
+      tcp_keepalive编程
     </h1>
   
 
@@ -221,12 +236,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Github-pages/">Github pages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/keepalive/">keepalive</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/essay/">随笔</a>
+	<a class="article-category-link" href="/categories/coding/">编程</a>
 	</div>
 
 
@@ -236,7 +251,23 @@
     
     <div class="article-entry" itemprop="articleBody">
          
-        <p>hello, github pages!</p>
+        <p>KeepAlive机制中设置的参数包含如下：  </p>
+<ul>
+<li>SO_KEEPALIVE  设置套接字的keepalive状态</li>
+<li>TCP_KEEPIDLE  关闭一个非活跃连接之前进行探测的最大时长，默认值为2h</li>
+<li>TCP_KEEINTVL  两次探测的时间间隔，默认值为150s，即每次间隔75s</li>
+<li>TCP_KEEPCNT 关闭一个非活跃连接之前进行的最大操作次数，默认值为8<br>这些默认值位于/proc/sys/net/ipv4目录下。<br>程序实现时可以通过setsockopt函数进行相关设置，代码段如下：  </li>
+</ul>
+<pre><code class="c"><span class="comment">//设置socket为TCP_KEEPALIVE</span>
+<span class="keyword">int</span> keepAlive = <span class="number">1</span>；
+setsockopt(listenfd, SOL_SOCKET, SO_KEEPALIVE, (<span class="keyword">void</span>*)&amp;keepAlive, <span class="keyword">sizeof</span>(keepAlive));
+<span class="keyword">int</span> keepIdle = <span class="number">6</span>;
+<span class="keyword">int</span> keepInterval = <span class="number">5</span>;
+<span class="keyword">int</span> keepCount = <span class="number">3</span>;
+setsockopt(listenfd, SOL_TCP, TCP_KEEPIDLE, (<span class="keyword">void</span> *)&amp;keepIdle, <span class="keyword">sizeof</span>(keepIdle));
+setsockopt(listenfd, SOL_TCP,TCP_KEEPINTVL, (<span class="keyword">void</span> *)&amp;keepInterval, <span class="keyword">sizeof</span>(keepInterval)); 
+setsockopt(listenfd,SOL_TCP, TCP_KEEPCNT, (<span class="keyword">void</span> *)&amp;keepCount, <span class="keyword">sizeof</span>(keepCount));
+</code></pre>
 
       
     </div>
@@ -246,15 +277,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/09/04/Markdown-Syntax/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Markdown Syntax
-        
-      </div>
-    </a>
   
+    <a href="/2017/02/23/tcp-status/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">tcp释放连接的close_wait, FIN_WAIT2, TIME_WAIT大量存在的原因</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -287,7 +314,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="essay" data-title="Myblog" data-url="http://yoursite.com/2016/09/03/essay/"></div>
+	<div class="ds-thread" data-thread-key="tcp-keepalive" data-title="tcp_keepalive编程" data-url="http://yoursite.com/2017/02/23/tcp-keepalive/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
