@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a>
+						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a>
 					</div>
 				</section>
 				
@@ -195,6 +195,75 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-tcp-status" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/23/tcp-status/" class="article-date">
+  	<time datetime="2017-02-23T14:45:11.000Z" itemprop="datePublished">2017-02-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/23/tcp-status/">tcp释放连接的close_wait, FIN_WAIT2, TIME_WAIT大量存在的原因</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#存在close-wait的原因"><span class="toc-text">存在close_wait的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存在FIN-WAIT2的原因"><span class="toc-text">存在FIN_WAIT2的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存在TIME-WAIT的原因"><span class="toc-text">存在TIME_WAIT的原因</span></a></li></ol>
+</div>
+
+         
+        <h2 id="存在close-wait的原因"><a href="#存在close-wait的原因" class="headerlink" title="存在close_wait的原因"></a>存在close_wait的原因</h2><p>close_wait这个状态存在于服务端，当服务端发送FIN（之前客户端已经发送过fin），请求关闭连接之后进入close_wait，然而没有收到客户端的响应，可能由于客户端掉线了（如网络故障或者掉电），没有及时给予客户端回复造成问题。<br>解决方法：一般是编程问题，可用keep_alive机制加以解决</p>
+<h2 id="存在FIN-WAIT2的原因"><a href="#存在FIN-WAIT2的原因" class="headerlink" title="存在FIN_WAIT2的原因"></a>存在FIN_WAIT2的原因</h2><p>这个状态存在于主动发起断开请求的一端，如果服务器存在大量的这个状态，那么这个服务器就充当客户端的角色，如网络爬虫，出现的原因是由于客户端发起FIN请求结束连接之后，收到了服务端的应答之后进入FIN_WAIT2，之后就没收到服务端发送的FIN信号导致。<br>解决方法：可以配置FIN_WAIT2的时长，当超过时长后自动断开加以解决</p>
+<h2 id="存在TIME-WAIT的原因"><a href="#存在TIME-WAIT的原因" class="headerlink" title="存在TIME_WAIT的原因"></a>存在TIME_WAIT的原因</h2><p>TIME_WAIT状态存在有两个原因：其一是响应服务端发送的FIN报文，保证服务端断开连接；其二是保证之前请求断开连接的请求，由于网络原因滞留在网络中，后续又到达了，导致后面重新建立的连接断开。<br>解决方法：设置TIME_WAIT状态的等待时间规避。即设置/proc/sys/net/ipv4下的相关参数</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-signal" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -306,6 +375,10 @@ sigaction(SIGINT,&amp;act,<span class="literal">NULL</span>);
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux-signal/">Linux signal</a></li></ul>
+	</div>
+
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>
@@ -788,7 +861,7 @@ jredis.quit();
 <li>Java Concurrency in Pratice</li>
 <li>现代操作系统（可以看看）</li>
 </ul>
-<p>语法分析器lex及语句输入器yacc</p>
+<p>语法分析器lex及语句输入器yacc lex与yacc</p>
 
       
     </div>
@@ -1236,85 +1309,6 @@ jredis.quit();
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/essay/">随笔</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-openssl-cmd" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/18/openssl-cmd/" class="article-date">
-  	<time datetime="2016-12-18T03:15:15.000Z" itemprop="datePublished">2016-12-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/18/openssl-cmd/">openssl命令</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#生成证书"><span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#证书签名"><span class="toc-text">证书签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#证书吊销"><span class="toc-text">证书吊销</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成RSA密钥对"><span class="toc-text">生成RSA密钥对</span></a></li></ol>
-</div>
-
-         
-        <h2 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h2><p>请参考<a href="http://blog.csdn.net/codingcs/article/details/51816115" target="_blank" rel="external">使用openssl生成证书</a></p>
-<h2 id="证书签名"><a href="#证书签名" class="headerlink" title="证书签名"></a>证书签名</h2><p>请参考<a href="http://blog.csdn.net/codingcs/article/details/51816115" target="_blank" rel="external">使用openssl生成证书</a></p>
-<h2 id="证书吊销"><a href="#证书吊销" class="headerlink" title="证书吊销"></a>证书吊销</h2><ol>
-<li>吊销证书<br><code>openssl ca －revoke newcerts/username.pem -config openssl.cnf</code></li>
-<li>重新生成证书吊销列表<br><code>openssl ca -config openssl.cnf -gencrl -out crl/ca.crl</code></li>
-<li>生成hash码链接文件<br> ln -s ca.crl `openssl crl -hash -noout -in ca.crl`.r0</li>
-<li>把ca.crl及hash码文件拷贝到应用证书吊销列表文件夹</li>
-</ol>
-<h2 id="生成RSA密钥对"><a href="#生成RSA密钥对" class="headerlink" title="生成RSA密钥对"></a>生成RSA密钥对</h2><ol>
-<li>生成私钥<br><code>openssl genrsa -out rsa_private_key.pem 1024</code></li>
-<li>生成公钥<br><code>openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem</code></li>
-<li>查看私钥信息<br><code>openssl rsa -in rsa_private_key.pem -text -noout</code></li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openssl/">openssl</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
 	</div>
 
 
