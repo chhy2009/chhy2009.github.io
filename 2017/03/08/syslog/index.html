@@ -4,27 +4,30 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>visual studio快捷键 | chenhy&#39;s blog</title>
+  <title>syslog日志 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ctrl+’-‘:回到上一个位置，相当于vim的ctrl+’o’  
-ctrl+shift+’-‘:回到之后的位置，ctrl+’-‘的逆操作  
-F12:转到定于  
-光标停留在需要查找的词上面，使用快捷键ctrl+F3可以跳转到下一个相同的词；使用shift+F3可以往上查找">
+  <meta name="description" content="syslog日志格式：header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
+
+header: “”里面的信息长度  
+PRI=logFacility * 8 + logLevel    
+SYSLOGPR">
 <meta property="og:type" content="article">
-<meta property="og:title" content="visual studio快捷键">
-<meta property="og:url" content="http://yoursite.com/2017/03/05/visual-2010-quickButton/index.html">
+<meta property="og:title" content="syslog日志">
+<meta property="og:url" content="http://yoursite.com/2017/03/08/syslog/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="ctrl+’-‘:回到上一个位置，相当于vim的ctrl+’o’  
-ctrl+shift+’-‘:回到之后的位置，ctrl+’-‘的逆操作  
-F12:转到定于  
-光标停留在需要查找的词上面，使用快捷键ctrl+F3可以跳转到下一个相同的词；使用shift+F3可以往上查找">
-<meta property="og:updated_time" content="2017-03-05T02:34:05.000Z">
+<meta property="og:description" content="syslog日志格式：header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
+
+header: “”里面的信息长度  
+PRI=logFacility * 8 + logLevel    
+SYSLOGPR">
+<meta property="og:updated_time" content="2017-03-08T13:47:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="visual studio快捷键">
-<meta name="twitter:description" content="ctrl+’-‘:回到上一个位置，相当于vim的ctrl+’o’  
-ctrl+shift+’-‘:回到之后的位置，ctrl+’-‘的逆操作  
-F12:转到定于  
-光标停留在需要查找的词上面，使用快捷键ctrl+F3可以跳转到下一个相同的词；使用shift+F3可以往上查找">
+<meta name="twitter:title" content="syslog日志">
+<meta name="twitter:description" content="syslog日志格式：header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
+
+header: “”里面的信息长度  
+PRI=logFacility * 8 + logLevel    
+SYSLOGPR">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -204,11 +207,11 @@ F12:转到定于
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-visual-2010-quickButton" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-syslog" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/05/visual-2010-quickButton/" class="article-date">
-  	<time datetime="2017-03-05T02:28:04.000Z" itemprop="datePublished">2017-03-05</time>
+      <a href="/2017/03/08/syslog/" class="article-date">
+  	<time datetime="2017-03-08T13:38:06.000Z" itemprop="datePublished">2017-03-08</time>
 </a>
     </div>
   
@@ -221,7 +224,7 @@ F12:转到定于
         
   
     <h1 class="article-title" itemprop="name">
-      visual studio快捷键
+      syslog日志
     </h1>
   
 
@@ -229,10 +232,6 @@ F12:转到定于
       
       <div class="article-info article-info-post">
         
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/visual-studio/">visual studio</a></li></ul>
-	</div>
-
         
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>
@@ -251,11 +250,15 @@ F12:转到定于
 </div>
 
          
-        <ul>
-<li>ctrl+’-‘:回到上一个位置，相当于vim的ctrl+’o’  </li>
-<li>ctrl+shift+’-‘:回到之后的位置，ctrl+’-‘的逆操作  </li>
-<li>F12:转到定于  </li>
-<li>光标停留在需要查找的词上面，使用快捷键ctrl+F3可以跳转到下一个相同的词；使用shift+F3可以往上查找</li>
+        <p>syslog日志格式：<br>header(信息长度mes_len) “<pri>SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  </pri></p>
+<ul>
+<li>header: “”里面的信息长度  </li>
+<li>PRI=logFacility * 8 + logLevel    </li>
+<li>SYSLOGPRO_VERSION: syslog protocol version(such as: 1)    </li>
+<li>TIMESTAMP:时间戳 如，2017-01-01T00:00:00.000000+02:00  (最多精确到us)  </li>
+<li>STRUCTURED_DATA:结构化数据  </li>
+<li>BOM:指出编码为UTF8  </li>
+<li>MSG:信息主体  </li>
 </ul>
 
       
@@ -266,18 +269,9 @@ F12:转到定于
     
 <nav id="article-nav">
   
-    <a href="/2017/03/08/syslog/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          syslog日志
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/02/26/yaa-and-lex/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">yaa and lex</div>
+    <a href="/2017/03/05/visual-2010-quickButton/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">visual studio快捷键</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -312,7 +306,7 @@ F12:转到定于
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="visual-2010-quickButton" data-title="visual studio快捷键" data-url="http://yoursite.com/2017/03/05/visual-2010-quickButton/"></div>
+	<div class="ds-thread" data-thread-key="syslog" data-title="syslog日志" data-url="http://yoursite.com/2017/03/08/syslog/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
