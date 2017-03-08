@@ -6,28 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>syslog日志 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="syslog日志格式：header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
+  <meta name="description" content="syslog日志格式header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
 
 header: “”里面的信息长度  
 PRI=logFacility * 8 + logLevel    
-SYSLOGPR">
+SYSLOGPRO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="syslog日志">
 <meta property="og:url" content="http://yoursite.com/2017/03/08/syslog/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="syslog日志格式：header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
+<meta property="og:description" content="syslog日志格式header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
 
 header: “”里面的信息长度  
 PRI=logFacility * 8 + logLevel    
-SYSLOGPR">
-<meta property="og:updated_time" content="2017-03-08T13:47:53.000Z">
+SYSLOGPRO">
+<meta property="og:updated_time" content="2017-03-08T14:56:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="syslog日志">
-<meta name="twitter:description" content="syslog日志格式：header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
+<meta name="twitter:description" content="syslog日志格式header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
 
 header: “”里面的信息长度  
 PRI=logFacility * 8 + logLevel    
-SYSLOGPR">
+SYSLOGPRO">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -246,11 +246,11 @@ SYSLOGPR">
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#syslog日志格式"><span class="toc-text">syslog日志格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TLS编程"><span class="toc-text">TLS编程</span></a></li></ol>
 </div>
 
          
-        <p>syslog日志格式：<br>header(信息长度mes_len) “<pri>SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  </pri></p>
+        <h2 id="syslog日志格式"><a href="#syslog日志格式" class="headerlink" title="syslog日志格式"></a>syslog日志格式</h2><p>header(信息长度mes_len) “<pri>SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  </pri></p>
 <ul>
 <li>header: “”里面的信息长度  </li>
 <li>PRI=logFacility * 8 + logLevel    </li>
@@ -260,6 +260,15 @@ SYSLOGPR">
 <li>BOM:指出编码为UTF8  </li>
 <li>MSG:信息主体  </li>
 </ul>
+<h2 id="TLS编程"><a href="#TLS编程" class="headerlink" title="TLS编程"></a>TLS编程</h2><p>利用openssl库提供的ssl编程接口，可以容易实现TLS交互，其客户端编程步骤如下：  </p>
+<ol>
+<li>创建socket，调用connect连接服务端  </li>
+<li>调用SSL_CTX_new创建SSL context，调用SSL_set_verify设置证书校验回调函数，可以定制一些特殊的校验场景；SSL_set_cipher_list设置客户端的加密套件等操作  </li>
+<li>调用SSL_new创建SSL结构，调用SSL_set_fd,SSL_connect进行TLS握手，然后调用  SSL_set_connect_state 设置ssl工作在客户端模式  </li>
+<li>调用SSL_read/SSL_write进行读写操作  </li>
+<li>交互完成后，调用SSL_shutdown、SSL_free等进行清理工作  </li>
+</ol>
+<p>详细例子可以参考openssl中的apps/s_server.c s_client.c的实现  </p>
 
       
     </div>
