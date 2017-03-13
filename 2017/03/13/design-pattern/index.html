@@ -4,30 +4,26 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>syslog日志 | chenhy&#39;s blog</title>
+  <title>（转）GoF的23个经典设计模式 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="syslog日志格式header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
-
-header: “”里面的信息长度  
-PRI=logFacility * 8 + logLevel    
-SYSLOGPRO">
+  <meta name="description" content="以文本和思维导图的方式简明扼要的介绍了GoF的23个经典设计模式，可当成学习设计模式的一个小手册，偶尔看一下，说不定会对大师的思想精髓有新的领悟。
+GoF(“四人帮”，又称Gang of Four，即Erich Gamma, Richard Helm, Ralph Johnson &amp;amp; John Vlissides)
+概述创建型模式(5个)：单例模式、原型模式、建造者模式、工厂模式、抽象工">
 <meta property="og:type" content="article">
-<meta property="og:title" content="syslog日志">
-<meta property="og:url" content="http://yoursite.com/2017/03/08/syslog/index.html">
+<meta property="og:title" content="（转）GoF的23个经典设计模式">
+<meta property="og:url" content="http://yoursite.com/2017/03/13/design-pattern/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="syslog日志格式header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
-
-header: “”里面的信息长度  
-PRI=logFacility * 8 + logLevel    
-SYSLOGPRO">
-<meta property="og:updated_time" content="2017-03-08T14:56:34.000Z">
+<meta property="og:description" content="以文本和思维导图的方式简明扼要的介绍了GoF的23个经典设计模式，可当成学习设计模式的一个小手册，偶尔看一下，说不定会对大师的思想精髓有新的领悟。
+GoF(“四人帮”，又称Gang of Four，即Erich Gamma, Richard Helm, Ralph Johnson &amp;amp; John Vlissides)
+概述创建型模式(5个)：单例模式、原型模式、建造者模式、工厂模式、抽象工">
+<meta property="og:image" content="http://yoursite.com/img/gof23_dp.png">
+<meta property="og:updated_time" content="2017-03-13T15:07:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="syslog日志">
-<meta name="twitter:description" content="syslog日志格式header(信息长度mes_len) “SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  
-
-header: “”里面的信息长度  
-PRI=logFacility * 8 + logLevel    
-SYSLOGPRO">
+<meta name="twitter:title" content="（转）GoF的23个经典设计模式">
+<meta name="twitter:description" content="以文本和思维导图的方式简明扼要的介绍了GoF的23个经典设计模式，可当成学习设计模式的一个小手册，偶尔看一下，说不定会对大师的思想精髓有新的领悟。
+GoF(“四人帮”，又称Gang of Four，即Erich Gamma, Richard Helm, Ralph Johnson &amp;amp; John Vlissides)
+概述创建型模式(5个)：单例模式、原型模式、建造者模式、工厂模式、抽象工">
+<meta name="twitter:image" content="http://yoursite.com/img/gof23_dp.png">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -207,11 +203,11 @@ SYSLOGPRO">
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-syslog" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-design-pattern" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/08/syslog/" class="article-date">
-  	<time datetime="2017-03-08T13:38:06.000Z" itemprop="datePublished">2017-03-08</time>
+      <a href="/2017/03/13/design-pattern/" class="article-date">
+  	<time datetime="2017-03-13T14:58:37.000Z" itemprop="datePublished">2017-03-13</time>
 </a>
     </div>
   
@@ -224,7 +220,7 @@ SYSLOGPRO">
         
   
     <h1 class="article-title" itemprop="name">
-      syslog日志
+      （转）GoF的23个经典设计模式
     </h1>
   
 
@@ -234,7 +230,7 @@ SYSLOGPRO">
         
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
+	<a class="article-category-link" href="/categories/设计模式/">设计模式</a>
 	</div>
 
 
@@ -246,29 +242,39 @@ SYSLOGPRO">
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#syslog日志格式"><span class="toc-text">syslog日志格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TLS编程"><span class="toc-text">TLS编程</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建型"><span class="toc-text">创建型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构型"><span class="toc-text">结构型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#行为型"><span class="toc-text">行为型</span></a></li></ol>
 </div>
 
          
-        <h2 id="syslog日志格式"><a href="#syslog日志格式" class="headerlink" title="syslog日志格式"></a>syslog日志格式</h2><p>header(信息长度mes_len) “<pri>SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  </pri></p>
-<ul>
-<li>header: “”里面的信息长度  </li>
-<li>PRI=logFacility * 8 + logLevel    </li>
-<li>SYSLOGPRO_VERSION: syslog protocol version(such as: 1)    </li>
-<li>TIMESTAMP:时间戳 如，2017-01-01T00:00:00.000000+02:00  (最多精确到us)  </li>
-<li>STRUCTURED_DATA:结构化数据  </li>
-<li>BOM:指出编码为UTF8  </li>
-<li>MSG:信息主体  </li>
-</ul>
-<h2 id="TLS编程"><a href="#TLS编程" class="headerlink" title="TLS编程"></a>TLS编程</h2><p>利用openssl库提供的ssl编程接口，可以容易实现TLS交互，其客户端编程步骤如下：  </p>
-<ol>
-<li>创建socket，调用connect连接服务端  </li>
-<li>调用SSL_CTX_new创建SSL context，调用SSL_set_verify设置证书校验回调函数，可以定制一些特殊的校验场景；SSL_set_cipher_list设置客户端的加密套件等操作  </li>
-<li>调用SSL_new创建SSL结构，调用SSL_set_fd,SSL_connect进行TLS握手，然后调用  SSL_set_connect_state 设置ssl工作在客户端模式  </li>
-<li>调用SSL_read/SSL_write进行读写操作  </li>
-<li>交互完成后，调用SSL_shutdown、SSL_free等进行清理工作  </li>
-</ol>
-<p>详细例子可以参考openssl中的apps/s_server.c s_client.c的实现  </p>
+        <p><img src="/img/gof23_dp.png" alt="img"></p>
+<p>以文本和思维导图的方式简明扼要的介绍了GoF的23个经典设计模式，可当成学习设计模式的一个小手册，偶尔看一下，说不定会对大师的思想精髓有新的领悟。</p>
+<p>GoF(“四人帮”，又称Gang of Four，即Erich Gamma, Richard Helm, Ralph Johnson &amp; John Vlissides)</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>创建型模式(5个)：单例模式、原型模式、建造者模式、工厂模式、抽象工厂模式。</p>
+<p>结构型模式(7个)：桥接模式、外观模式、组合模式、装饰模式、适配器模式、代理模式、享元模式。 </p>
+<p>行为型模式(11个)：迭代器模式、解释器模式、观察者模式、中介者模式、访问者模式、备忘录模式、状态模式、策略模式、模版方法模、命令模式、职责链模式式。</p>
+<h2 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h2><p>Singleton（单例模式）：保证一个类仅有一个实例，并提供一个访问它的全局访问点。 </p>
+<p>Prototype（原型模式）：用原型实例指定创建对象的种类，并且通过拷贝这个原型来创建新的对象。 </p>
+<p>Builder（建造者模式）：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。 </p>
+<p>Factory Method(工厂模式)：定义一个用于创建对象的接口，让子类决定将哪一个类实例化。</p>
+<p>Factory Method使一个类的实例化延迟到其子类。 Abstract Factory（抽象工厂模式）：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
+<h2 id="结构型"><a href="#结构型" class="headerlink" title="结构型"></a>结构型</h2><p>Bridge（桥接模式）：将抽象部分与它的实现部分分离，使它们都可以独立地变化。 </p>
+<p>Facade（外观模式）：为子系统中的一组接口提供一个一致的界面， Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 </p>
+<p>Composite(组合模式)：将对象组合成树形结构以表示“部分-整体”的层次结构。它使得客户对单个对象和复合对象的使用具有一致性。 </p>
+<p>Decorator(装饰模式)：动态地给一个对象添加一些额外的职责。就扩展功能而言， 它比生成子类方式更为灵活。 </p>
+<p>Adapter（适配器模式）：将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。 </p>
+<p>Proxy（代理模式）：为其他对象提供一个代理以控制对这个对象的访问。 </p>
+<p>Flyweight（享元模式）：运用共享技术有效地支持大量细粒度的对象。</p>
+<h2 id="行为型"><a href="#行为型" class="headerlink" title="行为型"></a>行为型</h2><p>Iterator（迭代器模式）：提供一种方法顺序访问一个聚合对象中各个元素, 而又不需暴露该对象的内部表示。 </p>
+<p>Interpreter（解析器模式）：给定一个语言, 定义它的文法的一种表示，并定义一个解释器, 该解释器使用该表示来解释语言中的句子。 </p>
+<p>Observer（观察者模式）：定义对象间的一种一对多的依赖关系,以便当一个对象的状态发生改变时,所有依赖于它的对象都得到通知并自动刷新。 </p>
+<p>Mediator（中介者模式）：用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。 </p>
+<p>Visitor（访问者模式）：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。 </p>
+<p>Memento（备忘录模式）：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到保存的状态。 </p>
+<p>State（状态模式）：允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它所属的类。 </p>
+<p>Strategy（策略模式）：定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换。本模式使得算法的变化可独立于使用它的客户。 </p>
+<p>Template Method（模板方法模式）：定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。Template Method 使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。 </p>
+<p>Command（命令模式）：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可取消的操作。 </p>
+<p>Chain of Responsibility（职责链模式）：为解除请求的发送者和接收者之间耦合，而使多个对象都有机会处理这个请求。 将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它。</p>
 
       
     </div>
@@ -278,18 +284,9 @@ SYSLOGPRO">
     
 <nav id="article-nav">
   
-    <a href="/2017/03/13/design-pattern/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          （转）GoF的23个经典设计模式
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/05/visual-2010-quickButton/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">visual studio快捷键</div>
+    <a href="/2017/03/08/syslog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">syslog日志</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -324,7 +321,7 @@ SYSLOGPRO">
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="syslog" data-title="syslog日志" data-url="http://yoursite.com/2017/03/08/syslog/"></div>
+	<div class="ds-thread" data-thread-key="design-pattern" data-title="（转）GoF的23个经典设计模式" data-url="http://yoursite.com/2017/03/13/design-pattern/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
