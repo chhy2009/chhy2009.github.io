@@ -22,7 +22,7 @@ mysql入门命令是接触mysql的第一扇窗户，下面介绍mac下mysql的�
 启动与停止mysql服务器
 启动mysql服务：support-files/mysql.server start
 停止mysql服务: support-files/mysql.s">
-<meta property="og:updated_time" content="2017-03-26T14:14:49.000Z">
+<meta property="og:updated_time" content="2017-03-26T14:20:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql">
 <meta name="twitter:description" content="sql 中文html手册mysql文档中心MySQL参考手册
@@ -249,7 +249,7 @@ mysql入门命令是接触mysql的第一扇窗户，下面介绍mac下mysql的�
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql入门"><span class="toc-text">mysql入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动与停止mysql服务器"><span class="toc-text">启动与停止mysql服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连接mysql服务器"><span class="toc-text">连接mysql服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql入门"><span class="toc-text">mysql入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动与停止mysql服务器"><span class="toc-text">启动与停止mysql服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连接mysql服务器"><span class="toc-text">连接mysql服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关文档"><span class="toc-text">相关文档</span></a></li></ol></li></ol>
 </div>
 
          
@@ -259,17 +259,19 @@ mysql入门命令是接触mysql的第一扇窗户，下面介绍mac下mysql的�
 <h3 id="启动与停止mysql服务器"><a href="#启动与停止mysql服务器" class="headerlink" title="启动与停止mysql服务器"></a>启动与停止mysql服务器</h3><ol>
 <li>启动mysql服务：support-files/mysql.server start</li>
 <li>停止mysql服务: support-files/mysql.server stop</li>
-<li>查询mysql服务器状态：support-files/mysql.server status<br>启动和停止成功后，terminal上会有对应的提示信息<h3 id="连接mysql服务器"><a href="#连接mysql服务器" class="headerlink" title="连接mysql服务器"></a>连接mysql服务器</h3></li>
-<li><p>连接到mysql服务器<br>要连接到服务器，需要使用登陆名和密码(对于密码为空的情况，则只需要用户名)；如果mysql服务器运行在与客户端不同的机器上，还需要清楚mysql服务器的主机名，连接方法如下：<br><code>shell&gt; mysql [-h hostname] -u user [-p]</code><br>在需要密码的情况下会弹出如下提示，让你输入密码：<br>Enter password: </p>
-</li>
-<li><p>断开连接<br>可以使用quit或exit命命进行登出  </p>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3></li>
+<li>查询mysql服务器状态：support-files/mysql.server status<br>启动和停止成功后，terminal上会有对应的提示信息</li>
+</ol>
+<h3 id="连接mysql服务器"><a href="#连接mysql服务器" class="headerlink" title="连接mysql服务器"></a>连接mysql服务器</h3><ol>
+<li>连接到mysql服务器<br>要连接到服务器，需要使用登陆名和密码(对于密码为空的情况，则只需要用户名)；如果mysql服务器运行在与客户端不同的机器上，还需要清楚mysql服务器的主机名，连接方法如下：<br><code>shell&gt; mysql [-h hostname] -u user [-p]</code><br>在需要密码的情况下会弹出如下提示，让你输入密码：<br>Enter password: </li>
+<li>断开连接<br>可以使用quit或exit命命进行登出  </li>
+</ol>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ol>
 <li>选择与创建数据库<br>show databases  查看服务器当前存在的数据库<br>use databasename  选择数据库<br>create databse databasename  创建数据库  </li>
 <li>设置登录密码<br>alter user ‘root’@’localhost’ identified by ‘newpassword’ (5.7.6及以后的版本)<br>set password for ‘root’@’localhost’ = password(‘newpassword’)<br>其中，newpassword是我们将要设置的新密码  </li>
 <li>创建表<br>create table tablename (columnname type, …);<br>show tables 查看表<br>describe pet 查看表信息（字段，类型等）</li>
 <li>查询，更新，删除<br>同sql语法  </li>
 </ol>
-<p>详细说明可见文档：<br><a href="/document/mysql_operate.docx">mysql command</a><br><a href="/document/mysql-reference-manual.pdf">mysql-reference-manual</a></p>
+<h3 id="相关文档"><a href="#相关文档" class="headerlink" title="相关文档"></a>相关文档</h3><p>详细说明可见文档：<br><a href="/document/mysql_operate.pdf">mysql command</a><br><a href="/document/mysql-reference-manual.pdf">mysql-reference-manual</a></p>
 <p>建议：</p>
 <p>1.坚持阅读官方手册，看MySQL书籍作用不会特别大；（挑选跟工作相关的内容优先阅读，例如InnoDB存储引擎，MySQL复制，查询优化）</p>
 <p>2.阅读官方手册，同时对阅读的内容做对应的测试；</p>
