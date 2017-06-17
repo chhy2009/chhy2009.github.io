@@ -18,7 +18,7 @@ select id from url where url=”www.mysqlcom” and url_crc=CRC32(“http://www.
 索引B-Tree索引hash索引innodDB中的自适应hash索引使用where语句手动定义hash函数，增加查找速度，例子如url查找
 select id from url where url=”www.mysqlcom” and url_crc=CRC32(“http://www.mysql.com“);
 这种方法的一个缺点就是要维护哈希值，可以使用触发器进行维护：c">
-<meta property="og:updated_time" content="2017-05-11T23:52:32.000Z">
+<meta property="og:updated_time" content="2017-06-17T14:12:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="high_performance_sql.md">
 <meta name="twitter:description" content="数据库结构图存储引擎层
@@ -128,7 +128,7 @@ select id from url where url=”www.mysqlcom” and url_crc=CRC32(“http://www.
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a>
+						<a href="/tags/Github-pages/" style="font-size: 10px;">Github pages</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a>
 					</div>
 				</section>
 				
@@ -229,6 +229,10 @@ select id from url where url=”www.mysqlcom” and url_crc=CRC32(“http://www.
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
         
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>
@@ -264,6 +268,15 @@ select id from url where url=”www.mysqlcom” and url_crc=CRC32(“http://www.
   
     
 <nav id="article-nav">
+  
+    <a href="/2017/06/17/Gtest测试框架/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Gtest测试框架
+        
+      </div>
+    </a>
   
   
     <a href="/2017/03/15/disscuss-group/" id="article-nav-older" class="article-nav-link-wrap">
