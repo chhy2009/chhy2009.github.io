@@ -224,22 +224,16 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装redis-py"><span class="toc-text">安装redis-py</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装redis-py"><span class="toc-text">安装redis-py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用python操作redis"><span class="toc-text">使用python操作redis</span></a></li></ol>
 </div>
 
          
         <h2 id="安装redis-py"><a href="#安装redis-py" class="headerlink" title="安装redis-py"></a>安装redis-py</h2><p>Python默认不支持Redis，需要自行安装redis-py模块。<br>安装步骤:</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>、 Git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/andymccurdy/redis-<span class="keyword">py</span>.git</div><div class="line"><span class="number">2</span>、 sudo <span class="keyword">python</span> setup.<span class="keyword">py</span> install</div></pre></td></tr></table></figure>
-<p>这样就能正常使用</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;</span>&gt; import redis</div><div class="line"><span class="string">``</span><span class="string">` </span></div><div class="line">在python中使用redis了.</div><div class="line"></div><div class="line">## 使用python操作redis</div></pre></td></tr></table></figure>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import redis<br>conn = redis.Redis() #可以通过redis.Redis(‘localhost’, port)来指定具体端口，默认为6379<br>conn.keys(‘<em>‘)  #相当于在redis-cli 中执行’keys </em>‘<br>conn.get(‘name’)<br>conn.set(‘name’,’value’) #设置之前检查key是否存在value的话，用setnx<br>conn.getset(‘name’, ‘value’)  #getset会返回旧的值，然后赋新的值<br>…  #命令太多，就不一一说明了</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>```</p>
+<p>这样就能正常使用    </p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; <span class="keyword">import</span> redis</div></pre></td></tr></table></figure>
+<p>在python中使用redis了.</p>
+<h2 id="使用python操作redis"><a href="#使用python操作redis" class="headerlink" title="使用python操作redis"></a>使用python操作redis</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;</span>&gt; import redis</div><div class="line"><span class="meta">&gt;&gt;</span>&gt; conn = redis.Redis() <span class="comment">#可以通过redis.Redis('localhost', port)来指定具体端口，默认为6379</span></div><div class="line"><span class="meta">&gt;&gt;</span>&gt; conn.keys(<span class="string">'*'</span>)  <span class="comment">#相当于在redis-cli 中执行'keys *'</span></div><div class="line"><span class="meta">&gt;&gt;</span>&gt; conn.get(<span class="string">'name'</span>)</div><div class="line"><span class="meta">&gt;&gt;</span>&gt; conn.set(<span class="string">'name'</span>,<span class="string">'value'</span>) <span class="comment">#设置之前检查key是否存在value的话，用setnx</span></div><div class="line"><span class="meta">&gt;&gt;</span>&gt; conn.getset(<span class="string">'name'</span>, <span class="string">'value'</span>)  <span class="comment">#getset会返回旧的值，然后赋新的值</span></div><div class="line">...  <span class="comment">#命令太多，就不一一说明了</span></div></pre></td></tr></table></figure>
 <p>详细的接口说明<a href="http://redis-py.readthedocs.io/en/latest/" target="_blank" rel="external">redis-py’s documentation</a>可以在<a href="http://redis-py.readthedocs.io/en/latest/" target="_blank" rel="external">http://redis-py.readthedocs.io/en/latest/</a> 上找到</p>
 
       
