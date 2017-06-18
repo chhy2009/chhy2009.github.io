@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a>
+						<a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a>
 					</div>
 				</section>
 				
@@ -195,6 +195,157 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-python/redis-python操作" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/18/python/redis-python操作/" class="article-date">
+  	<time datetime="2017-06-18T02:14:12.000Z" itemprop="datePublished">2017-06-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/18/python/redis-python操作/">使用python操作redis</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装redis-py"><span class="toc-text">安装redis-py</span></a></li></ol>
+</div>
+
+         
+        <h2 id="安装redis-py"><a href="#安装redis-py" class="headerlink" title="安装redis-py"></a>安装redis-py</h2><p>Python默认不支持Redis，需要自行安装redis-py模块。<br>安装步骤:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>、 Git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/andymccurdy/redis-<span class="keyword">py</span>.git</div><div class="line"><span class="number">2</span>、 sudo <span class="keyword">python</span> setup.<span class="keyword">py</span> install</div></pre></td></tr></table></figure>
+<p>这样就能正常使用</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;</span>&gt; import redis</div><div class="line"><span class="string">``</span><span class="string">` </span></div><div class="line">在python中使用redis了.</div><div class="line"></div><div class="line">## 使用python操作redis</div></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import redis<br>conn = redis.Redis() #可以通过redis.Redis(‘localhost’, port)来指定具体端口，默认为6379<br>conn.keys(‘<em>‘)  #相当于在redis-cli 中执行’keys </em>‘<br>conn.get(‘name’)<br>conn.set(‘name’,’value’) #设置之前检查key是否存在value的话，用setnx<br>conn.getset(‘name’, ‘value’)  #getset会返回旧的值，然后赋新的值<br>…  #命令太多，就不一一说明了</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>```</p>
+<p>详细的接口说明<a href="http://redis-py.readthedocs.io/en/latest/" target="_blank" rel="external">redis-py’s documentation</a>可以在<a href="http://redis-py.readthedocs.io/en/latest/" target="_blank" rel="external">http://redis-py.readthedocs.io/en/latest/</a> 上找到</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-database/redis/Redis安装和启动" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/18/database/redis/Redis安装和启动/" class="article-date">
+  	<time datetime="2017-06-18T01:54:21.000Z" itemprop="datePublished">2017-06-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/18/database/redis/Redis安装和启动/">database/redis/Redis安装和启动.md</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行"><span class="toc-text">运行</span></a></li></ol>
+</div>
+
+         
+        <p>在<a href="https://redis.io/download" target="_blank" rel="external">redis官网</a>有详细的说明：</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Download, extract and compile Redis with:</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">$</span> wget http:<span class="comment">//download.redis.io/releases/redis-3.2.9.tar.gz</span></div><div class="line"><span class="symbol">$</span> tar xzf redis<span class="number">-3.2</span><span class="number">.9</span>.tar.gz</div><div class="line"><span class="symbol">$</span> cd redis<span class="number">-3.2</span><span class="number">.9</span></div><div class="line"><span class="symbol">$</span> make</div></pre></td></tr></table></figure>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>The binaries that are now compiled are available in the src directory. Run Redis with:</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ src/redis-<span class="keyword">server</span></div></pre></td></tr></table></figure>
+<p>You can interact with Redis using the built-in client:</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">$</span> src/redis-cli</div><div class="line">redis&gt; <span class="keyword">set</span> foo <span class="comment">bar</span></div><div class="line">OK</div><div class="line">redis&gt; get <span class="comment">foo</span></div><div class="line"><span class="string">"bar"</span></div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Gtest测试框架" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -814,212 +965,6 @@ setsockopt(listenfd,SOL_TCP, TCP_KEEPCNT, (<span class="keyword">void</span> *)&
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/keepalive/">keepalive</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-tcp_ip/tcp-status" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/23/tcp_ip/tcp-status/" class="article-date">
-  	<time datetime="2017-02-23T14:45:11.000Z" itemprop="datePublished">2017-02-23</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/23/tcp_ip/tcp-status/">tcp释放连接的close_wait, FIN_WAIT2, TIME_WAIT大量存在的原因</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#存在close-wait的原因"><span class="toc-text">存在close_wait的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存在FIN-WAIT2的原因"><span class="toc-text">存在FIN_WAIT2的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存在TIME-WAIT的原因"><span class="toc-text">存在TIME_WAIT的原因</span></a></li></ol>
-</div>
-
-         
-        <h2 id="存在close-wait的原因"><a href="#存在close-wait的原因" class="headerlink" title="存在close_wait的原因"></a>存在close_wait的原因</h2><p>close_wait这个状态存在于服务端，当服务端发送FIN（之前客户端已经发送过fin），请求关闭连接之后进入close_wait，然而没有收到客户端的响应，可能由于客户端掉线了（如网络故障或者掉电），没有及时给予客户端回复造成问题。<br>或者由于客户端已经调用close(socket)退出，而服务端对其监测并断开连接，这种是服务端问题。<br>解决方法：一般是编程问题，可用keep_alive机制加以解决</p>
-<h2 id="存在FIN-WAIT2的原因"><a href="#存在FIN-WAIT2的原因" class="headerlink" title="存在FIN_WAIT2的原因"></a>存在FIN_WAIT2的原因</h2><p>这个状态存在于主动发起断开请求的一端，如果服务器存在大量的这个状态，那么这个服务器就充当客户端的角色，如网络爬虫，出现的原因是由于客户端发起FIN请求结束连接之后，收到了服务端的应答之后进入FIN_WAIT2，之后就没收到服务端发送的FIN信号导致。<br>解决方法：可以配置FIN_WAIT2的时长，当超过时长后自动断开加以解决</p>
-<h2 id="存在TIME-WAIT的原因"><a href="#存在TIME-WAIT的原因" class="headerlink" title="存在TIME_WAIT的原因"></a>存在TIME_WAIT的原因</h2><p>TIME_WAIT状态存在有两个原因：其一是响应服务端发送的FIN报文，保证服务端断开连接；其二是保证之前请求断开连接的请求，由于网络原因滞留在网络中，后续又到达了，导致后面重新建立的连接断开。<br>解决方法：设置TIME_WAIT状态的等待时间规避。即设置/proc/sys/net/ipv4下的相关参数</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-c_c++/signal" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/20/c_c++/signal/" class="article-date">
-  	<time datetime="2017-02-20T00:32:41.000Z" itemprop="datePublished">2017-02-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/20/c_c++/signal/">信号处理机制</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用信号"><span class="toc-text">常用信号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信号集"><span class="toc-text">信号集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信号处理函数"><span class="toc-text">信号处理函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#阻塞信号"><span class="toc-text">阻塞信号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#产生信号函数"><span class="toc-text">产生信号函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#睡眠函数及定时器"><span class="toc-text">睡眠函数及定时器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程与信号"><span class="toc-text">线程与信号</span></a></li></ol>
-</div>
-
-         
-        <h2 id="常用信号"><a href="#常用信号" class="headerlink" title="常用信号"></a>常用信号</h2><p>信号定义在<signal.h>文件中，可以通过在shell下键入kill –l查看信号列表，或者man 7 signal查看说明。<br>    不能忽略的信号：SIGKILL及SIGSTOP 这两个信号是不能忽略的，即进程接收到这两个信号后，只能接受系统的默认处理，及终止进行。<br>    中断信号：SIGINT(ctrl+c触发)，SIGQIUT(ctrl+\触发)  </signal.h></p>
-<h2 id="信号集"><a href="#信号集" class="headerlink" title="信号集"></a>信号集</h2><p>POSIX.1 定义数据类型sigset_t用于表示一个信号集，并且定义了以下的一组信号能对sigset_t结构体进行处理的函数，用于初始化及增删信号集：  </p>
-<pre><code class="c"><span class="function"><span class="keyword">int</span> <span class="title">sigemptyset</span><span class="params">(<span class="keyword">sigset_t</span> *<span class="built_in">set</span>)</span></span>;      <span class="comment">//清空信号集合set</span>
-<span class="function"><span class="keyword">int</span> <span class="title">sigfillset</span><span class="params">(<span class="keyword">sigset_t</span> *<span class="built_in">set</span>)</span></span>;      <span class="comment">//将所有信号填充进set中</span>
-<span class="function"><span class="keyword">int</span> <span class="title">sigaddset</span><span class="params">(<span class="keyword">sigset_t</span> *<span class="built_in">set</span>, <span class="keyword">int</span> signum)</span></span>;    <span class="comment">//往set中添加信号signum</span>
-<span class="function"><span class="keyword">int</span> <span class="title">sigdelset</span><span class="params">(<span class="keyword">sigset_t</span> *<span class="built_in">set</span>, <span class="keyword">int</span> signum)</span></span>;    <span class="comment">//从set中移除信号signum</span>
-<span class="function"><span class="keyword">int</span> <span class="title">sigismember</span><span class="params">(<span class="keyword">const</span> <span class="keyword">sigset_t</span> *<span class="built_in">set</span>, <span class="keyword">int</span> signum)</span></span>; <span class="comment">//判断signnum是不是包含在set中</span>
-<span class="function"><span class="keyword">int</span> <span class="title">sigpending</span><span class="params">(<span class="keyword">sigset_t</span> *<span class="built_in">set</span>)</span></span>;  <span class="comment">//返回一信号集</span>
-</code></pre>
-<h2 id="信号处理函数"><a href="#信号处理函数" class="headerlink" title="信号处理函数"></a>信号处理函数</h2><ol>
-<li><p>signal<br>其不能处理当正在执行信号处理函数期间又触发相同信号的情况。<br>对应的信号处理函数：void handler(int)</p>
-</li>
-<li><p>sigaction<br>其为signal函数的升级版，此函数取代了unix早期版本使用的signal函数。其原型如下：<br><code>int sigaction(int signo, const struct sigaction *act, struct sigaction *oldact);</code><br>其中，signo是要检测或修改其具体动作的信号编号，act指针是需要设置的动作参数，oact参数用于存放该信号的上一个动作。其中struct sigation定义如下：  </p>
-</li>
-</ol>
-<pre><code class="c"><span class="keyword">struct</span>  sigaction {
-             <span class="keyword">void</span> (*sa_handler)(<span class="keyword">int</span>);  <span class="comment">/* signal handler */</span>
-             <span class="keyword">void</span> (*sa_sigaction)(<span class="keyword">int</span>, <span class="keyword">siginfo_t</span> *, <span class="keyword">void</span> *);
-             <span class="keyword">sigset_t</span> sa_mask;               <span class="comment">/* signal mask to apply */</span>
-             <span class="keyword">int</span>     sa_flags;               <span class="comment">/* see signal options below */</span>
-     };
-</code></pre>
-<p>其中，sa_handler和sa_sigaction为信号处理函数。通常，使用sa_handler作为信号处理函数，如果在sigaction结构中使用SA_SIGINFO标志，则使用sa_sigaction作为信号处理程序为。有的系统把sa_handler和sa_sigaction用一个union表示（如mac os），所以应用只能一次使用这两个字段中的一个。sa_handler和sa_sigaction的原型如下：<br><code>void sa_handler(int)</code><br><code>void sa_sigaction (int iSignNum, siginfo_t *pSignInfo, void *pReserved);</code><br>对应的三个参数含义为：  </p>
-<ul>
-<li>iSignNum: 传入的信号</li>
-<li>pSignInfo: 与信号相关的一些信息</li>
-<li>pReserved: 保留<br>sa_mask字段为信号屏蔽字，其指出来在调用该信号捕捉程序之前，这一信号集要加到进程的信号屏蔽字中；仅当从信号捕捉函数返回时再将进程的信号屏蔽字恢复为原先值。<br>一旦对给定的信号设置一个动作，那么在调用sigaction显式地改变它之前，该设置就一直有效，这种方式与早期的不可靠信号机制不同，符合POSIX.1的要求。<br>  sa_flags指定对信号进行处理的各个选项，如SA_INTERRUPT(由信号中断的系统调用不自动重启)，SA_RESTART(信号中断的系统调用自动重启)，SA_SIGINFO(使用si_sigation处理函数，支持附加siginfo信息)<br>其中，几个常见的选项描述如下：   </li>
-<li>SA_RESETHAND 处理完毕要捕捉的信号后，将自动撤消信号处理函数的注册，即必须再重新注册信号处理函数，才能继续处理接下来产生的信号。该选项不符合一般的信号处理流程，现已经被废弃。 </li>
-<li>SA_NODEFER 在处理信号时，如果又发生了其它的信号，则立即进入其它信号的处理，等其它信号处理完毕后，再继续处理当前的信号，即递规地处理。如果sa_flags包含了该掩码，则结构体sigaction的sa_mask将无效！ </li>
-<li>SA_RESTART 如果在发生信号时，程序正阻塞在某个系统调用，例如调用read()函数，则在处理完毕信号后，接着从阻塞的系统返回。该掩码符合普通的程序处理流程，所以一般来说，应该设置该掩码，否则信号处理完后，阻塞的系统调用将会返回失败！ </li>
-<li>SA_SIGINFO 指示结构体的信号处理函数指针是哪个有效，如果sa_flags包含该掩码，则sa_sigactiion指针有效，否则是sa_handler指针有效。<h2 id="阻塞信号"><a href="#阻塞信号" class="headerlink" title="阻塞信号"></a>阻塞信号</h2></li>
-</ul>
-<ol>
-<li>sigaction阻塞<br>函数sigaction中设置的被阻塞信号集合只是针对于要处理的信号，例如  </li>
-</ol>
-<pre><code class="c"><span class="keyword">struct</span> sigaction act;
-sigemptyset(&amp;act.sa_mask);
-sigaddset(&amp;act.sa_mask,SIGQUIT);
-sigaction(SIGINT,&amp;act,<span class="literal">NULL</span>);
-</code></pre>
-<p>表示只有在处理信号SIGINT时，才阻塞信号SIGQUIT；  </p>
-<ol>
-<li>sigprocmask阻塞<br>函数sigprocmask是全程阻塞，在sigprocmask中设置了阻塞集合后，被阻塞的信号将不能再被信号处理函数捕捉，直到重新设置阻塞信号集合。其原型为：<br><code>int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);</code><br>参数how的值为如下3者之一：  </li>
-</ol>
-<ul>
-<li>SIG_BLOCK: 将参数2的信号集合添加到进程原有的阻塞信号集合中  </li>
-<li>SIG_UNBLOCK: 从进程原有的阻塞信号集合移除参数2中包含的信号  </li>
-<li>SIG_SET: 重新设置进程的阻塞信号集为参数2的信号集<br>参数set为阻塞信号集<br>参数oldset是传出参数，存放进程原有的信号集。  </li>
-</ul>
-<h2 id="产生信号函数"><a href="#产生信号函数" class="headerlink" title="产生信号函数"></a>产生信号函数</h2><ul>
-<li>kill<br><code>int kill(pid_t pid, int sig);</code><br>用于将信号发送给进程或进程组.根据pid的参数设置，kill有以下4种不同的情况：<br>1、    pid &gt; 0     将信号发送给进程ID为pid的进程<br>2、    pid == 0    将信号发送给与发送进程同一个进程组的所有进程<br>3、    pid ==  -1  将信号发送给发送进程有权限向它们发送信号的所有进程<br>4、    pid &lt; 0     将信号发送给其进程组ID等于pid绝对值，而且发送进程具有权限向其发送信号的所有进程。<br>  信号编号为0的信号为空信号。如果signo为0，则kill仍执行正常的错误检查，但不发送信号，这常被用来确定一个特点进程是否仍然存在。如果向一个并不存在的进程发送信号，则kill返回-1，errno被设置为ESRH.<br>返回值：成功返回0，否则为-1  </li>
-<li>raise<br><code>int raise(int signo);</code><br>等价于  kill(getpid(), signo) 即进程向自身发送信号。  </li>
-<li>alarm<br><code>unsigned int alarm(unsigned int seconds);</code><br>seconds指定经过多少秒产生SIGALRM信号;alarm函数可以设置一个定时器，在将来的某个时刻该定时器会超时，产生SIGALRM信号，如果忽略或不捕捉该信号，则其默认动作是终止调用alarm函数的进程。<br>如果seconds值为0，则取消以前的闹钟时间，其余留值作为alarm函数的返回值。  </li>
-<li>sigqueue<br>sigqueue也可以发送信号，并且能传递附加的信息<br><code>int sigqueue(pid_t pid, int sig, const union sigval value);</code><br>其中value为一整型与指针类型的联合体  </li>
-</ul>
-<pre><code class="c"><span class="keyword">union</span> sigval {
-<span class="keyword">int</span> sival_int;
-<span class="keyword">void</span> *sival_ptr;
-};
-</code></pre>
-<p>由sigqueue函数发送的信号的第3个参数value的值，可以被进程的信号处理函数的第2个参数info-&gt;si_ptr接收到。<br>附注：<br>siginfo_t结构体可以通过man sigaction查看其定义。  </p>
-<p>另外，pause函数可以使调用进程挂起直至捕获到一个信号。  </p>
-<h2 id="睡眠函数及定时器"><a href="#睡眠函数及定时器" class="headerlink" title="睡眠函数及定时器"></a>睡眠函数及定时器</h2><ol>
-<li>sleep类函数<br>sleep及usleep   前一个是以秒为单位，后一个是以毫秒为单位<br>nanosleep  和sleep类似，但提高了纳秒级的精度<br>其中sleep是采用信号机制进行处理的<br>用到的函数有：<br><code>unsigned int alarm(unsigned int seconds);</code><br><code>int pause();</code><br>因此：不要将alarm和sleep混用，不然会出现问题。而nanosleep则没有这个问题。  </li>
-<li>定时器<br>Linux下的计时器 <sys time.h=""><br>Linux为每个进程维护3个计时器，分别是真实计时器、虚拟计时器和实用计时器。  </sys></li>
-</ol>
-<ul>
-<li>真实计时器(ITIMER_REAL)计算的是程序运行的实际时间；</li>
-<li>虚拟计时器(ITIMER_VITUAL)计算的是程序运行在用户态时所消耗的时间(可认为是实际时间减掉(系统调用和程序睡眠所消耗)的时间)；</li>
-<li>实用计时器(ITIMER_PROF)计算的是程序处于用户态和处于内核态所消耗的时间之和。<br>发送的信号分别为SIGALRM，SIGVTALRM，SIGPROF<br>可结合setitimer函数来实现自己的定时器，但如果需要实现多个定时器的话，需要结果list结构来实现，可以参考<a href="http://www.cnblogs.com/cobbliu/p/3627448.html" target="_blank" rel="external">用setitimer实现多个定时器</a>  <h2 id="线程与信号"><a href="#线程与信号" class="headerlink" title="线程与信号"></a>线程与信号</h2>每个线程都有自己的信号屏蔽字，但是信号的处理是进程中所有线程共享的。这意味着当某个线程改变了某个给定信号的相关处理行为时，所有线程都必须共享这个处理行为的改变，单个线程可以通过设置自己的信号屏蔽字来达到屏蔽各自不需要的信号。<br>线程中使用pthread_sigmask来设置线程的信号屏蔽字，其用法同sigprocmask，但其失败时返回错误码，不再像sigprocmask中那样设置errno并返回-1.<br>线程可以使用sigwait来等待一个或多个信号的出现。其原型如下：<br><code>int sigwait(const sigset_t * restrict set, int *restrict signop);</code><br>其中，set参数指定了线程等待的信号集；signop返回接收的信号。函数成功时返回0；错误时返回正的错误编号.<br>在sigwait返回前，sigwait将从进程中移除那些处于挂起等待的信号；如果具体实现支持信号排队，那么sigwait将会移除该信号的一个实例，其余的实例还要继续排队。<br>为了避免错误发生，线程在调用sigwait之前，必须阻塞(通过调用pthread_sigmask)那些它正在等待的信号。sig_wait会原子性地取消信号集地阻塞状态，直到接收到新的信号。在返回之前，sigwait将恢复线程的信号屏蔽字。这样不这样做，那么在线程完成对sigwait调用之前的时间窗中，信号就可以发送给该线程，从而造成sig_wait长时间阻塞不返回。<br>如果多个线程在sigwait的调用中等待同一个信号，那么在信号递送的时候，就只有一个线程可以从sigwait中返回（类似于条件变量的pthread_cond_wait）。如果这时即有sigwait调用，又有sigaction调用，那么将由操作心态决定是让sigwait返回，还是调用sigaction信号处理函数，但两者不会同时发生。<br>另外，可以通过调用pthread_kill将信号发送给指定pthread_t tid的线程，支持传递signo = 0的信号用来检查线程是否存在。</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux-signal/">Linux signal</a></li></ul>
 	</div>
 
       

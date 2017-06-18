@@ -4,27 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>yaa and lex | chenhy&#39;s blog</title>
+  <title>使用python操作redis | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="lex就是语法扫描器，yacc就是语法分析器。lex 源文件中的yywrap函数是必须的，因为给出了这个函数实现之后可以不需要依赖flex库了。yywrap直接返回1，表示输入已经结束了。基本的lex文件：
-1%&amp;#123;int yywrap(void);%&amp;#125;%%%%int yywrap(void)&amp;#123;return 1;&amp;#125;
-基本的yacc文件:
-12%">
+  <meta name="description" content="安装redis-pyPython默认不支持Redis，需要自行安装redis-py模块。安装步骤:
+121、 Git clone https://github.com/andymccurdy/redis-py.git2、 sudo python setup.py install
+这样就能正常使用
+12345&amp;gt;&amp;gt;&amp;gt; import redis``` 在python中使用redis了.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yaa and lex">
-<meta property="og:url" content="http://yoursite.com/2017/02/26/tools/yaa-and-lex/index.html">
+<meta property="og:title" content="使用python操作redis">
+<meta property="og:url" content="http://yoursite.com/2017/06/18/python/redis-python操作/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="lex就是语法扫描器，yacc就是语法分析器。lex 源文件中的yywrap函数是必须的，因为给出了这个函数实现之后可以不需要依赖flex库了。yywrap直接返回1，表示输入已经结束了。基本的lex文件：
-1%&amp;#123;int yywrap(void);%&amp;#125;%%%%int yywrap(void)&amp;#123;return 1;&amp;#125;
-基本的yacc文件:
-12%">
-<meta property="og:updated_time" content="2017-06-17T14:21:25.000Z">
+<meta property="og:description" content="安装redis-pyPython默认不支持Redis，需要自行安装redis-py模块。安装步骤:
+121、 Git clone https://github.com/andymccurdy/redis-py.git2、 sudo python setup.py install
+这样就能正常使用
+12345&amp;gt;&amp;gt;&amp;gt; import redis``` 在python中使用redis了.">
+<meta property="og:updated_time" content="2017-06-18T03:05:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yaa and lex">
-<meta name="twitter:description" content="lex就是语法扫描器，yacc就是语法分析器。lex 源文件中的yywrap函数是必须的，因为给出了这个函数实现之后可以不需要依赖flex库了。yywrap直接返回1，表示输入已经结束了。基本的lex文件：
-1%&amp;#123;int yywrap(void);%&amp;#125;%%%%int yywrap(void)&amp;#123;return 1;&amp;#125;
-基本的yacc文件:
-12%">
+<meta name="twitter:title" content="使用python操作redis">
+<meta name="twitter:description" content="安装redis-pyPython默认不支持Redis，需要自行安装redis-py模块。安装步骤:
+121、 Git clone https://github.com/andymccurdy/redis-py.git2、 sudo python setup.py install
+这样就能正常使用
+12345&amp;gt;&amp;gt;&amp;gt; import redis``` 在python中使用redis了.">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -204,11 +204,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-tools/yaa-and-lex" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-python/redis-python操作" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/26/tools/yaa-and-lex/" class="article-date">
-  	<time datetime="2017-02-26T02:00:08.000Z" itemprop="datePublished">2017-02-26</time>
+      <a href="/2017/06/18/python/redis-python操作/" class="article-date">
+  	<time datetime="2017-06-18T02:14:12.000Z" itemprop="datePublished">2017-06-18</time>
 </a>
     </div>
   
@@ -221,7 +221,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      yaa and lex
+      使用python操作redis
     </h1>
   
 
@@ -230,7 +230,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lex/">lex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yacc/">yacc</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
 	</div>
 
         
@@ -247,15 +247,23 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装redis-py"><span class="toc-text">安装redis-py</span></a></li></ol>
 </div>
 
          
-        <p>lex就是语法扫描器，yacc就是语法分析器。<br>lex 源文件中的yywrap函数是必须的，因为给出了这个函数实现之后可以不需要依赖flex库了。<br>yywrap直接返回1，表示输入已经结束了。<br>基本的lex文件：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%&#123;<span class="function"><span class="keyword">int</span> <span class="title">yywrap</span><span class="params">(<span class="keyword">void</span>)</span></span>;%&#125;%%%%<span class="function"><span class="keyword">int</span> <span class="title">yywrap</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;</div></pre></td></tr></table></figure>
-<p>基本的yacc文件:</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">%&#123;<span class="function"><span class="keyword">void</span> <span class="title">yyerror</span>(<span class="params"><span class="keyword">const</span> <span class="keyword">char</span> *s</span>)</span>;%&#125;%%program:	;%%<span class="function"><span class="keyword">void</span> <span class="title">yyerror</span>(<span class="params"><span class="keyword">const</span> <span class="keyword">char</span> *s</span>)</span>&#123;&#125;<span class="function"><span class="keyword">int</span> <span class="title">main</span>(<span class="params"></span>)%%</span>&#123;</div><div class="line">yyparse();<span class="keyword">return</span> <span class="number">0</span>;&#125;</div></pre></td></tr></table></figure>
-<p>yacc文件中的代码被%%分成3个部分，第一部分表示要写入到c文件的c/c++代码，由%{和%}括起来；中间部分是yacc的语法规则；第三部分是可以直接写入c/c++代码，不需要任何的修饰。</p>
+        <h2 id="安装redis-py"><a href="#安装redis-py" class="headerlink" title="安装redis-py"></a>安装redis-py</h2><p>Python默认不支持Redis，需要自行安装redis-py模块。<br>安装步骤:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>、 Git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/andymccurdy/redis-<span class="keyword">py</span>.git</div><div class="line"><span class="number">2</span>、 sudo <span class="keyword">python</span> setup.<span class="keyword">py</span> install</div></pre></td></tr></table></figure>
+<p>这样就能正常使用</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;</span>&gt; import redis</div><div class="line"><span class="string">``</span><span class="string">` </span></div><div class="line">在python中使用redis了.</div><div class="line"></div><div class="line">## 使用python操作redis</div></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import redis<br>conn = redis.Redis() #可以通过redis.Redis(‘localhost’, port)来指定具体端口，默认为6379<br>conn.keys(‘<em>‘)  #相当于在redis-cli 中执行’keys </em>‘<br>conn.get(‘name’)<br>conn.set(‘name’,’value’) #设置之前检查key是否存在value的话，用setnx<br>conn.getset(‘name’, ‘value’)  #getset会返回旧的值，然后赋新的值<br>…  #命令太多，就不一一说明了</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>```</p>
+<p>详细的接口说明<a href="http://redis-py.readthedocs.io/en/latest/" target="_blank" rel="external">redis-py’s documentation</a>可以在<a href="http://redis-py.readthedocs.io/en/latest/" target="_blank" rel="external">http://redis-py.readthedocs.io/en/latest/</a> 上找到</p>
 
       
     </div>
@@ -265,18 +273,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/03/05/tools/IDE/visual-2010-quickButton/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          visual studio快捷键
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/02/23/tcp_ip/tcp-keepalive/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">tcp_keepalive编程</div>
+    <a href="/2017/06/18/database/redis/Redis安装和启动/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">database/redis/Redis安装和启动.md</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -311,7 +310,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="tools/yaa-and-lex" data-title="yaa and lex" data-url="http://yoursite.com/2017/02/26/tools/yaa-and-lex/"></div>
+	<div class="ds-thread" data-thread-key="python/redis-python操作" data-title="使用python操作redis" data-url="http://yoursite.com/2017/06/18/python/redis-python操作/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
