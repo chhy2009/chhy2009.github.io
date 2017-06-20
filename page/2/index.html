@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a>
+						<a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a>
 					</div>
 				</section>
 				
@@ -195,6 +195,83 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-tcp_ip/tcp-keepalive" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/23/tcp_ip/tcp-keepalive/" class="article-date">
+  	<time datetime="2017-02-23T14:50:10.000Z" itemprop="datePublished">2017-02-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/23/tcp_ip/tcp-keepalive/">tcp_keepalive编程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+         
+        <p>KeepAlive机制中设置的参数包含如下：  </p>
+<ul>
+<li>SO_KEEPALIVE  设置套接字的keepalive状态</li>
+<li>TCP_KEEPIDLE  关闭一个非活跃连接之前进行探测的最大时长，默认值为2h</li>
+<li>TCP_KEEINTVL  两次探测的时间间隔，默认值为150s，即每次间隔75s</li>
+<li>TCP_KEEPCNT 关闭一个非活跃连接之前进行的最大操作次数，默认值为8<br>这些默认值位于/proc/sys/net/ipv4目录下。<br>程序实现时可以通过setsockopt函数进行相关设置，代码段如下：  </li>
+</ul>
+<pre><code class="c"><span class="comment">//设置socket为TCP_KEEPALIVE</span>
+<span class="keyword">int</span> keepAlive = <span class="number">1</span>；
+setsockopt(listenfd, SOL_SOCKET, SO_KEEPALIVE, (<span class="keyword">void</span>*)&amp;keepAlive, <span class="keyword">sizeof</span>(keepAlive));
+<span class="keyword">int</span> keepIdle = <span class="number">6</span>;
+<span class="keyword">int</span> keepInterval = <span class="number">5</span>;
+<span class="keyword">int</span> keepCount = <span class="number">3</span>;
+setsockopt(listenfd, SOL_TCP, TCP_KEEPIDLE, (<span class="keyword">void</span> *)&amp;keepIdle, <span class="keyword">sizeof</span>(keepIdle));
+setsockopt(listenfd, SOL_TCP,TCP_KEEPINTVL, (<span class="keyword">void</span> *)&amp;keepInterval, <span class="keyword">sizeof</span>(keepInterval)); 
+setsockopt(listenfd,SOL_TCP, TCP_KEEPCNT, (<span class="keyword">void</span> *)&amp;keepCount, <span class="keyword">sizeof</span>(keepCount));
+</code></pre>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/keepalive/">keepalive</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-tcp_ip/tcp-status" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1278,79 +1355,6 @@ jredis.quit();
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-OperateSystem/software-of-mac" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/18/OperateSystem/software-of-mac/" class="article-date">
-  	<time datetime="2016-12-18T13:19:48.000Z" itemprop="datePublished">2016-12-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/18/OperateSystem/software-of-mac/">mac下的各种常用软件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac-下的UML软件"><span class="toc-text">Mac 下的UML软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#torrent下载软件"><span class="toc-text">torrent下载软件</span></a></li></ol>
-</div>
-
-         
-        <h2 id="Mac-下的UML软件"><a href="#Mac-下的UML软件" class="headerlink" title="Mac 下的UML软件"></a>Mac 下的UML软件</h2><ol>
-<li><a href="http://www.processon.com/diagraming/58568c76e4b04ce38789efa7" target="_blank" rel="external">Processon</a><br>一款在线绘图软件，只需要浏览器及网络即可使用</li>
-<li><a href="http://argouml.tigris.org" target="_blank" rel="external">ArgoUML</a></li>
-</ol>
-<h2 id="torrent下载软件"><a href="#torrent下载软件" class="headerlink" title="torrent下载软件"></a>torrent下载软件</h2><ol>
-<li>utorrent</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/software/">software</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/essay/">随笔</a>
 	</div>
 
 
