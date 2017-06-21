@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a>
+						<a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a> <a href="/tags/［python］/" style="font-size: 10px;">［python］</a>
 					</div>
 				</section>
 				
@@ -195,6 +195,91 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-tools/vim/vim-configuration" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/22/tools/vim/vim-configuration/" class="article-date">
+  	<time datetime="2016-12-22T15:40:11.000Z" itemprop="datePublished">2016-12-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/22/tools/vim/vim-configuration/">vim_configuration</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#保存及应用工程配置"><span class="toc-text">保存及应用工程配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用ctags"><span class="toc-text">使用ctags</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓冲区及文件、tag查找"><span class="toc-text">缓冲区及文件、tag查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cscope使用"><span class="toc-text">cscope使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动刷新工程中的tags"><span class="toc-text">自动刷新工程中的tags</span></a></li></ol>
+</div>
+
+         
+        <h2 id="保存及应用工程配置"><a href="#保存及应用工程配置" class="headerlink" title="保存及应用工程配置"></a>保存及应用工程配置</h2><ol>
+<li>设置vim搜索路径<br>如set path＝.,/usr/include,/usr/local/include，当使用find, gf, ctrl+W f(水平分割窗口打开)命令时vim会去path变量设置的目录下搜索.使用时可以把需要做的设置写到workspace.vim文件中，然后在打开工程的时候加载</li>
+<li>保存vim session及viminfo<br>使用会话(session)和viminfo，可以把你编辑环境保存下来，然后在你下次启动vim后，可以再恢复回这个环境。<br><strong><em> session </em></strong><br>会话(session)中保存了所有窗口的视图，外加全局设置。可以使用‘set sessionoptions’选项设定。缺省的‘sessionoptions’选项包括: “blank,buffers,curdir,folds,help,options,tabpages,winsize”<br><em>command</em>: 使用mksession [file]命令来保存session，使用source [file]命令来导入保存的session<br><strong><em> viminfo </em></strong><br>viminfo中保存了命令行历史(history)、搜索历史(search)、输入行历史、非空的寄存器内容(register)、文件的位置标记(mark)、缓冲区列表、全局变量等信息。<br><em>command</em>: 使用wviminfo [file]命令保存viminfo，使用rviminfo命令载入保存的viminfo  </li>
+<li>自动导入工程配置<br>每次退出vim时都要手动保存viminfo及session文件，启动时再进行导入，岂不是很麻烦，如果能支持自动导入的话就very nice了。没问题，我们可以通过修改vimrc文件来实现这个目的.相关vimrc配置如下(可结合自身情况更改)：</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">" 设置自动加载当前目录的工程设置</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">filereadable</span>(<span class="string">"workspace.vim"</span>)</div><div class="line">    <span class="keyword">source</span> workspace.<span class="keyword">vim</span></div><div class="line"><span class="keyword">endif</span></div><div class="line"></div><div class="line"><span class="comment">" 设置vim启动时自动读取session及viminfo信息</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">filereadable</span>(<span class="string">"workspace.session"</span>)</div><div class="line">    <span class="keyword">source</span> workspace.session</div><div class="line"><span class="keyword">endif</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">filereadable</span>(<span class="string">"workspace.viminfo"</span>)</div><div class="line">    <span class="keyword">rviminfo</span> workspace.viminfo</div><div class="line"><span class="keyword">endif</span></div><div class="line"></div><div class="line"><span class="comment">" 设置vim退出时自动保存工程配置</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">filereadable</span>(<span class="string">"workspace.vim"</span>)  <span class="comment">"表示需要保存，防止不必要的保存</span></div><div class="line">    <span class="keyword">au</span> VimLeave * <span class="keyword">mksession</span> workspace.session </div><div class="line">    <span class="keyword">au</span> VimLeave * <span class="keyword">wviminfo</span> workspace.viminfo </div><div class="line"><span class="keyword">endif</span></div></pre></td></tr></table></figure>
+<h2 id="使用ctags"><a href="#使用ctags" class="headerlink" title="使用ctags"></a>使用ctags</h2><p>使用ctags命令：ctags -R . 命令生成tags文件，然后使用set tags=tags导入，可以使用vimrc设置自动导入</p>
+<h2 id="缓冲区及文件、tag查找"><a href="#缓冲区及文件、tag查找" class="headerlink" title="缓冲区及文件、tag查找"></a>缓冲区及文件、tag查找</h2><p>项目中，当打开的文件太多说，知道当前打开的文件名是一项有用的功能，这个可以通过minibufexpl实现，效果如下：<br><img src="http://odix5916v.bkt.clouddn.com/vim_minibufexpl.png?imageView2/2/w/300" alt="pic"></p>
+<p>vim中可以使用lookupfile插件进行tag, buffer, 文件及目录搜索，其对应的指令分别如下：</p>
+<ul>
+<li>缓冲区查找：LUBufs</li>
+<li>目录查找：LUWalk</li>
+<li>tag查找：LUTags </li>
+</ul>
+<h2 id="cscope使用"><a href="#cscope使用" class="headerlink" title="cscope使用"></a>cscope使用</h2><p>如果你需求查找函数调用或者变量使用的地方，ctags就无能为力了，这时候就得用cscope了。<br>用法：<br>cscope默认只生成.c文件的索引，如果是c++或者java等其他语言，需要自行增加索引文件表。可以使用如下命令：<br><code>find . -name &quot;*.h&quot; -o -name &quot;*.c&quot; -o -name &quot;*.cc&quot; &gt; cscope.files</code><br><code>cscope -bkq -i cscope.files</code><br>然后在工程vim中执行: <code>cscope add cscope.out</code>,导入cscope索引。之后就可以使用cscope操作了，其操作命令如下：<br>man cscope或者vim中执行help cscope  </p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> s ---- 查找C语言符号，即查找函数名、宏、枚举值等出现的地方  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> g ---- 查找函数、宏、枚举等定义的位置，类似ctags所提供的功能  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> d ---- 查找本函数调用的函数  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> <span class="keyword">c</span> ---- 查找调用本函数的函数  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> t ---- 查找指定的字符串  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> <span class="keyword">e</span> ---- 查找egrep模式，相当于egrep功能，但查找速度快多了  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> <span class="keyword">f</span> ---- 查找并打开文件，类似<span class="keyword">vim</span>的<span class="keyword">find</span>功能  </div><div class="line">：<span class="keyword">cs</span> <span class="keyword">find</span> i ---- 查找包含本文件的文件</div></pre></td></tr></table></figure>
+<p>使用时，可以把cscope的查找结果输出到quickfix窗口，需要在~/.vimrc中加入下面这行：<br>set cscopequickfix=s-,c-,d-,i-,t-,e-<br>p.s:<br>打开quickfix —— copen<br>关闭quickfix —— cclose<br>查找下一个 —— cn<br>查找上一个 —— cp<br>浏览位置间跳转 —— ctrl+o(往前)，ctrl+i(往后)  </p>
+<h2 id="自动刷新工程中的tags"><a href="#自动刷新工程中的tags" class="headerlink" title="自动刷新工程中的tags"></a>自动刷新工程中的tags</h2><p>未完待续</p>
+<p>可以点击<a href="https://github.com/chhy2009/my_vimconfig" target="_blank" rel="external">my vimrc</a>访问我的vimrc配置</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-OperateSystem/software-of-mac" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -883,7 +968,7 @@
 <h4 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h4><blockquote>
 <p>Right angle brackets &gt; are used for block quotes.</p>
 </blockquote>
-<h4 id="Links-and-Email"><a href="#Links-and-Email" class="headerlink" title="Links and Email"></a>Links and Email</h4><p>An email <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#101;&#120;&#x61;&#x6d;&#x70;&#108;&#x65;&#x40;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#99;&#x6f;&#x6d;">&#101;&#120;&#x61;&#x6d;&#x70;&#108;&#x65;&#x40;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#99;&#x6f;&#x6d;</a> link.</p>
+<h4 id="Links-and-Email"><a href="#Links-and-Email" class="headerlink" title="Links and Email"></a>Links and Email</h4><p>An email <a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#x3a;&#101;&#120;&#97;&#109;&#x70;&#x6c;&#x65;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;">&#101;&#120;&#97;&#109;&#x70;&#x6c;&#x65;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;</a> link.</p>
 <p>Simple inline link <a href="http://chenluois.com" target="_blank" rel="external">http://chenluois.com</a>, another inline link <a href="http://25.io/smaller/" target="_blank" rel="external">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension" target="_blank" rel="external">Resize</a>.</p>
 <p>A <a href="http://25.io/mou/" title="Markdown editor on Mac OS X" target="_blank" rel="external">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
 <p>Titles ( or called tool tips ) in the links are optional.</p>
@@ -1089,70 +1174,9 @@ var Mou = exactlyTheAppIwant;
 
 
   
-    <article id="post-essay/essay" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/03/essay/essay/" class="article-date">
-  	<time datetime="2016-09-03T14:09:30.000Z" itemprop="datePublished">2016-09-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/03/essay/essay/">随便</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-         
-        <p>hello, github pages!</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/essay/">随笔</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>

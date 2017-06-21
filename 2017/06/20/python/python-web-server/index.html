@@ -6,28 +6,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>使用python搭建web服务器 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用python可以方便部署一个web服务器，假设当前目录位/web，则可以使用
-1python -m SimpleHTTPServer 8000
-来启动一个python服务器，启动成功会答应下面的信息：
-Serving HTTP on 0.0.0.0 port 8080 …
-当在浏览器输入http://localhost:8000可以测试web服务器是否正常工作，这时web服务器会打印如下日志：">
+  <meta name="description" content="Mac下安装python pip程序easy_install 是python自带的一个工具，用于给python安装第三方的扩展包。省去了我们安装python模块时需要手动下载然后执行python setup.py install来安装的麻烦。安装pip时，只需执行如下命令即可：
+sudo easy_install pip
+使用python搭建简单的web服务器使用python可以方便部署一个web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用python搭建web服务器">
 <meta property="og:url" content="http://yoursite.com/2017/06/20/python/python-web-server/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="使用python可以方便部署一个web服务器，假设当前目录位/web，则可以使用
-1python -m SimpleHTTPServer 8000
-来启动一个python服务器，启动成功会答应下面的信息：
-Serving HTTP on 0.0.0.0 port 8080 …
-当在浏览器输入http://localhost:8000可以测试web服务器是否正常工作，这时web服务器会打印如下日志：">
-<meta property="og:updated_time" content="2017-06-20T15:41:26.000Z">
+<meta property="og:description" content="Mac下安装python pip程序easy_install 是python自带的一个工具，用于给python安装第三方的扩展包。省去了我们安装python模块时需要手动下载然后执行python setup.py install来安装的麻烦。安装pip时，只需执行如下命令即可：
+sudo easy_install pip
+使用python搭建简单的web服务器使用python可以方便部署一个web">
+<meta property="og:updated_time" content="2017-06-21T11:55:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用python搭建web服务器">
-<meta name="twitter:description" content="使用python可以方便部署一个web服务器，假设当前目录位/web，则可以使用
-1python -m SimpleHTTPServer 8000
-来启动一个python服务器，启动成功会答应下面的信息：
-Serving HTTP on 0.0.0.0 port 8080 …
-当在浏览器输入http://localhost:8000可以测试web服务器是否正常工作，这时web服务器会打印如下日志：">
+<meta name="twitter:description" content="Mac下安装python pip程序easy_install 是python自带的一个工具，用于给python安装第三方的扩展包。省去了我们安装python模块时需要手动下载然后执行python setup.py install来安装的麻烦。安装pip时，只需执行如下命令即可：
+sudo easy_install pip
+使用python搭建简单的web服务器使用python可以方便部署一个web">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -131,7 +125,7 @@ Serving HTTP on 0.0.0.0 port 8080 …
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a>
+						<a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a> <a href="/tags/［python］/" style="font-size: 10px;">［python］</a>
 					</div>
 				</section>
 				
@@ -250,13 +244,15 @@ Serving HTTP on 0.0.0.0 port 8080 …
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mac下安装python-pip程序"><span class="toc-text">Mac下安装python pip程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用python搭建简单的web服务器"><span class="toc-text">使用python搭建简单的web服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用python-web框架"><span class="toc-text">使用python web框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Bottle"><span class="toc-text">Bottle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask"><span class="toc-text">Flask</span></a></li></ol></li></ol>
 </div>
 
          
-        <p>使用python可以方便部署一个web服务器，假设当前目录位/web，则可以使用</p>
+        <h2 id="Mac下安装python-pip程序"><a href="#Mac下安装python-pip程序" class="headerlink" title="Mac下安装python pip程序"></a>Mac下安装python pip程序</h2><p>easy_install 是python自带的一个工具，用于给python安装第三方的扩展包。省去了我们安装python模块时需要手动下载然后执行<code>python setup.py install</code>来安装的麻烦。<br>安装pip时，只需执行如下命令即可：</p>
+<pre><code>sudo easy_install pip
+</code></pre><h2 id="使用python搭建简单的web服务器"><a href="#使用python搭建简单的web服务器" class="headerlink" title="使用python搭建简单的web服务器"></a>使用python搭建简单的web服务器</h2><p>使用python可以方便部署一个web服务器，假设当前目录为/web，则可以使用</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python -m SimpleHTTPServer <span class="number">8000</span></div></pre></td></tr></table></figure>
-<p>来启动一个python服务器，启动成功会答应下面的信息：</p>
+<p>来启动一个python服务器，/web目录下则自动成为web服务器的资源目录。启动成功会答应下面的信息：</p>
 <p>Serving HTTP on 0.0.0.0 port 8080 …</p>
 <p>当在浏览器输入<a href="http://localhost:8000可以测试web服务器是否正常工作，这时web服务器会打印如下日志：" target="_blank" rel="external">http://localhost:8000可以测试web服务器是否正常工作，这时web服务器会打印如下日志：</a></p>
 <p>127.0.0.1 - - [20/Jun/2017 23:31:21] “GET / HTTP/1.1” 200 -</p>
@@ -264,7 +260,7 @@ Serving HTTP on 0.0.0.0 port 8080 …
 <hr>
 <p>这里的“Web服务器模块”有如下三种：</p>
 <p>BaseHTTPServer: 提供基本的Web服务和处理器类，分别是HTTPServer和BaseHTTPRequestHandler。<br>SimpleHTTPServer: 包含执行GET和HEAD请求的SimpleHTTPRequestHandler类。<br>CGIHTTPServer: 包含处理POST请求和执行CGIHTTPRequestHandler类。  </p>
-
+<h2 id="使用python-web框架"><a href="#使用python-web框架" class="headerlink" title="使用python web框架"></a>使用python web框架</h2><h3 id="Bottle"><a href="#Bottle" class="headerlink" title="Bottle"></a>Bottle</h3><h3 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h3>
       
     </div>
     
@@ -272,6 +268,15 @@ Serving HTTP on 0.0.0.0 port 8080 …
   
     
 <nav id="article-nav">
+  
+    <a href="/2017/06/21/python/python语法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          python语法
+        
+      </div>
+    </a>
   
   
     <a href="/2017/06/18/python/redis-python操作/" id="article-nav-older" class="article-nav-link-wrap">
