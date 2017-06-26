@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a> <a href="/tags/［python］/" style="font-size: 10px;">［python］</a>
+						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞I-O/" style="font-size: 10px;">非阻塞I/O</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a> <a href="/tags/［python］/" style="font-size: 10px;">［python］</a>
 					</div>
 				</section>
 				
@@ -195,6 +195,84 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-tcp_ip/非阻塞I-O" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/26/tcp_ip/非阻塞I-O/" class="article-date">
+  	<time datetime="2017-06-26T15:19:46.000Z" itemprop="datePublished">2017-06-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/26/tcp_ip/非阻塞I-O/">非阻塞I/O</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#非阻塞connect"><span class="toc-text">非阻塞connect</span></a></li></ol>
+</div>
+
+         
+        <h2 id="非阻塞connect"><a href="#非阻塞connect" class="headerlink" title="非阻塞connect"></a>非阻塞connect</h2><ol>
+<li>调用fcntl设置套接字为非阻塞</li>
+<li>发起非阻塞connect。期望的错误是EINPROCESS，表示连接已经启动但是尚未建立。</li>
+<li>如果非阻塞connect返回0，表示连接已经建立，当客户端和服务端位于同一主机时连接很快，有可能出现这种情况</li>
+<li>调用select设置超时时间，然后等待套接字变为可读或可写。当select返回0时，表示connect超时；</li>
+<li>如果描述符变为可读或可写，由于错误情况下套接字也是可读可写的，所以要区分这种情况下是否真的连接成功，这时我们调用getsockopt取得套接字的待处理错误</li>
+<li>还原套接字的阻塞状态并返回</li>
+</ol>
+<p>注意：<br>使用 getsockopt 函数检查错误<br>getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &amp;error, &amp;len)<br>在 sockfd 都是可读和可写的情况下，我们使用 getsockopt 来检查连接<br>是否出错。但这里有一个可移植性的问题。<br>如果发生错误，getsockopt 源自 Berkeley 的实现将在变量 error 中<br>返回错误，getsockopt 本身返回0；然而 Solaris 却让 getsockopt 返回 -1，<br>并把错误保存在 errno 变量中。所以在判断是否有错误的时候，要处理<br>这两种情况。</p>
+<p>具体源程序如下：  </p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">int conn_nonb(int sockfd, const <span class="keyword">struct</span> sockaddr_in *saptr, socklen_t salen, int nsec)</div><div class="line">&#123;</div><div class="line">    int flags, n, <span class="built_in">error</span>, <span class="built_in">code</span>;</div><div class="line">    socklen_t len;</div><div class="line">    fd_set wset;</div><div class="line">    <span class="keyword">struct</span> timeval tval;</div><div class="line"></div><div class="line">    flags = fcntl(sockfd, F_GETFL, <span class="number">0</span>);</div><div class="line">    fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);</div><div class="line"></div><div class="line">    <span class="built_in">error</span> = <span class="number">0</span>;</div><div class="line">    <span class="keyword">if</span> ((n == connect(sockfd, saptr, salen)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">goto</span> done;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">0</span> &amp;&amp; errno != EINPROGRESS)&#123;</div><div class="line">        <span class="keyword">return</span> (<span class="number">-1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/* Do whatever we want while the connect is taking place */</span></div><div class="line"></div><div class="line">    FD_ZERO(&amp;wset);</div><div class="line">    FD_SET(sockfd, &amp;wset);</div><div class="line">    tval.tv_sec = nsec;</div><div class="line">    tval.tv_usec = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> ((n = <span class="built_in">select</span>(sockfd+<span class="number">1</span>, <span class="built_in">NULL</span>, &amp;wset, </div><div class="line">                    <span class="built_in">NULL</span>, nsec ? &amp;tval : <span class="built_in">NULL</span>)) == <span class="number">0</span>) &#123;</div><div class="line">        <span class="built_in">close</span>(sockfd);  <span class="comment">/* timeout */</span></div><div class="line">        errno = ETIMEDOUT;</div><div class="line">        <span class="keyword">return</span> (<span class="number">-1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (FD_ISSET(sockfd, &amp;wset)) &#123;</div><div class="line">        len = sizeof(<span class="built_in">error</span>);</div><div class="line">        <span class="built_in">code</span> = getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &amp;<span class="built_in">error</span>, &amp;len);</div><div class="line">        <span class="comment">/* 如果发生错误，Solaris实现的getsockopt返回-1，</span></div><div class="line">         * 把pending error设置给errno. Berkeley实现的</div><div class="line">         * getsockopt返回0, pending error返回给error. </div><div class="line">         * 我们需要处理这两种情况 */</div><div class="line">        <span class="keyword">if</span> (<span class="built_in">code</span> &lt; <span class="number">0</span> || <span class="built_in">error</span>) &#123;</div><div class="line">            <span class="built_in">close</span>(sockfd);</div><div class="line">            <span class="keyword">if</span> (<span class="built_in">error</span>) </div><div class="line">                errno = <span class="built_in">error</span>;</div><div class="line">            <span class="keyword">return</span> (<span class="number">-1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        fprintf(stderr, <span class="string">"select error: sockfd not set"</span>);</div><div class="line">        exit(<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">done:</div><div class="line">    fcntl(sockfd, F_SETFL, flags);  <span class="comment">/* restore file status flags */</span></div><div class="line">    <span class="keyword">return</span> (<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>参考链接：<br><a href="http://kenby.iteye.com/blog/1183579" target="_blank" rel="external">非阻塞connect的实现</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/非阻塞I-O/">非阻塞I/O</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-IPD-process" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -298,11 +376,15 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#运算符"><span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串操作"><span class="toc-text">字符串操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引号"><span class="toc-text">引号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型转换"><span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拼接"><span class="toc-text">拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串复制"><span class="toc-text">字符串复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提前字符"><span class="toc-text">提前字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取子串"><span class="toc-text">提取子串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取长度"><span class="toc-text">获取长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分割与合并"><span class="toc-text">分割与合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他操作"><span class="toc-text">其他操作</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#语法"><span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#if-else"><span class="toc-text">if/else</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#while-语句"><span class="toc-text">while 语句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运算符"><span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串操作"><span class="toc-text">字符串操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引号"><span class="toc-text">引号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型转换"><span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拼接"><span class="toc-text">拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串复制"><span class="toc-text">字符串复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提前字符"><span class="toc-text">提前字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取子串"><span class="toc-text">提取子串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取长度"><span class="toc-text">获取长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分割与合并"><span class="toc-text">分割与合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他操作"><span class="toc-text">其他操作</span></a></li></ol></li></ol>
 </div>
 
          
-        <h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>+,-,<em>,/,％和编程语言一样，特殊的运算符有：//(整除)、\</em>*(求幂)</p>
+        <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="if-else"><a href="#if-else" class="headerlink" title="if/else"></a>if/else</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;</span>&gt;if <span class="symbol">condition:</span></div><div class="line"><span class="meta">&gt;&gt;</span>&gt;    do something</div><div class="line"><span class="meta">&gt;&gt;</span>&gt;elif <span class="symbol">condition:</span></div><div class="line"><span class="meta">&gt;&gt;</span>&gt;    do something</div><div class="line"><span class="meta">&gt;&gt;</span>&gt;<span class="symbol">else:</span></div><div class="line"><span class="meta">&gt;&gt;</span>&gt;     do something</div></pre></td></tr></table></figure>
+<p>其中，condtion为条件表达式，可以使用逻辑操作符进行判断。  </p>
+<h3 id="while-语句"><a href="#while-语句" class="headerlink" title="while 语句"></a>while 语句</h3><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> <span class="keyword">condition</span></div><div class="line">    <span class="keyword">do</span> something</div></pre></td></tr></table></figure>
+<p>python 中使用缩进来控制逻辑结构，所以while中有缩进的部分都是while的执行体  </p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>+,-,<em>,/,％和编程语言一样，特殊的运算符有：//(整除)、\</em>*(求幂)</p>
 <h2 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h2><h3 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h3><p>python中可以使用单引号及双引号来表示字符串；另外，可以使用’’’来创建带\n的字符串，如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>str=<span class="string">'''hello, </span></div><div class="line"><span class="meta">... </span>world!'''</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>print(str)</div><div class="line">hello, </div><div class="line">world!</div></pre></td></tr></table></figure>
 <h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>使用str()可以将其他Python数据类型转换为字符串</p>
@@ -919,91 +1001,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/设计模式/">设计模式</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-OpenSource/syslog" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/08/OpenSource/syslog/" class="article-date">
-  	<time datetime="2017-03-08T13:38:06.000Z" itemprop="datePublished">2017-03-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/08/OpenSource/syslog/">syslog日志</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#syslog日志格式"><span class="toc-text">syslog日志格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TLS编程"><span class="toc-text">TLS编程</span></a></li></ol>
-</div>
-
-         
-        <h2 id="syslog日志格式"><a href="#syslog日志格式" class="headerlink" title="syslog日志格式"></a>syslog日志格式</h2><p>header(信息长度mes_len) “<pri>SYSLOGPRO_VERSION TIMESTAMP FQDN/IP APP_NAME PROC_ID(pid) MSGID STRUCTURED_DATA BOM(\xEF\BB\xBF) MSG”  </pri></p>
-<ul>
-<li>header: “”里面的信息长度  </li>
-<li>PRI=logFacility * 8 + logLevel    </li>
-<li>SYSLOGPRO_VERSION: syslog protocol version(such as: 1)    </li>
-<li>TIMESTAMP:时间戳 如，2017-01-01T00:00:00.000000+02:00  (最多精确到us)  </li>
-<li>STRUCTURED_DATA:结构化数据  </li>
-<li>BOM:指出编码为UTF8  </li>
-<li>MSG:信息主体  </li>
-</ul>
-<h2 id="TLS编程"><a href="#TLS编程" class="headerlink" title="TLS编程"></a>TLS编程</h2><p>利用openssl库提供的ssl编程接口，可以容易实现TLS交互，其客户端编程步骤如下：  </p>
-<ol>
-<li>创建socket，调用connect连接服务端  </li>
-<li>调用SSL_CTX_new创建SSL context，调用SSL_set_verify设置证书校验回调函数，可以定制一些特殊的校验场景；SSL_set_cipher_list设置客户端的加密套件等操作  </li>
-<li>调用SSL_new创建SSL结构，调用SSL_set_fd,SSL_connect进行TLS握手，然后调用  SSL_set_connect_state 设置ssl工作在客户端模式  </li>
-<li>调用SSL_read/SSL_write进行读写操作  </li>
-<li>交互完成后，调用SSL_shutdown、SSL_free等进行清理工作  </li>
-</ol>
-<p>详细例子可以参考openssl中的apps/s_server.c s_client.c的实现  </p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog/">syslog</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
 	</div>
 
 
