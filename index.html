@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 20px;">TCP/IP</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a> <a href="/tags/［python］/" style="font-size: 10px;">［python］</a>
+						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 20px;">TCP/IP</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/compile-and-debug-tools/" style="font-size: 10px;">compile and debug tools</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a> <a href="/tags/［python］/" style="font-size: 10px;">［python］</a>
 					</div>
 				</section>
 				
@@ -195,6 +195,151 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-c_c++/virtual-table" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/06/c_c++/virtual-table/" class="article-date">
+  	<time datetime="2017-07-06T15:28:49.000Z" itemprop="datePublished">2017-07-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/06/c_c++/virtual-table/">虚函数表</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+         
+        <p>说到c++的运行时多态机制，就不能不提继承和virtual关键字，继承和virtual关键字使子类能够重载父类的方法，实现运行时多态。<br>运行时多态的背后机制就是虚函数表，下面进行简单的介绍：</p>
+<ol>
+<li>当一个类中的方法使用了virtual时，该类的对象就会额外多出一个虚函数表地址指针（该指针指向虚函数表，因此含有虚函数的对象会额外多出一个sizeof(指针)的空间）。</li>
+<li>虚函数表入口地址位于对象的起始地址处。</li>
+<li>虚函数表中存放了类的各个虚函数，虽然类一样，但是每个对象都保存了指向虚函数表地址的指针。</li>
+</ol>
+<p>下面看下代码 test.cpp：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">class</span> Empty&#123;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> Base&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func1</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Base func1"</span> &lt;&lt; <span class="built_in">endl</span>;&#125;</div><div class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">func2</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Base func2"</span> &lt;&lt; <span class="built_in">endl</span>;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(Empty) = "</span> &lt;&lt;  <span class="keyword">sizeof</span>(Empty) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(Base) = "</span> &lt;&lt;  <span class="keyword">sizeof</span>(Base) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(*Func)</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    Base object;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"address of vtable = "</span> &lt;&lt; (<span class="keyword">long</span> *)*(<span class="keyword">long</span>*)(&amp;object) &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">//虚函数表位于对象起始地址处</span></div><div class="line"></div><div class="line">    Func func1 = (Func)*(<span class="keyword">long</span> *)*(<span class="keyword">long</span>*)(&amp;object); <span class="comment">//虚函数表地址的第一个地址</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"address of first virtual function = "</span> &lt;&lt; &amp;func1 &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">//虚函数表位于对象起始地址处</span></div><div class="line">    func1();</div><div class="line">    </div><div class="line">    Func func2 = (Func)*((<span class="keyword">long</span> *)*(<span class="keyword">long</span>*)(&amp;object) + <span class="number">1</span>); <span class="comment">//虚函数地址偏移一位——long *指针的大小，32位系统为4字节，64位系统为8字节</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"address of second virtual function = "</span> &lt;&lt; &amp;func2 &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">//虚函数表位于对象起始地址处</span></div><div class="line">    func2();</div><div class="line"></div><div class="line">   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译：g++ test.cpp 然后./a.out运行之，结果如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">sizeof</span><span class="params">(Empty)</span></span> = <span class="number">1</span></div><div class="line"><span class="function"><span class="title">sizeof</span><span class="params">(Base)</span></span> = <span class="number">8</span></div><div class="line"><span class="selector-tag">address</span> of vtable = <span class="number">0</span>x1068f70d8</div><div class="line"><span class="selector-tag">address</span> of first virtual function = <span class="number">0</span>x7fff5930aa58</div><div class="line">Base func1</div><div class="line"><span class="selector-tag">address</span> of second virtual function = <span class="number">0</span>x7fff5930aa50</div><div class="line">Base func2</div></pre></td></tr></table></figure>
+<p>引申：<br>c++中的重载分为静态重载，即在编译期决定了使用的函数原型，这种重载一般通过函数参数的差异(可以是参数的个数或者参数类型)来实现，如：   </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;  </div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">add</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span></span>;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-编译工具链及程序调试工具" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/30/编译工具链及程序调试工具/" class="article-date">
+  	<time datetime="2017-06-30T14:44:22.000Z" itemprop="datePublished">2017-06-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/30/编译工具链及程序调试工具/">编译工具链及程序调试工具</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编译工具链"><span class="toc-text">编译工具链</span></a></li></ol>
+</div>
+
+         
+        <h2 id="编译工具链"><a href="#编译工具链" class="headerlink" title="编译工具链"></a>编译工具链</h2><p>编译:gcc g++  常用<br>链接：ld<br>去掉符号表： strip<br>导出：nm<br>strings<br>查看对应的地址：addr2line</p>
+<p>##调试工具   </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/compile-and-debug-tools/">compile and debug tools</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-tcp_ip/非阻塞I-O" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -815,198 +960,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-disscuss-group" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/15/disscuss-group/" class="article-date">
-  	<time datetime="2017-03-15T15:18:25.000Z" itemprop="datePublished">2017-03-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/15/disscuss-group/">社区</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#图灵社区"><span class="toc-text">图灵社区</span></a></li></ol>
-</div>
-
-         
-        <h2 id="图灵社区"><a href="#图灵社区" class="headerlink" title="图灵社区"></a>图灵社区</h2><p><a href="http://www.ituring.com.cn" target="_blank" rel="external">图灵社区</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/论坛/">论坛</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-design-pattern" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/13/design-pattern/" class="article-date">
-  	<time datetime="2017-03-13T14:58:37.000Z" itemprop="datePublished">2017-03-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/13/design-pattern/">（转）GoF的23个经典设计模式</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建型"><span class="toc-text">创建型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构型"><span class="toc-text">结构型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#行为型"><span class="toc-text">行为型</span></a></li></ol>
-</div>
-
-         
-        <p><img src="/img/gof23_dp.png" alt="img"></p>
-<p>以文本和思维导图的方式简明扼要的介绍了GoF的23个经典设计模式，可当成学习设计模式的一个小手册，偶尔看一下，说不定会对大师的思想精髓有新的领悟。</p>
-<p>GoF(“四人帮”，又称Gang of Four，即Erich Gamma, Richard Helm, Ralph Johnson &amp; John Vlissides)</p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>创建型模式(5个)</strong>：单例模式、原型模式、建造者模式、工厂模式、抽象工厂模式。</p>
-<p><strong>结构型模式(7个)</strong>：桥接模式、外观模式、组合模式、装饰模式、适配器模式、代理模式、享元模式。 </p>
-<p><strong>行为型模式(11个)</strong>：迭代器模式、解释器模式、观察者模式、中介者模式、访问者模式、备忘录模式、状态模式、策略模式、模版方法模、命令模式、职责链模式式。</p>
-<h2 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h2><ul>
-<li><p><strong>Singleton（单例模式）</strong>：保证一个类仅有一个实例，并提供一个访问它的全局访问点。 </p>
-</li>
-<li><p><strong>Prototype（原型模式）</strong>：用原型实例指定创建对象的种类，并且通过拷贝这个原型来创建新的对象。 </p>
-</li>
-<li><p><strong>Builder（建造者模式）</strong>：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。 </p>
-</li>
-<li><p><strong>Factory Method(工厂模式)</strong>：定义一个用于创建对象的接口，让子类决定将哪一个类实例化。Factory Method使一个类的实例化延迟到其子类。 </p>
-</li>
-<li><p><strong>Abstract Factory（抽象工厂模式）</strong>：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</p>
-</li>
-</ul>
-<h2 id="结构型"><a href="#结构型" class="headerlink" title="结构型"></a>结构型</h2><ul>
-<li><p><strong>Bridge（桥接模式）</strong>：将抽象部分与它的实现部分分离，使它们都可以独立地变化。 </p>
-</li>
-<li><p><strong>Facade（外观模式）</strong>：为子系统中的一组接口提供一个一致的界面， Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 </p>
-</li>
-<li><p><strong>Composite(组合模式)</strong>：将对象组合成树形结构以表示“部分-整体”的层次结构。它使得客户对单个对象和复合对象的使用具有一致性。 </p>
-</li>
-<li><p><strong>Decorator(装饰模式)</strong>：动态地给一个对象添加一些额外的职责。就扩展功能而言， 它比生成子类方式更为灵活。 </p>
-</li>
-<li><p><strong>Adapter（适配器模式）</strong>：将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。 </p>
-</li>
-<li><p><strong>Proxy（代理模式）</strong>：为其他对象提供一个代理以控制对这个对象的访问。 </p>
-</li>
-<li><p><strong>Flyweight（享元模式）</strong>：运用共享技术有效地支持大量细粒度的对象。</p>
-</li>
-</ul>
-<h2 id="行为型"><a href="#行为型" class="headerlink" title="行为型"></a>行为型</h2><ul>
-<li><p><strong>Iterator（迭代器模式）</strong>：提供一种方法顺序访问一个聚合对象中各个元素, 而又不需暴露该对象的内部表示。 </p>
-</li>
-<li><p><strong>Interpreter（解析器模式）</strong>：给定一个语言, 定义它的文法的一种表示，并定义一个解释器, 该解释器使用该表示来解释语言中的句子。 </p>
-</li>
-<li><p><strong>Observer（观察者模式）</strong>：定义对象间的一种一对多的依赖关系,以便当一个对象的状态发生改变时,所有依赖于它的对象都得到通知并自动刷新。 </p>
-</li>
-<li><p><strong>Mediator（中介者模式）</strong>：用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。 </p>
-</li>
-<li><p><strong>Visitor（访问者模式）</strong>：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。 </p>
-</li>
-<li><p><strong>Memento（备忘录模式）</strong>：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到保存的状态。 </p>
-</li>
-<li><p><strong>State（状态模式）</strong>：允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它所属的类。 </p>
-</li>
-<li><p><strong>Strategy（策略模式）</strong>：定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换。本模式使得算法的变化可独立于使用它的客户。 </p>
-</li>
-<li><p><strong>Template Method（模板方法模式）</strong>：定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。Template Method 使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。 </p>
-</li>
-<li><p><strong>Command（命令模式）</strong>：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可取消的操作。 </p>
-</li>
-<li><p><strong>Chain of Responsibility（职责链模式）</strong>：为解除请求的发送者和接收者之间耦合，而使多个对象都有机会处理这个请求。 将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它。</p>
-</li>
-</ul>
-<p>转载链接：<a href="http://www.cnblogs.com/springworks/p/3459458.html" target="_blank" rel="external">GoF的23个经典设计模式</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/design-pattern/">design pattern</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/设计模式/">设计模式</a>
 	</div>
 
 
