@@ -301,12 +301,36 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编译工具链"><span class="toc-text">编译工具链</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编译工具链"><span class="toc-text">编译工具链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gdb"><span class="toc-text">gdb</span></a></li></ol></li></ol>
 </div>
 
          
-        <h2 id="编译工具链"><a href="#编译工具链" class="headerlink" title="编译工具链"></a>编译工具链</h2><p>编译:gcc g++  常用<br>链接：ld<br>去掉符号表： strip<br>导出：nm<br>strings<br>查看对应的地址：addr2line</p>
-<p>##调试工具   </p>
+        <h2 id="编译工具链"><a href="#编译工具链" class="headerlink" title="编译工具链"></a>编译工具链</h2><ul>
+<li>编译:gcc g++  常用  </li>
+<li>链接：ld  </li>
+<li><p>创建，修改和从归档文件中提取文件：ar<br>  1) 打包.o文件生成静态库：ar -crv libmylib.a *[obj1.o obj2.o]<br>  2) 查看静态库中的符号 ar -t libmylib.a<br>  3) 提取静态库中的文件 ar -x libmylib.a [file]   (一般先用-t 选项看下要提取的文件名，然后进行提取)  </p>
+</li>
+<li><p>去掉符号表(debug info)： strip， 去除后可以通过file命令查看，其用法如下：<br><img src="/img/strip.png" alt="img"><br>想进一步看下strip做了什么，我们可以通过readelf -S file 查看下section head  </p>
+</li>
+<li>查看符号表：nm</li>
+<li>查看文件中的可打印字符串：strings </li>
+<li>查看堆栈地址对应的代码行：addr2line</li>
+<li>查看目标文件的信息：objdump</li>
+<li>拷贝和加工目标文件：objcopy</li>
+<li>查看ELF文件的信息：readelf —— 有点类似objdump，只适用于Executable and Linkable Format（可执行与可链接格式）</li>
+</ul>
+<p>正常情况下，使用前三个工具就可以工程编译了</p>
+<p>##调试工具  </p>
+<h3 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h3><p>这个工具就不介绍了，只言片语扯不清，可以参考<a href="http://blog.csdn.net/haoel/article/details/2879" target="_blank" rel="external">用GDB调试程序 序列文章</a>  </p>
+<p>###addr2line<br>当程序出现core dump时，经常会打印出堆栈地址，这时侯可以根据该堆栈地址来查找程序中对应的出错行，使用方式如下：  </p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">addr2line </span>-e filename <span class="keyword">addr</span></div></pre></td></tr></table></figure>
+<p>其中，filename为堆栈对应的库或者可执行文件（需要式no stripped形式的，否则结果会出现??), addr 为堆栈地址  </p>
+<p>###c++filt<br>为了支持函数重载，c++引入了name mangle机制，将同名函数名称进行改编，来区分不同的函数。以c++中的find 函数来说，其存在多种重载形式，我们可以用下面的命令查看：  </p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">readelf -s /usr/lib64/libstdc++.<span class="keyword">so</span>.<span class="number">6</span> |<span class="keyword">grep</span> findE</div></pre></td></tr></table></figure>
+<p>其结果如下：<br><img src="/img/c++filt1.png" alt="img1">  </p>
+<p>然后用c++filt工具可以查看其对应的具体形式：  </p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">readelf</span> -s /usr/lib64/libstdc++.so.<span class="number">6</span> |grep findE ｜ awk <span class="string">'&#123;print <span class="variable">$NF</span>&#125;'</span> |sed <span class="string">'s/@@.*$//g'</span> | xargs c++filt</div></pre></td></tr></table></figure>
+<p>得到结果如下：<br><img src="/img/c++filt2.png" alt="img2">  </p>
 
       
     </div>
