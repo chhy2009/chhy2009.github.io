@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/img/strip.png">
 <meta property="og:image" content="http://yoursite.com/img/c++filt1.png">
 <meta property="og:image" content="http://yoursite.com/img/c++filt2.png">
-<meta property="og:updated_time" content="2017-07-07T15:08:58.000Z">
+<meta property="og:updated_time" content="2017-07-07T15:10:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译工具链及程序调试工具">
 <meta name="twitter:description" content="编译工具链
@@ -251,7 +251,7 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编译工具链"><span class="toc-text">编译工具链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gdb"><span class="toc-text">gdb</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编译工具链"><span class="toc-text">编译工具链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试工具"><span class="toc-text">调试工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gdb"><span class="toc-text">gdb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#addr2line"><span class="toc-text">addr2line</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-filt"><span class="toc-text">c++filt</span></a></li></ol></li></ol>
 </div>
 
          
@@ -270,14 +270,11 @@
 <li>查看ELF文件的信息：readelf —— 有点类似objdump，只适用于Executable and Linkable Format（可执行与可链接格式）</li>
 </ul>
 <p>正常情况下，使用前三个工具就可以工程编译了</p>
-<p>##调试工具  </p>
-<h3 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h3><p>这个工具就不介绍了，只言片语扯不清，可以参考<a href="http://blog.csdn.net/haoel/article/details/2879" target="_blank" rel="external">用GDB调试程序 序列文章</a>  </p>
-<p>###addr2line </p>
-<p>当程序出现core dump时，经常会打印出堆栈地址，这时侯可以根据该堆栈地址来查找程序中对应的出错行，使用方式如下：  </p>
+<h2 id="调试工具"><a href="#调试工具" class="headerlink" title="调试工具"></a>调试工具</h2><h3 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h3><p>这个工具就不介绍了，只言片语扯不清，可以参考<a href="http://blog.csdn.net/haoel/article/details/2879" target="_blank" rel="external">用GDB调试程序 序列文章</a>  </p>
+<h3 id="addr2line"><a href="#addr2line" class="headerlink" title="addr2line"></a>addr2line</h3><p>当程序出现core dump时，经常会打印出堆栈地址，这时侯可以根据该堆栈地址来查找程序中对应的出错行，使用方式如下：  </p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">addr2line </span>-e filename <span class="keyword">addr</span></div></pre></td></tr></table></figure>
 <p>其中，filename为堆栈对应的库或者可执行文件（需要式no stripped形式的，否则结果会出现??), addr 为堆栈地址  </p>
-<p>###c++filt</p>
-<p>为了支持函数重载，c++引入了name mangle机制，将同名函数名称进行改编，来区分不同的函数。以c++中的find 函数来说，其存在多种重载形式，我们可以用下面的命令查看：  </p>
+<h3 id="c-filt"><a href="#c-filt" class="headerlink" title="c++filt"></a>c++filt</h3><p>为了支持函数重载，c++引入了name mangle机制，将同名函数名称进行改编，来区分不同的函数。以c++中的find 函数来说，其存在多种重载形式，我们可以用下面的命令查看：  </p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">readelf -s /usr/lib64/libstdc++.<span class="keyword">so</span>.<span class="number">6</span> |<span class="keyword">grep</span> findE</div></pre></td></tr></table></figure>
 <p>其结果如下：<br><img src="/img/c++filt1.png" alt="img1">  </p>
 <p>然后用c++filt工具可以查看其对应的具体形式：  </p>
