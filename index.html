@@ -118,7 +118,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 20px;">TCP/IP</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/compile-and-debug-tools/" style="font-size: 10px;">compile and debug tools</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/openssl/" style="font-size: 10px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a> <a href="/tags/［python］/" style="font-size: 10px;">［python］</a>
+						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 20px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 20px;">TCP/IP</a> <a href="/tags/awk/" style="font-size: 10px;">awk</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/compile-and-debug-tools/" style="font-size: 10px;">compile and debug tools</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/openssl/" style="font-size: 15px;">openssl</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/redis/" style="font-size: 20px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a> <a href="/tags/［googletest-unit-test］/" style="font-size: 10px;">［googletest, unit test］</a> <a href="/tags/［python］/" style="font-size: 10px;">［python］</a>
 					</div>
 				</section>
 				
@@ -195,6 +195,98 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-awk" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/08/awk/" class="article-date">
+  	<time datetime="2017-07-08T13:27:22.000Z" itemprop="datePublished">2017-07-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/08/awk/">awk简介</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#awk程序结构"><span class="toc-text">awk程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#awk编程"><span class="toc-text">awk编程</span></a></li></ol></li></ol>
+</div>
+
+         
+        <p>于sed工具类似，awk是一种优秀的行文本处理工具。其具有内置的变量和函数，可以进行正则表达式的匹配，流程控制，数学运算。事实上，可以说awk是一种编程语言。</p>
+<h2 id="awk程序结构"><a href="#awk程序结构" class="headerlink" title="awk程序结构"></a>awk程序结构</h2><p>任何awk语句都由模式(pattern)及动作(action)组成。其中模式是一组用于测试输入行是否需要执行动作的规则，动作则是找到匹配内容后的执行动作（包含语句、函数和表达式的执行过程）。调用方式<br>awk [-F  field-separator] ‘pattern{action}’  filename<br>其中，pattern和action都可以省略不写。无pattern默认匹配全部的记录；而无action则是打印原始记录。简单的AWK表达式之外，pattern可以是BEGIN或END；这两种条件对应的action分别是读取所有的记录之前和之后。  filename可以用｜输入替代。</p>
+<p><strong>几个概念</strong></p>
+<ol>
+<li>BEGIN 及 END 语句<br>awk定义了两个特殊字段BEGIN和END，分别在程序开始前和结束前执行，相当于类的构造及析构函数。<br>awk的执行过程： 执行BEGIN语句，然后按行处理输入文本，最后执行END语句。  </li>
+<li>记录和域<br>awk 认为纪录是结构化的，awk将输入文件按行处理，行中每个字符串定义为域，域中用分隔符分隔(通常以空格或, :等分隔)，如：  </li>
+</ol>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> bin</div><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> include</div></pre></td></tr></table></figure>
+<p>上面的输入有2行，每行有9个域<br>域在awk中用$N表示，其中N＝1、2…, $0表示整条纪录</p>
+<h3 id="awk编程"><a href="#awk编程" class="headerlink" title="awk编程"></a>awk编程</h3><ul>
+<li>awk 内置变量<br>AWK的内建变量包括域变量，例如$1, $2, $3，以及$0。这些变量给出了记录中域的内容。 内建变量也包括一些其他变量：</li>
+</ul>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> NR：已输入记录的条数。</span></div><div class="line">-<span class="ruby"> NF：当前记录中域的个数。记录中最后一个域可以以$NF的方式引用。</span></div><div class="line">-<span class="ruby"> FILENAME：当前输入文件的文件名。</span></div><div class="line">-<span class="ruby"> FS：“域分隔符”，用于将输入记录分割成域。其默认值为“空白字符”，即空格和制表符。FS可以替换为其它字符，从而改变域分隔符。</span></div><div class="line">-<span class="ruby"> RS：当前的“记录分隔符”。默认状态下，输入的每行都被作为一个记录，因此默认记录分隔符是换行符。</span></div><div class="line">-<span class="ruby"> OFS：“输出域分隔符”，即分隔print命令的参数的符号。其默认值为空格。</span></div><div class="line">-<span class="ruby"> ORS：“输出记录分隔符”，即每个print命令之间的符号。其默认值为换行符。</span></div><div class="line">-<span class="ruby"> OFMT：“输出数字格式”（Format <span class="keyword">for</span> numeric output），其默认值为<span class="string">"%.6g"</span>。</span></div></pre></td></tr></table></figure>
+<ul>
+<li>函数<br>awk内置和很多函数，当然也可以自定义函数，示例如下：</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">awk '</div><div class="line"><span class="keyword">function</span> <span class="title">add_three</span> (number) &#123;</div><div class="line">  <span class="keyword">return</span> <span class="type">number</span> + <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">BEGIN</span> &#123;result=add_three(<span class="number">1</span>); print result&#125;</div><div class="line">'</div><div class="line">```  </div><div class="line">输出<span class="number">4</span></div><div class="line"></div><div class="line">- awk脚本</div><div class="line">可以使用awk脚本的方式来执行awk命令，awk脚本模版如下，与命令行方式类似：</div></pre></td></tr></table></figure>
+<p>  #! /bin/awk -f<br>  BEGIN{}<br>  {}<br>  END{}<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> 匹配  </span></div><div class="line">可以使用</div></pre></td></tr></table></figure></p>
+<p>awk ‘BEGIN {FS=”,”} {if($1~/xxx/) print $2 &gt;&gt;data.txt}’ filename<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">来提取匹配的域，其中xxx为匹配的正则表达式    </div><div class="line"></div><div class="line">- 格式化</div><div class="line">可以使用<span class="built_in">printf</span>来代替<span class="keyword">print</span>，输出格式化的文本。格式符和<span class="keyword">c</span>语言类似，常用的为％d，％s，</div><div class="line"></div><div class="line">- 循环及条件语句</div><div class="line">awk中的循环语句同样借鉴于C语言，支持<span class="keyword">while</span>、<span class="keyword">do</span>/<span class="keyword">while</span>、<span class="keyword">for</span>、<span class="keyword">break</span>、<span class="keyword">continue</span>，这些关键字的语义和C语言中的语义完全相同。</div><div class="line"></div><div class="line">条件语句为<span class="keyword">if</span>/<span class="keyword">else</span>，与C语言也相同  </div><div class="line">## awk中使用<span class="keyword">shell</span>命令</div><div class="line"></div><div class="line">### 通过<span class="built_in">getline</span>函数，获取命令执行结果</div><div class="line"></div><div class="line">通过在awk内使用管道,可以把<span class="keyword">shell</span>命令的输出传送给awk</div></pre></td></tr></table></figure></p>
+<p>$ awk ‘BEGIN{ “date” | getline date; print date; }’<br>Sat Jul  8 22:04:20 HKT 2017<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">如果不使用管道，则<span class="built_in">getline</span>默认从标准输入读取输入字符，这时不能当命令执行；  </div><div class="line">可以使用&lt;，让<span class="built_in">getline</span>从文件中读取内容</div><div class="line"></div><div class="line">### 使用awk内置<span class="built_in">system</span>函数</div></pre></td></tr></table></figure></p>
+<p>awk ‘BEGIN{system(“ls -l”)}’<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">执行结果如下：</div></pre></td></tr></table></figure></p>
+<p>total 16<br>lrwxr-xr-x     1 root         wheel      8 Jun 26  2016 X11 -&gt; /opt/X11<br>lrwxr-xr-x     1 root         wheel      8 Jun 26  2016 X11R6 -&gt; /opt/X11<br>drwxr-xr-x     3 root         wheel    102 Feb 27  2016 adic<br>drwxr-xr-x  1055 root         wheel  35870 Jun 19  2016 bin<br>…<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">搭配<span class="built_in">getline</span>使用，则为：</div></pre></td></tr></table></figure></p>
+<p>awk ‘BEGIN{while(system(“ls -l”) | getline line) {print line}}’<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">### 使用awk <span class="keyword">print</span>出要执行的命令，然后交给<span class="regexp">/bin/</span>bash处理</div></pre></td></tr></table></figure></p>
+<p>awk ‘BEGIN{print “ls -l”|”bash”}’<br>```</p>
+<p>以下是一篇比较好的文章，可供参考：<br><a href="http://www.gnu.org/software/gawk/manual/gawk.html" target="_blank" rel="external">linux awk命令详解</a><br><a href="http://www.gnu.org/software/gawk/manual/gawk.html" target="_blank" rel="external">awk官方文档</a></p>
+<p>注意：<br>可以将awk命令写在文件中，然后用awk -f awk-script-file filename 方式执行，其中脚本中的#!/bin/sh改为#!/bin/awk<br>当变量不从管道输入awk时，awk无法引用已经定义的变量</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/awk/">awk</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-c_c++/virtual-table" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -902,82 +994,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/［googletest-unit-test］/">［googletest, unit test］</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-database/mysql/high-performance-sql-md" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/12/database/mysql/high-performance-sql-md/" class="article-date">
-  	<time datetime="2017-04-12T00:22:18.000Z" itemprop="datePublished">2017-04-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/12/database/mysql/high-performance-sql-md/">高性能mysql</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库结构图"><span class="toc-text">数据库结构图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引"><span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为排序使用索引扫描"><span class="toc-text">为排序使用索引扫描</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询优化"><span class="toc-text">查询优化</span></a></li></ol>
-</div>
-
-         
-        <h2 id="数据库结构图"><a href="#数据库结构图" class="headerlink" title="数据库结构图"></a>数据库结构图</h2><p>存储引擎层</p>
-<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>B-Tree索引<br>hash索引<br>innodDB中的自适应hash索引<br>使用where语句手动定义hash函数，增加查找速度，例子如url查找</p>
-<p>select id from url where url=”www.mysqlcom” and url_crc=CRC32(“<a href="http://www.mysql.com" target="_blank" rel="external">http://www.mysql.com</a>“);</p>
-<p>这种方法的一个缺点就是要维护哈希值，可以使用触发器进行维护：<br>create table pseudohash(<br>    id int unsigned NOT NULL auto_increment,<br>    url varchar(255) NOT NULL,<br>    url_crc int unsigned NO NULL DEFAULT 0,<br>    primary key(id)<br>);  </p>
-<p>创建触发器：</p>
-<p>可以使用的伪hash函数如下：<br>CRC32  right(MD5(),n)  left(MD5(), n)<br>像md5,sha1之类的函数返回的值太长，可以取其结果的部分值进行说明  </p>
-<p>sql 分隔符，delimiter关键字？</p>
-<h3 id="为排序使用索引扫描"><a href="#为排序使用索引扫描" class="headerlink" title="为排序使用索引扫描"></a>为排序使用索引扫描</h3><p>按照索引对结果进行排序，只有当索引的顺序和order by子句中的顺序完全一致，并且所有列的方向（升序或降序）一样才可以。如果查询联接了多个表，只有在order by子句的所有列引用的是第一个表才可以。查找查询中的order by子句也有同样的局限：它要使用索引的最左前缀，在其他所有情况下，mysql使用文件排序。</p>
-<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><p>group by：如果运行了很多很长的聚合查询以生成汇总，那么磁盘使用会因支持group by查询的覆盖索引而得益。<br>的使用</p>
-<p>to be continue</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 	</div>
 
       
