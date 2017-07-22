@@ -4,24 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>一个工程的Makefile模版 | chenhy&#39;s blog</title>
+  <title>netlink详解 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：
-Makefile-template
-工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到https://github.co">
+  <meta name="description" content="netlink机制参考链接：Communicating between the kernel and user-space in Linux using Netlink Sockets: Source code reference
+内核通信之Netlink源码分析-用户内核通信原理
+自定义的netlink例子代码参考：How to use netlink socket to communicate">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个工程的Makefile模版">
-<meta property="og:url" content="http://yoursite.com/2016/10/02/Makefile/index.html">
+<meta property="og:title" content="netlink详解">
+<meta property="og:url" content="http://yoursite.com/2017/07/21/netlink/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：
-Makefile-template
-工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到https://github.co">
-<meta property="og:updated_time" content="2017-07-08T05:25:14.000Z">
+<meta property="og:description" content="netlink机制参考链接：Communicating between the kernel and user-space in Linux using Netlink Sockets: Source code reference
+内核通信之Netlink源码分析-用户内核通信原理
+自定义的netlink例子代码参考：How to use netlink socket to communicate">
+<meta property="og:updated_time" content="2017-07-21T15:08:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个工程的Makefile模版">
-<meta name="twitter:description" content="Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：
-Makefile-template
-工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到https://github.co">
+<meta name="twitter:title" content="netlink详解">
+<meta name="twitter:description" content="netlink机制参考链接：Communicating between the kernel and user-space in Linux using Netlink Sockets: Source code reference
+内核通信之Netlink源码分析-用户内核通信原理
+自定义的netlink例子代码参考：How to use netlink socket to communicate">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -201,11 +201,11 @@ Makefile-template
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Makefile" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-netlink" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/02/Makefile/" class="article-date">
-  	<time datetime="2016-10-02T04:48:53.000Z" itemprop="datePublished">2016-10-02</time>
+      <a href="/2017/07/21/netlink/" class="article-date">
+  	<time datetime="2017-07-21T14:38:39.000Z" itemprop="datePublished">2017-07-21</time>
 </a>
     </div>
   
@@ -218,7 +218,7 @@ Makefile-template
         
   
     <h1 class="article-title" itemprop="name">
-      一个工程的Makefile模版
+      netlink详解
     </h1>
   
 
@@ -226,10 +226,6 @@ Makefile-template
       
       <div class="article-info article-info-post">
         
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li></ul>
-	</div>
-
         
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>
@@ -241,12 +237,19 @@ Makefile-template
       
     
     <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#netlink机制"><span class="toc-text">netlink机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义的netlink例子"><span class="toc-text">自定义的netlink例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用NETLINK-GENERIC"><span class="toc-text">使用NETLINK_GENERIC</span></a></li></ol>
+</div>
+
          
-        <p>Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：</p>
-<p><a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">Makefile-template</a></p>
-<p>工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到<a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">https://github.com/chhy2009/Makefile-template.git</a> 下载。</p>
-<p>make install 时指定安装路径：<br><code>export DESTDIR=install_dir</code> , 然后 <code>make install</code>  </p>
-<p>make时存在库依赖问题，解决方法如下：<br><code>export PKG_CONFIG_PATH=/.../software_name/lib/pkgconfig/</code><br>即设置被依赖库路径到PKG_CONFIG_PATH变量  </p>
+        <h2 id="netlink机制"><a href="#netlink机制" class="headerlink" title="netlink机制"></a>netlink机制</h2><p>参考链接：<br><a href="http://people.netfilter.org/pablo/netlink/netlink-libmnl-manual.pdf" target="_blank" rel="external">Communicating between the kernel and user-space in Linux using Netlink Sockets: Source code reference</a></p>
+<p><a href="http://www.cnblogs.com/ck1020/p/7120457.html" target="_blank" rel="external">内核通信之Netlink源码分析-用户内核通信原理</a></p>
+<h2 id="自定义的netlink例子"><a href="#自定义的netlink例子" class="headerlink" title="自定义的netlink例子"></a>自定义的netlink例子</h2><p>代码参考：<br><a href="https://stackoverflow.com/questions/3299386/how-to-use-netlink-socket-to-communicate-with-a-kernel-module" target="_blank" rel="external">How to use netlink socket to communicate with a kernel module?
+</a></p>
+<h2 id="使用NETLINK-GENERIC"><a href="#使用NETLINK-GENERIC" class="headerlink" title="使用NETLINK_GENERIC"></a>使用NETLINK_GENERIC</h2><p>参考链接：<br><a href="http://www.xuebuyuan.com/1769856.html" target="_blank" rel="external">Generic Netlink详解</a></p>
+<p>更多学习资料参考百度文库： Netlink详解</p>
 
       
     </div>
@@ -360,18 +363,18 @@ Makefile-template
     
 <nav id="article-nav">
   
-    <a href="/2016/12/18/OpenSource/openssl-cmd/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/07/22/python/python_get_websource/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          openssl命令
+          使用python抓取网页
         
       </div>
     </a>
   
   
-    <a href="/2016/10/02/network/network_command/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">网络相关命令汇总</div>
+    <a href="/2017/07/16/algorithm/quicksort/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">各个版本的快速排序源码</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -417,7 +420,7 @@ Makefile-template
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Makefile" data-title="一个工程的Makefile模版" data-url="http://yoursite.com/2016/10/02/Makefile/"></div>
+	<div class="ds-thread" data-thread-key="netlink" data-title="netlink详解" data-url="http://yoursite.com/2017/07/21/netlink/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

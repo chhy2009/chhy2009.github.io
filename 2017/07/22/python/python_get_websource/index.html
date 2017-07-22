@@ -4,24 +4,36 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>一个工程的Makefile模版 | chenhy&#39;s blog</title>
+  <title>使用python抓取网页 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：
-Makefile-template
-工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到https://github.co">
+  <meta name="description" content="面向过程编程方式
+
+12345678#get_page.pyimport jsonfrom urllib import urlopenurl=&quot;https://chhy2009.github.io&quot;response=urlopen(url)contents=response.read()text=contents.decode(&apos;utf8&apos;)print(text)
+
+面向对象方式
+
+123456">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个工程的Makefile模版">
-<meta property="og:url" content="http://yoursite.com/2016/10/02/Makefile/index.html">
+<meta property="og:title" content="使用python抓取网页">
+<meta property="og:url" content="http://yoursite.com/2017/07/22/python/python_get_websource/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：
-Makefile-template
-工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到https://github.co">
-<meta property="og:updated_time" content="2017-07-08T05:25:14.000Z">
+<meta property="og:description" content="面向过程编程方式
+
+12345678#get_page.pyimport jsonfrom urllib import urlopenurl=&quot;https://chhy2009.github.io&quot;response=urlopen(url)contents=response.read()text=contents.decode(&apos;utf8&apos;)print(text)
+
+面向对象方式
+
+123456">
+<meta property="og:updated_time" content="2017-07-22T15:13:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个工程的Makefile模版">
-<meta name="twitter:description" content="Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：
-Makefile-template
-工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到https://github.co">
+<meta name="twitter:title" content="使用python抓取网页">
+<meta name="twitter:description" content="面向过程编程方式
+
+12345678#get_page.pyimport jsonfrom urllib import urlopenurl=&quot;https://chhy2009.github.io&quot;response=urlopen(url)contents=response.read()text=contents.decode(&apos;utf8&apos;)print(text)
+
+面向对象方式
+
+123456">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -201,11 +213,11 @@ Makefile-template
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Makefile" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-python/python_get_websource" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/02/Makefile/" class="article-date">
-  	<time datetime="2016-10-02T04:48:53.000Z" itemprop="datePublished">2016-10-02</time>
+      <a href="/2017/07/22/python/python_get_websource/" class="article-date">
+  	<time datetime="2017-07-22T09:26:44.000Z" itemprop="datePublished">2017-07-22</time>
 </a>
     </div>
   
@@ -218,7 +230,7 @@ Makefile-template
         
   
     <h1 class="article-title" itemprop="name">
-      一个工程的Makefile模版
+      使用python抓取网页
     </h1>
   
 
@@ -226,10 +238,6 @@ Makefile-template
       
       <div class="article-info article-info-post">
         
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li></ul>
-	</div>
-
         
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>
@@ -242,11 +250,18 @@ Makefile-template
     
     <div class="article-entry" itemprop="articleBody">
          
-        <p>Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：</p>
-<p><a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">Makefile-template</a></p>
-<p>工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到<a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">https://github.com/chhy2009/Makefile-template.git</a> 下载。</p>
-<p>make install 时指定安装路径：<br><code>export DESTDIR=install_dir</code> , 然后 <code>make install</code>  </p>
-<p>make时存在库依赖问题，解决方法如下：<br><code>export PKG_CONFIG_PATH=/.../software_name/lib/pkgconfig/</code><br>即设置被依赖库路径到PKG_CONFIG_PATH变量  </p>
+        <ol>
+<li>面向过程编程方式</li>
+</ol>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#get_page.py</div><div class="line"><span class="keyword">import</span> json</div><div class="line">from urllib <span class="keyword">import</span> urlopen</div><div class="line">url=<span class="string">"https://chhy2009.github.io"</span></div><div class="line">response=urlopen(url)</div><div class="line"><span class="built_in">contents</span>=response.read()</div><div class="line"><span class="keyword">text</span>=<span class="built_in">contents</span>.decode(<span class="string">'utf8'</span>)</div><div class="line">print(<span class="keyword">text</span>)</div></pre></td></tr></table></figure>
+<ol>
+<li>面向对象方式</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">url=<span class="string">"https://chhy2009.github.io"</span></div><div class="line">response=requests.get(url)</div><div class="line"><span class="function"><span class="title">print</span><span class="params">(response.status_code)</span></span></div><div class="line"><span class="function"><span class="title">print</span><span class="params">(response.apparent_encoding)</span></span></div><div class="line">response.encoding=<span class="string">'utf-8'</span> #可以使用这种方式改变编码</div><div class="line"><span class="function"><span class="title">print</span><span class="params">(response.text)</span></span></div></pre></td></tr></table></figure>
+<p>上述为get方式，另外，requests也post方式。支持get, posts, put, delete, head, options等请求类型。</p>
+<p>传递url参数<br>参数如果需要传递参数的话需要使用post方式，相对安全点，使用方式如下(get方式也一样)：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">payload</span> = &#123;<span class="string">'key1'</span>: <span class="string">'value1'</span>, <span class="string">'key2'</span>: <span class="string">'value2'</span>&#125;</div><div class="line"><span class="attr">response</span>=requests.post(url, payload)</div></pre></td></tr></table></figure>
+<p>request库链接：<a href="http://docs.python-requests.org/zh_CN/latest/" target="_blank" rel="external">Requests: 让 HTTP 服务人类</a></p>
 
       
     </div>
@@ -360,18 +375,9 @@ Makefile-template
     
 <nav id="article-nav">
   
-    <a href="/2016/12/18/OpenSource/openssl-cmd/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          openssl命令
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/10/02/network/network_command/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">网络相关命令汇总</div>
+    <a href="/2017/07/21/netlink/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">netlink详解</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -417,7 +423,7 @@ Makefile-template
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Makefile" data-title="一个工程的Makefile模版" data-url="http://yoursite.com/2016/10/02/Makefile/"></div>
+	<div class="ds-thread" data-thread-key="python/python_get_websource" data-title="使用python抓取网页" data-url="http://yoursite.com/2017/07/22/python/python_get_websource/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
