@@ -196,6 +196,186 @@
 
       <div class="body-wrap">
   
+    <article id="post-database/mysql/high-performance-sql-md" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/12/database/mysql/high-performance-sql-md/" class="article-date">
+  	<time datetime="2017-04-12T00:22:18.000Z" itemprop="datePublished">2017-04-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/12/database/mysql/high-performance-sql-md/">高性能mysql</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库结构图"><span class="toc-text">数据库结构图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引"><span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为排序使用索引扫描"><span class="toc-text">为排序使用索引扫描</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询优化"><span class="toc-text">查询优化</span></a></li></ol>
+</div>
+
+         
+        <h2 id="数据库结构图"><a href="#数据库结构图" class="headerlink" title="数据库结构图"></a>数据库结构图</h2><p>存储引擎层</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>B-Tree索引<br>hash索引<br>innodDB中的自适应hash索引<br>使用where语句手动定义hash函数，增加查找速度，例子如url查找</p>
+<p>select id from url where url=”www.mysqlcom” and url_crc=CRC32(“<a href="http://www.mysql.com" target="_blank" rel="external">http://www.mysql.com</a>“);</p>
+<p>这种方法的一个缺点就是要维护哈希值，可以使用触发器进行维护：<br>create table pseudohash(<br>    id int unsigned NOT NULL auto_increment,<br>    url varchar(255) NOT NULL,<br>    url_crc int unsigned NO NULL DEFAULT 0,<br>    primary key(id)<br>);  </p>
+<p>创建触发器：</p>
+<p>可以使用的伪hash函数如下：<br>CRC32  right(MD5(),n)  left(MD5(), n)<br>像md5,sha1之类的函数返回的值太长，可以取其结果的部分值进行说明  </p>
+<p>sql 分隔符，delimiter关键字？</p>
+<h3 id="为排序使用索引扫描"><a href="#为排序使用索引扫描" class="headerlink" title="为排序使用索引扫描"></a>为排序使用索引扫描</h3><p>按照索引对结果进行排序，只有当索引的顺序和order by子句中的顺序完全一致，并且所有列的方向（升序或降序）一样才可以。如果查询联接了多个表，只有在order by子句的所有列引用的是第一个表才可以。查找查询中的order by子句也有同样的局限：它要使用索引的最左前缀，在其他所有情况下，mysql使用文件排序。</p>
+<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><p>group by：如果运行了很多很长的聚合查询以生成汇总，那么磁盘使用会因支持group by查询的覆盖索引而得益。<br>的使用</p>
+<p>to be continue</p>
+
+      
+    </div>
+    
+      
+  <!-- css -->
+  <style type="text/css">
+      .center {
+          text-align: center;
+      }
+      .hidden {
+          display: none;
+      }
+    .donate_bar a.btn_donate{
+      display: inline-block;
+      width: 82px;
+      height: 82px;
+      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+
+      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
+           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
+         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
+         嵌入其它博客时不一定要它们。 -->
+      -webkit-transition: background 0s;
+      -moz-transition: background 0s;
+      -o-transition: background 0s;
+      -ms-transition: background 0s;
+      transition: background 0s;
+      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
+    }
+
+    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+    .donate_bar .donate_txt {
+      display: block;
+      color: #9d9d9d;
+      font: 14px/2 "Microsoft Yahei";
+    }
+    .bold{ font-weight: bold; }
+  </style>
+  <!-- /css -->
+
+    <!-- Donate Module -->
+    <div id="donate_module">
+
+  <!-- btn_donate & tips -->
+  <div id="donate_board" class="donate_bar center">
+      <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+      
+    
+  </div>
+  <!-- /btn_donate & tips -->
+
+  <!-- donate guide -->
+    
+  <div id="donate_guide" class="donate_bar center hidden">
+        <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
+    </a>
+        
+        &nbsp;&nbsp;
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
+    </a>
+
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+
+  </div>
+  <!-- /donate guide -->
+
+  <!-- donate script -->
+  <script type="text/javascript">
+    document.getElementById('btn_donate').onclick = function() {
+      $('#donate_board').addClass('hidden');
+      $('#donate_guide').removeClass('hidden');
+    }
+
+    function donate_on_web(){
+      $('#donate').submit();
+        }
+
+    var original_window_onload = window.onload;
+        window.onload = function () {
+            if (original_window_onload) {
+                original_window_onload();
+            }
+            document.getElementById('donate_board_wdg').className = 'hidden';
+    }
+  </script>
+  <!-- /donate script -->
+</div>
+<!-- /Donate Module -->
+   
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-disscuss-group" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -2134,203 +2314,6 @@ sigaction(SIGINT,&amp;act,<span class="literal">NULL</span>);
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-database/mysql/Mysql基本命令" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/08/database/mysql/Mysql基本命令/" class="article-date">
-  	<time datetime="2017-02-08T10:48:31.000Z" itemprop="datePublished">2017-02-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/08/database/mysql/Mysql基本命令/">Mysql基本命令</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql入门"><span class="toc-text">mysql入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动与停止mysql服务器"><span class="toc-text">启动与停止mysql服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连接mysql服务器"><span class="toc-text">连接mysql服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关文档"><span class="toc-text">相关文档</span></a></li></ol></li></ol>
-</div>
-
-         
-        <p><a href="http://doc.mysql.cn/mysql5/refman-5.1-zh.html-chapter/" target="_blank" rel="external">sql 中文html手册</a><br><a href="http://club.topsage.com/thread-488779-1-1.html" target="_blank" rel="external">mysql文档中心</a><br><a href="https://www.gitbook.com/book/strongyoung/mysql-reference-manual/details" target="_blank" rel="external">MySQL参考手册</a></p>
-<h2 id="mysql入门"><a href="#mysql入门" class="headerlink" title="mysql入门"></a>mysql入门</h2><p>命令是接触mysql的第一扇窗户，下面介绍mac下mysql的使用  </p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>brew install mysql</code><br>安装时间可能比较久，需要耐心等待</p>
-<h3 id="启动与停止mysql服务器"><a href="#启动与停止mysql服务器" class="headerlink" title="启动与停止mysql服务器"></a>启动与停止mysql服务器</h3><ol>
-<li>启动mysql服务：support-files/mysql.server start</li>
-<li>停止mysql服务: support-files/mysql.server stop</li>
-<li>查询mysql服务器状态：support-files/mysql.server status<br>启动和停止成功后，terminal上会有对应的提示信息</li>
-</ol>
-<h3 id="连接mysql服务器"><a href="#连接mysql服务器" class="headerlink" title="连接mysql服务器"></a>连接mysql服务器</h3><ol>
-<li>连接到mysql服务器<br>要连接到服务器，需要使用登陆名和密码(对于密码为空的情况，则只需要用户名)；如果mysql服务器运行在与客户端不同的机器上，还需要清楚mysql服务器的主机名，连接方法如下：<br><code>shell&gt; mysql [-h hostname] -u user [-p]</code><br>在需要密码的情况下会弹出如下提示，让你输入密码：<br>Enter password: </li>
-<li>断开连接<br>可以使用quit或exit命命进行登出  </li>
-</ol>
-<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ol>
-<li>选择与创建数据库<br>show databases  查看服务器当前存在的数据库<br>use databasename  选择数据库<br>create databse databasename  创建数据库  </li>
-<li>设置登录密码<br>alter user ‘root’@’localhost’ identified by ‘newpassword’ (5.7.6及以后的版本)<br>set password for ‘root’@’localhost’ = password(‘newpassword’)<br>其中，newpassword是我们将要设置的新密码  </li>
-<li>创建表<br>create table tablename (columnname type, …);<br>show tables 查看表<br>describe pet 查看表信息（字段，类型等）</li>
-<li>查询，更新，删除<br>同sql语法  </li>
-</ol>
-<h3 id="相关文档"><a href="#相关文档" class="headerlink" title="相关文档"></a>相关文档</h3><p>详细说明可见文档：<br><a href="/document/mysql_operate.pdf">mysql command</a><br><a href="/document/mysql-reference-manual.pdf">mysql-reference-manual</a></p>
-<p>建议：</p>
-<p>1.坚持阅读官方手册，看MySQL书籍作用不会特别大；（挑选跟工作相关的内容优先阅读，例如InnoDB存储引擎，MySQL复制，查询优化）</p>
-<p>2.阅读官方手册，同时对阅读的内容做对应的测试；</p>
-<p>3.结合你现在的工作内容，多实战即可；</p>
-<p>4.外部的BLOG ，也包过我的 <a href="http://mysqlops.com" target="_blank" rel="external">http://mysqlops.com</a> 只是作为参考即可，更多要培养自己的分析思考的模式；</p>
-<p>备注：</p>
-<p>国内人写的MySQL书籍都不要作为重点，包过我可能2014年出版一本关于MySQL的书籍，推荐大家只作为辅助的，可以上厕所的时候看看，坚持官方手册+测试+实战+思考总结为主的模式。</p>
-<p>作者：mysqlops<br>链接：<a href="https://www.zhihu.com/question/21760988/answer/19357455" target="_blank" rel="external">https://www.zhihu.com/question/21760988/answer/19357455</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</p>
-
-      
-    </div>
-    
-      
-  <!-- css -->
-  <style type="text/css">
-      .center {
-          text-align: center;
-      }
-      .hidden {
-          display: none;
-      }
-    .donate_bar a.btn_donate{
-      display: inline-block;
-      width: 82px;
-      height: 82px;
-      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-
-      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
-           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
-         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
-         嵌入其它博客时不一定要它们。 -->
-      -webkit-transition: background 0s;
-      -moz-transition: background 0s;
-      -o-transition: background 0s;
-      -ms-transition: background 0s;
-      transition: background 0s;
-      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
-    }
-
-    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
-    .donate_bar .donate_txt {
-      display: block;
-      color: #9d9d9d;
-      font: 14px/2 "Microsoft Yahei";
-    }
-    .bold{ font-weight: bold; }
-  </style>
-  <!-- /css -->
-
-    <!-- Donate Module -->
-    <div id="donate_module">
-
-  <!-- btn_donate & tips -->
-  <div id="donate_board" class="donate_bar center">
-      <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-      
-    
-  </div>
-  <!-- /btn_donate & tips -->
-
-  <!-- donate guide -->
-    
-  <div id="donate_guide" class="donate_bar center hidden">
-        <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
-    </a>
-        
-        &nbsp;&nbsp;
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
-    </a>
-
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-
-  </div>
-  <!-- /donate guide -->
-
-  <!-- donate script -->
-  <script type="text/javascript">
-    document.getElementById('btn_donate').onclick = function() {
-      $('#donate_board').addClass('hidden');
-      $('#donate_guide').removeClass('hidden');
-    }
-
-    function donate_on_web(){
-      $('#donate').submit();
-        }
-
-    var original_window_onload = window.onload;
-        window.onload = function () {
-            if (original_window_onload) {
-                original_window_onload();
-            }
-            document.getElementById('donate_board_wdg').className = 'hidden';
-    }
-  </script>
-  <!-- /donate script -->
-</div>
-<!-- /Donate Module -->
-   
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 	</div>
 
       

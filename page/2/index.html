@@ -196,6 +196,228 @@
 
       <div class="body-wrap">
   
+    <article id="post-awk" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/08/awk/" class="article-date">
+  	<time datetime="2017-07-08T13:27:22.000Z" itemprop="datePublished">2017-07-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/08/awk/">awk简介</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#awk程序结构"><span class="toc-text">awk程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#awk编程"><span class="toc-text">awk编程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#awk中使用shell命令"><span class="toc-text">awk中使用shell命令</span></a></li></ol>
+</div>
+
+         
+        <p>于sed工具类似，awk是一种优秀的行文本处理工具。其具有内置的变量和函数，可以进行正则表达式的匹配，流程控制，数学运算。事实上，可以说awk是一种编程语言。</p>
+<h2 id="awk程序结构"><a href="#awk程序结构" class="headerlink" title="awk程序结构"></a>awk程序结构</h2><p>任何awk语句都由模式(pattern)及动作(action)组成。其中模式是一组用于测试输入行是否需要执行动作的规则，动作则是找到匹配内容后的执行动作（包含语句、函数和表达式的执行过程）。调用方式<br>awk [-F  field-separator] ‘pattern{action}’  filename<br>其中，pattern和action都可以省略不写。无pattern默认匹配全部的记录；而无action则是打印原始记录。简单的AWK表达式之外，pattern可以是BEGIN或END；这两种条件对应的action分别是读取所有的记录之前和之后。  filename可以用｜输入替代。</p>
+<p><strong>几个概念</strong></p>
+<ol>
+<li>BEGIN 及 END 语句<br>awk定义了两个特殊字段BEGIN和END，分别在程序开始前和结束前执行，相当于类的构造及析构函数。<br>awk的执行过程： 执行BEGIN语句，然后按行处理输入文本，最后执行END语句。  </li>
+<li>记录和域<br>awk 认为纪录是结构化的，awk将输入文件按行处理，行中每个字符串定义为域，域中用分隔符分隔(通常以空格或, :等分隔)，如：  </li>
+</ol>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> bin</div><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> include</div></pre></td></tr></table></figure>
+<p>上面的输入有2行，每行有9个域<br>域在awk中用$N表示，其中N＝1、2…, $0表示整条纪录</p>
+<h3 id="awk编程"><a href="#awk编程" class="headerlink" title="awk编程"></a>awk编程</h3><ul>
+<li>awk 内置变量<br>AWK的内建变量包括域变量，例如$1, $2, $3，以及$0。这些变量给出了记录中域的内容。 内建变量也包括一些其他变量：</li>
+</ul>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> NR：已输入记录的条数。</span></div><div class="line">-<span class="ruby"> NF：当前记录中域的个数。记录中最后一个域可以以$NF的方式引用。</span></div><div class="line">-<span class="ruby"> FILENAME：当前输入文件的文件名。</span></div><div class="line">-<span class="ruby"> FS：“域分隔符”，用于将输入记录分割成域。其默认值为“空白字符”，即空格和制表符。FS可以替换为其它字符，从而改变域分隔符。</span></div><div class="line">-<span class="ruby"> RS：当前的“记录分隔符”。默认状态下，输入的每行都被作为一个记录，因此默认记录分隔符是换行符。</span></div><div class="line">-<span class="ruby"> OFS：“输出域分隔符”，即分隔print命令的参数的符号。其默认值为空格。</span></div><div class="line">-<span class="ruby"> ORS：“输出记录分隔符”，即每个print命令之间的符号。其默认值为换行符。</span></div><div class="line">-<span class="ruby"> OFMT：“输出数字格式”（Format <span class="keyword">for</span> numeric output），其默认值为<span class="string">"%.6g"</span>。</span></div></pre></td></tr></table></figure>
+<ul>
+<li>函数<br>awk内置和很多函数，当然也可以自定义函数，示例如下：</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">awk '</div><div class="line"><span class="keyword">function</span> <span class="title">add_three</span> (number) &#123;</div><div class="line">  <span class="keyword">return</span> <span class="type">number</span> + <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">BEGIN</span> &#123;result=add_three(<span class="number">1</span>); print result&#125;</div><div class="line">'</div></pre></td></tr></table></figure>
+<p>上面的例子输出4.</p>
+<ul>
+<li>awk脚本<br>可以使用awk脚本的方式来执行awk命令，awk脚本模版如下，与命令行方式类似：  </li>
+</ul>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#! /bin/awk -f</span></div><div class="line">BEGIN&#123;&#125;</div><div class="line">&#123;&#125;</div><div class="line">END&#123;&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>匹配<br>可以使用  </li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk 'BEGIN &#123;FS=<span class="string">","</span>&#125; &#123;<span class="keyword">if</span>(<span class="variable">$1</span>~/xxx/) <span class="keyword">print</span> <span class="variable">$2</span> &gt;&gt;data.txt&#125;' filename</div></pre></td></tr></table></figure>
+<p>来提取匹配的域，其中xxx为匹配的正则表达式    </p>
+<ul>
+<li><p>格式化<br>可以使用printf来代替print，输出格式化的文本。格式符和c语言类似，常用的为％d，％s，</p>
+</li>
+<li><p>循环及条件语句<br>awk中的循环语句同样借鉴于C语言，支持while、do/while、for、break、continue，这些关键字的语义和C语言中的语义完全相同。</p>
+</li>
+</ul>
+<p>条件语句为if/else，与C语言也相同  </p>
+<h2 id="awk中使用shell命令"><a href="#awk中使用shell命令" class="headerlink" title="awk中使用shell命令"></a>awk中使用shell命令</h2><ol>
+<li><strong>通过getline函数，获取命令执行结果</strong></li>
+</ol>
+<p>通过在awk内使用管道,可以把shell命令的输出传送给awk<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ awk 'BEGIN&#123; "<span class="built_in">date</span>" | getline <span class="built_in">date</span>; <span class="built_in">print</span> <span class="built_in">date</span>; &#125;'</div><div class="line">Sat Jul  <span class="number">8</span> <span class="number">22</span>:<span class="number">04</span>:<span class="number">20</span> HKT <span class="number">2017</span></div></pre></td></tr></table></figure></p>
+<p>如果不使用管道，则getline默认从标准输入读取输入字符，这时不能当命令执行；<br>可以使用&lt;，让getline从文件中读取内容</p>
+<ol>
+<li><strong>使用awk内置system函数</strong></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk '<span class="keyword">BEGIN</span>&#123;<span class="keyword">system</span>(<span class="string">"ls -l"</span>)&#125;<span class="string">'</span></div></pre></td></tr></table></figure>
+<p>执行结果如下：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">total <span class="number">16</span></div><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> X11 -&gt; /opt/X11</div><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> X11R6 -&gt; /opt/X11</div><div class="line">drwxr-xr-x     <span class="number">3</span> root         wheel    <span class="number">102</span> Feb <span class="number">27</span>  <span class="number">2016</span> adic</div><div class="line">drwxr-xr-x  <span class="number">1055</span> root         wheel  <span class="number">35870</span> Jun <span class="number">19</span>  <span class="number">2016</span> bin</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>搭配getline使用，则为：<br><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk 'BEGIN&#123;<span class="keyword">while</span>(<span class="keyword">system</span>(<span class="string">"ls -l"</span>) | getline <span class="keyword">line</span>) &#123;<span class="keyword">print</span> <span class="keyword">line</span>&#125;&#125;'</div></pre></td></tr></table></figure></p>
+<ol>
+<li><strong>使用awk print出要执行的命令，然后交给/bin/bash处理</strong></li>
+</ol>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk 'BEGIN&#123;print <span class="string">"ls -l"</span><span class="string">|"</span>bash<span class="string">"&#125;'</span></div></pre></td></tr></table></figure>
+<p>以下是一篇比较好的文章，可供参考：<br><a href="http://www.gnu.org/software/gawk/manual/gawk.html" target="_blank" rel="external">linux awk命令详解</a><br><a href="http://www.gnu.org/software/gawk/manual/gawk.html" target="_blank" rel="external">awk官方文档</a></p>
+<p>注意：<br>可以将awk命令写在文件中，然后用awk -f awk-script-file filename 方式执行，其中脚本中的#!/bin/sh改为#!/bin/awk<br>当变量不从管道输入awk时，awk无法引用已经定义的变量</p>
+
+      
+    </div>
+    
+      
+  <!-- css -->
+  <style type="text/css">
+      .center {
+          text-align: center;
+      }
+      .hidden {
+          display: none;
+      }
+    .donate_bar a.btn_donate{
+      display: inline-block;
+      width: 82px;
+      height: 82px;
+      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+
+      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
+           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
+         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
+         嵌入其它博客时不一定要它们。 -->
+      -webkit-transition: background 0s;
+      -moz-transition: background 0s;
+      -o-transition: background 0s;
+      -ms-transition: background 0s;
+      transition: background 0s;
+      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
+    }
+
+    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+    .donate_bar .donate_txt {
+      display: block;
+      color: #9d9d9d;
+      font: 14px/2 "Microsoft Yahei";
+    }
+    .bold{ font-weight: bold; }
+  </style>
+  <!-- /css -->
+
+    <!-- Donate Module -->
+    <div id="donate_module">
+
+  <!-- btn_donate & tips -->
+  <div id="donate_board" class="donate_bar center">
+      <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+      
+    
+  </div>
+  <!-- /btn_donate & tips -->
+
+  <!-- donate guide -->
+    
+  <div id="donate_guide" class="donate_bar center hidden">
+        <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
+    </a>
+        
+        &nbsp;&nbsp;
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
+    </a>
+
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+
+  </div>
+  <!-- /donate guide -->
+
+  <!-- donate script -->
+  <script type="text/javascript">
+    document.getElementById('btn_donate').onclick = function() {
+      $('#donate_board').addClass('hidden');
+      $('#donate_guide').removeClass('hidden');
+    }
+
+    function donate_on_web(){
+      $('#donate').submit();
+        }
+
+    var original_window_onload = window.onload;
+        window.onload = function () {
+            if (original_window_onload) {
+                original_window_onload();
+            }
+            document.getElementById('donate_board_wdg').className = 'hidden';
+    }
+  </script>
+  <!-- /donate script -->
+</div>
+<!-- /Donate Module -->
+   
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/awk/">awk</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-c_c++/virtual-table" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1867,186 +2089,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/［googletest-unit-test］/">［googletest, unit test］</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-database/mysql/high-performance-sql-md" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/12/database/mysql/high-performance-sql-md/" class="article-date">
-  	<time datetime="2017-04-12T00:22:18.000Z" itemprop="datePublished">2017-04-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/12/database/mysql/high-performance-sql-md/">高性能mysql</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库结构图"><span class="toc-text">数据库结构图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引"><span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为排序使用索引扫描"><span class="toc-text">为排序使用索引扫描</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询优化"><span class="toc-text">查询优化</span></a></li></ol>
-</div>
-
-         
-        <h2 id="数据库结构图"><a href="#数据库结构图" class="headerlink" title="数据库结构图"></a>数据库结构图</h2><p>存储引擎层</p>
-<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>B-Tree索引<br>hash索引<br>innodDB中的自适应hash索引<br>使用where语句手动定义hash函数，增加查找速度，例子如url查找</p>
-<p>select id from url where url=”www.mysqlcom” and url_crc=CRC32(“<a href="http://www.mysql.com" target="_blank" rel="external">http://www.mysql.com</a>“);</p>
-<p>这种方法的一个缺点就是要维护哈希值，可以使用触发器进行维护：<br>create table pseudohash(<br>    id int unsigned NOT NULL auto_increment,<br>    url varchar(255) NOT NULL,<br>    url_crc int unsigned NO NULL DEFAULT 0,<br>    primary key(id)<br>);  </p>
-<p>创建触发器：</p>
-<p>可以使用的伪hash函数如下：<br>CRC32  right(MD5(),n)  left(MD5(), n)<br>像md5,sha1之类的函数返回的值太长，可以取其结果的部分值进行说明  </p>
-<p>sql 分隔符，delimiter关键字？</p>
-<h3 id="为排序使用索引扫描"><a href="#为排序使用索引扫描" class="headerlink" title="为排序使用索引扫描"></a>为排序使用索引扫描</h3><p>按照索引对结果进行排序，只有当索引的顺序和order by子句中的顺序完全一致，并且所有列的方向（升序或降序）一样才可以。如果查询联接了多个表，只有在order by子句的所有列引用的是第一个表才可以。查找查询中的order by子句也有同样的局限：它要使用索引的最左前缀，在其他所有情况下，mysql使用文件排序。</p>
-<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><p>group by：如果运行了很多很长的聚合查询以生成汇总，那么磁盘使用会因支持group by查询的覆盖索引而得益。<br>的使用</p>
-<p>to be continue</p>
-
-      
-    </div>
-    
-      
-  <!-- css -->
-  <style type="text/css">
-      .center {
-          text-align: center;
-      }
-      .hidden {
-          display: none;
-      }
-    .donate_bar a.btn_donate{
-      display: inline-block;
-      width: 82px;
-      height: 82px;
-      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-
-      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
-           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
-         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
-         嵌入其它博客时不一定要它们。 -->
-      -webkit-transition: background 0s;
-      -moz-transition: background 0s;
-      -o-transition: background 0s;
-      -ms-transition: background 0s;
-      transition: background 0s;
-      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
-    }
-
-    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
-    .donate_bar .donate_txt {
-      display: block;
-      color: #9d9d9d;
-      font: 14px/2 "Microsoft Yahei";
-    }
-    .bold{ font-weight: bold; }
-  </style>
-  <!-- /css -->
-
-    <!-- Donate Module -->
-    <div id="donate_module">
-
-  <!-- btn_donate & tips -->
-  <div id="donate_board" class="donate_bar center">
-      <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-      
-    
-  </div>
-  <!-- /btn_donate & tips -->
-
-  <!-- donate guide -->
-    
-  <div id="donate_guide" class="donate_bar center hidden">
-        <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
-    </a>
-        
-        &nbsp;&nbsp;
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
-    </a>
-
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-
-  </div>
-  <!-- /donate guide -->
-
-  <!-- donate script -->
-  <script type="text/javascript">
-    document.getElementById('btn_donate').onclick = function() {
-      $('#donate_board').addClass('hidden');
-      $('#donate_guide').removeClass('hidden');
-    }
-
-    function donate_on_web(){
-      $('#donate').submit();
-        }
-
-    var original_window_onload = window.onload;
-        window.onload = function () {
-            if (original_window_onload) {
-                original_window_onload();
-            }
-            document.getElementById('donate_board_wdg').className = 'hidden';
-    }
-  </script>
-  <!-- /donate script -->
-</div>
-<!-- /Donate Module -->
-   
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 	</div>
 
       

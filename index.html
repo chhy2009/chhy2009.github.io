@@ -196,6 +196,182 @@
 
       <div class="body-wrap">
   
+    <article id="post-wifi/wifi" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/11/wifi/wifi/" class="article-date">
+  	<time datetime="2017-08-11T15:09:47.000Z" itemprop="datePublished">2017-08-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/11/wifi/wifi/">Wi-Fi</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用wpa-cli连接Wi-Fi"><span class="toc-text">使用wpa_cli连接Wi-Fi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wpa-supplicant"><span class="toc-text">wpa_supplicant</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WI-FI用户及内核调用分析"><span class="toc-text">WI-FI用户及内核调用分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#报文分析"><span class="toc-text">报文分析</span></a></li></ol>
+</div>
+
+         
+        <h2 id="使用wpa-cli连接Wi-Fi"><a href="#使用wpa-cli连接Wi-Fi" class="headerlink" title="使用wpa_cli连接Wi-Fi"></a>使用wpa_cli连接Wi-Fi</h2><p>wpa_cli -h<br><a href="https://stackoverflow.com/questions/22825443/connect-to-password-protected-wifi-network-using-adb-shell" target="_blank" rel="external">Connect to password protected wifi network using adb shell</a></p>
+<h2 id="wpa-supplicant"><a href="#wpa-supplicant" class="headerlink" title="wpa_supplicant"></a>wpa_supplicant</h2><p><a href="http://w1.fi/cgit/hostap/plain/wpa_supplicant/README" target="_blank" rel="external">帮助文档</a></p>
+<h2 id="WI-FI用户及内核调用分析"><a href="#WI-FI用户及内核调用分析" class="headerlink" title="WI-FI用户及内核调用分析"></a>WI-FI用户及内核调用分析</h2><p><a href="http://www.au-kbc.org/comm/Docs/papers/Vipin_Analysis_of_open_source_WLAN_driver_paper.pdf" target="_blank" rel="external">Analysis of Open Source Drivers for IEEE 802.11 WLANs</a></p>
+<p><a href="https://vm.thekkedam.org/assets/docs/thesis/Analysis_of_Open_Source_Drivers_for_IEEE_802.11_WLANs_Vipin_Madhavanunni.pdf" target="_blank" rel="external">https://vm.thekkedam.org/assets/docs/thesis/Analysis_of_Open_Source_Drivers_for_IEEE_802.11_WLANs_Vipin_Madhavanunni.pdf</a></p>
+<h2 id="报文分析"><a href="#报文分析" class="headerlink" title="报文分析"></a>报文分析</h2><p><a href="http://www.aneasystone.com/archives/2016/08/wireless-analysis-one-monitoring.html" target="_blank" rel="external">实战无线网络分析（篇一）无线监听</a></p>
+<p><a href="http://blog.csdn.net/chaehom/article/details/22435953" target="_blank" rel="external">wireshark中无线帧的类型、子类型对照表</a></p>
+<p>软件：</p>
+<p>window: wireshark omnipeek </p>
+<p>linux:aircrack-ng</p>
+<p>mac:  </p>
+
+      
+    </div>
+    
+      
+  <!-- css -->
+  <style type="text/css">
+      .center {
+          text-align: center;
+      }
+      .hidden {
+          display: none;
+      }
+    .donate_bar a.btn_donate{
+      display: inline-block;
+      width: 82px;
+      height: 82px;
+      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+
+      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
+           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
+         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
+         嵌入其它博客时不一定要它们。 -->
+      -webkit-transition: background 0s;
+      -moz-transition: background 0s;
+      -o-transition: background 0s;
+      -ms-transition: background 0s;
+      transition: background 0s;
+      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
+    }
+
+    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+    .donate_bar .donate_txt {
+      display: block;
+      color: #9d9d9d;
+      font: 14px/2 "Microsoft Yahei";
+    }
+    .bold{ font-weight: bold; }
+  </style>
+  <!-- /css -->
+
+    <!-- Donate Module -->
+    <div id="donate_module">
+
+  <!-- btn_donate & tips -->
+  <div id="donate_board" class="donate_bar center">
+      <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+      
+    
+  </div>
+  <!-- /btn_donate & tips -->
+
+  <!-- donate guide -->
+    
+  <div id="donate_guide" class="donate_bar center hidden">
+        <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
+    </a>
+        
+        &nbsp;&nbsp;
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
+    </a>
+
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+
+  </div>
+  <!-- /donate guide -->
+
+  <!-- donate script -->
+  <script type="text/javascript">
+    document.getElementById('btn_donate').onclick = function() {
+      $('#donate_board').addClass('hidden');
+      $('#donate_guide').removeClass('hidden');
+    }
+
+    function donate_on_web(){
+      $('#donate').submit();
+        }
+
+    var original_window_onload = window.onload;
+        window.onload = function () {
+            if (original_window_onload) {
+                original_window_onload();
+            }
+            document.getElementById('donate_board_wdg').className = 'hidden';
+    }
+  </script>
+  <!-- /donate script -->
+</div>
+<!-- /Donate Module -->
+   
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-android_wifi/wpa-cli" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -902,181 +1078,6 @@
 
 
   
-    <article id="post-kernel/kernel-program" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/21/kernel/kernel-program/" class="article-date">
-  	<time datetime="2017-07-21T14:38:39.000Z" itemprop="datePublished">2017-07-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/21/kernel/kernel-program/">内核编程知识点</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内核编程知识点"><span class="toc-text">内核编程知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统调用"><span class="toc-text">系统调用</span></a></li></ol>
-</div>
-
-         
-        <h2 id="内核编程知识点"><a href="#内核编程知识点" class="headerlink" title="内核编程知识点"></a>内核编程知识点</h2><p>分享一篇内核知识点相关的文章：<br><a href="http://blog.ifjy.me/软件开发/kernel/2016/07/16/Linux内核编程笔记.html" target="_blank" rel="external">Linux内核编程笔记</a></p>
-<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p><a href="https://www.ibm.com/developerworks/cn/linux/l-system-calls/index.html" target="_blank" rel="external">使用 Linux 系统调用的内核命令</a></p>
-<ul>
-<li>如何添加一个Linux系统调用</li>
-</ul>
-
-      
-    </div>
-    
-      
-  <!-- css -->
-  <style type="text/css">
-      .center {
-          text-align: center;
-      }
-      .hidden {
-          display: none;
-      }
-    .donate_bar a.btn_donate{
-      display: inline-block;
-      width: 82px;
-      height: 82px;
-      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-
-      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
-           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
-         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
-         嵌入其它博客时不一定要它们。 -->
-      -webkit-transition: background 0s;
-      -moz-transition: background 0s;
-      -o-transition: background 0s;
-      -ms-transition: background 0s;
-      transition: background 0s;
-      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
-    }
-
-    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
-    .donate_bar .donate_txt {
-      display: block;
-      color: #9d9d9d;
-      font: 14px/2 "Microsoft Yahei";
-    }
-    .bold{ font-weight: bold; }
-  </style>
-  <!-- /css -->
-
-    <!-- Donate Module -->
-    <div id="donate_module">
-
-  <!-- btn_donate & tips -->
-  <div id="donate_board" class="donate_bar center">
-      <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-      
-    
-  </div>
-  <!-- /btn_donate & tips -->
-
-  <!-- donate guide -->
-    
-  <div id="donate_guide" class="donate_bar center hidden">
-        <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
-    </a>
-        
-        &nbsp;&nbsp;
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
-    </a>
-
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-
-  </div>
-  <!-- /donate guide -->
-
-  <!-- donate script -->
-  <script type="text/javascript">
-    document.getElementById('btn_donate').onclick = function() {
-      $('#donate_board').addClass('hidden');
-      $('#donate_guide').removeClass('hidden');
-    }
-
-    function donate_on_web(){
-      $('#donate').submit();
-        }
-
-    var original_window_onload = window.onload;
-        window.onload = function () {
-            if (original_window_onload) {
-                original_window_onload();
-            }
-            document.getElementById('donate_board_wdg').className = 'hidden';
-    }
-  </script>
-  <!-- /donate script -->
-</div>
-<!-- /Donate Module -->
-   
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-kernel/netlink" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1249,6 +1250,191 @@
 
 
   
+    <article id="post-kernel/kernel-program" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/21/kernel/kernel-program/" class="article-date">
+  	<time datetime="2017-07-21T14:38:39.000Z" itemprop="datePublished">2017-07-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/21/kernel/kernel-program/">内核编程知识点</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内核编程知识点"><span class="toc-text">内核编程知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统调用"><span class="toc-text">系统调用</span></a></li></ol>
+</div>
+
+         
+        <h2 id="内核编程知识点"><a href="#内核编程知识点" class="headerlink" title="内核编程知识点"></a>内核编程知识点</h2><p>分享几篇内核知识点相关的文章：<br><a href="http://blog.ifjy.me/软件开发/kernel/2016/07/16/Linux内核编程笔记.html" target="_blank" rel="external">Linux内核编程笔记</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-linux-kernel/index.html" target="_blank" rel="external">内核剖析</a>,涉及的方面包括：</p>
+<ul>
+<li>系统调用SCI(linux/kernel)</li>
+<li>进程管理(linux/kernel)</li>
+<li>内存管理(linux/mm)</li>
+<li>虚拟文件系统VFS(linux/fs)</li>
+<li>网路堆栈(linux/net)</li>
+<li>设备驱动(linux/driver)</li>
+<li>依赖体系结构的代码(linux/arch目录)</li>
+</ul>
+<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p><a href="https://www.ibm.com/developerworks/cn/linux/l-system-calls/index.html" target="_blank" rel="external">使用 Linux 系统调用的内核命令</a></p>
+<ul>
+<li>如何添加一个Linux系统调用<br>-<a href="https://www.ibm.com/developerworks/cn/linux/l-system-calls/index.html" target="_blank" rel="external">使用 Linux 系统调用的内核命令</a></li>
+</ul>
+
+      
+    </div>
+    
+      
+  <!-- css -->
+  <style type="text/css">
+      .center {
+          text-align: center;
+      }
+      .hidden {
+          display: none;
+      }
+    .donate_bar a.btn_donate{
+      display: inline-block;
+      width: 82px;
+      height: 82px;
+      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+
+      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
+           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
+         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
+         嵌入其它博客时不一定要它们。 -->
+      -webkit-transition: background 0s;
+      -moz-transition: background 0s;
+      -o-transition: background 0s;
+      -ms-transition: background 0s;
+      transition: background 0s;
+      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
+    }
+
+    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+    .donate_bar .donate_txt {
+      display: block;
+      color: #9d9d9d;
+      font: 14px/2 "Microsoft Yahei";
+    }
+    .bold{ font-weight: bold; }
+  </style>
+  <!-- /css -->
+
+    <!-- Donate Module -->
+    <div id="donate_module">
+
+  <!-- btn_donate & tips -->
+  <div id="donate_board" class="donate_bar center">
+      <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+      
+    
+  </div>
+  <!-- /btn_donate & tips -->
+
+  <!-- donate guide -->
+    
+  <div id="donate_guide" class="donate_bar center hidden">
+        <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
+    </a>
+        
+        &nbsp;&nbsp;
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
+    </a>
+
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+
+  </div>
+  <!-- /donate guide -->
+
+  <!-- donate script -->
+  <script type="text/javascript">
+    document.getElementById('btn_donate').onclick = function() {
+      $('#donate_board').addClass('hidden');
+      $('#donate_guide').removeClass('hidden');
+    }
+
+    function donate_on_web(){
+      $('#donate').submit();
+        }
+
+    var original_window_onload = window.onload;
+        window.onload = function () {
+            if (original_window_onload) {
+                original_window_onload();
+            }
+            document.getElementById('donate_board_wdg').className = 'hidden';
+    }
+  </script>
+  <!-- /donate script -->
+</div>
+<!-- /Donate Module -->
+   
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-algorithm/quicksort" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1398,198 +1584,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法，排序/">算法，排序</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-kernel/kernel-modules" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/13/kernel/kernel-modules/" class="article-date">
-  	<time datetime="2017-07-13T14:50:17.000Z" itemprop="datePublished">2017-07-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/13/kernel/kernel-modules/">内核驱动模块入门</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#驱动程序的hello-world"><span class="toc-text">驱动程序的hello world</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序及makefile"><span class="toc-text">程序及makefile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#加载和卸载驱动"><span class="toc-text">加载和卸载驱动</span></a></li></ol></li></ol>
-</div>
-
-         
-        <h2 id="驱动程序的hello-world"><a href="#驱动程序的hello-world" class="headerlink" title="驱动程序的hello world"></a>驱动程序的hello world</h2><h2 id="程序及makefile"><a href="#程序及makefile" class="headerlink" title="程序及makefile"></a>程序及makefile</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __KERNEL__</span></div><div class="line"><span class="meta">#  <span class="meta-keyword">define</span> __KERNEL__</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MODULE</span></div><div class="line"><span class="meta">#  <span class="meta-keyword">define</span> MODULE</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line"><span class="comment">// 下面的是主要的内容</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/module.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/init.h&gt;</span></span></div><div class="line"></div><div class="line">MODULE_LICENSE(<span class="string">"GPL"</span>);</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> year=<span class="number">2017</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">hello_init</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    printk(KERN_WARNING <span class="string">"Hello kernel, it's %d!\n"</span>,year);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello_exit</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    printk(<span class="string">"Bye, kernel!\n"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 下面两个为关键的模块函数</span></div><div class="line">module_init(hello_init);</div><div class="line">module_exit(hello_exit);</div></pre></td></tr></table></figure>
-<p><strong>Makefile</strong></p>
-<pre><code>obj-m := hello.o
-
-all :
-    $(MAKE) -C /usr/src/kernels/2.6.32-642.13.1.el6.x86_64 M=$(PWD) modules
-
-clean:
-    $(MAKE) -C /usr/src/kernels/2.6.32-642.13.1.el6.x86_64 M=$(PWD) clean
-</code></pre><p>以上为Centos 64位系统环境；正常情况下也可设置为/lib/modules/$(shell uname -r)/build或/usr/src/kernels/$(shell uname -r)。</p>
-<p>执行make编译，可以得到驱动hello.ko </p>
-<h3 id="加载和卸载驱动"><a href="#加载和卸载驱动" class="headerlink" title="加载和卸载驱动"></a>加载和卸载驱动</h3><ul>
-<li><p>加载模块: insmod hello.ko</p>
-</li>
-<li><p>查看模块: lsmod |grep hello</p>
-</li>
-<li><p>卸载模块: rmmod hello</p>
-</li>
-</ul>
-<p>使用dmesg可以看到内核输出了相应的打印: </p>
-<p>Hello kernel, it’s 2017!<br>Bye, kernel!</p>
-<p>说明：<br>代码说明：<br><a href="http://www.cnblogs.com/QuLory/archive/2012/10/23/2736339.html" target="_blank" rel="external">Ubuntu12.10 内核源码外编译 linux模块–编译驱动模块的基本方法</a><br>驱动文件的makefile说明可参考：<br><a href="http://blog.csdn.net/hanp_linux/article/details/52289648" target="_blank" rel="external">linux驱动模块Makefile解</a></p>
-
-      
-    </div>
-    
-      
-  <!-- css -->
-  <style type="text/css">
-      .center {
-          text-align: center;
-      }
-      .hidden {
-          display: none;
-      }
-    .donate_bar a.btn_donate{
-      display: inline-block;
-      width: 82px;
-      height: 82px;
-      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-
-      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
-           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
-         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
-         嵌入其它博客时不一定要它们。 -->
-      -webkit-transition: background 0s;
-      -moz-transition: background 0s;
-      -o-transition: background 0s;
-      -ms-transition: background 0s;
-      transition: background 0s;
-      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
-    }
-
-    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
-    .donate_bar .donate_txt {
-      display: block;
-      color: #9d9d9d;
-      font: 14px/2 "Microsoft Yahei";
-    }
-    .bold{ font-weight: bold; }
-  </style>
-  <!-- /css -->
-
-    <!-- Donate Module -->
-    <div id="donate_module">
-
-  <!-- btn_donate & tips -->
-  <div id="donate_board" class="donate_bar center">
-      <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-      
-    
-  </div>
-  <!-- /btn_donate & tips -->
-
-  <!-- donate guide -->
-    
-  <div id="donate_guide" class="donate_bar center hidden">
-        <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
-    </a>
-        
-        &nbsp;&nbsp;
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
-    </a>
-
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-
-  </div>
-  <!-- /donate guide -->
-
-  <!-- donate script -->
-  <script type="text/javascript">
-    document.getElementById('btn_donate').onclick = function() {
-      $('#donate_board').addClass('hidden');
-      $('#donate_guide').removeClass('hidden');
-    }
-
-    function donate_on_web(){
-      $('#donate').submit();
-        }
-
-    var original_window_onload = window.onload;
-        window.onload = function () {
-            if (original_window_onload) {
-                original_window_onload();
-            }
-            document.getElementById('donate_board_wdg').className = 'hidden';
-    }
-  </script>
-  <!-- /donate script -->
-</div>
-<!-- /Donate Module -->
-   
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel-modules/">kernel modules</a></li></ul>
 	</div>
 
       
@@ -1788,11 +1782,11 @@ clean:
 
 
   
-    <article id="post-awk" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-kernel/kernel-modules" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/08/awk/" class="article-date">
-  	<time datetime="2017-07-08T13:27:22.000Z" itemprop="datePublished">2017-07-08</time>
+      <a href="/2017/07/13/kernel/kernel-modules/" class="article-date">
+  	<time datetime="2017-07-13T14:50:17.000Z" itemprop="datePublished">2017-07-13</time>
 </a>
     </div>
   
@@ -1805,7 +1799,7 @@ clean:
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/08/awk/">awk简介</a>
+      <a class="article-title" href="/2017/07/13/kernel/kernel-modules/">内核驱动模块入门</a>
     </h1>
   
 
@@ -1816,62 +1810,32 @@ clean:
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#awk程序结构"><span class="toc-text">awk程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#awk编程"><span class="toc-text">awk编程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#awk中使用shell命令"><span class="toc-text">awk中使用shell命令</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#驱动程序的hello-world"><span class="toc-text">驱动程序的hello world</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序及makefile"><span class="toc-text">程序及makefile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#加载和卸载驱动"><span class="toc-text">加载和卸载驱动</span></a></li></ol></li></ol>
 </div>
 
          
-        <p>于sed工具类似，awk是一种优秀的行文本处理工具。其具有内置的变量和函数，可以进行正则表达式的匹配，流程控制，数学运算。事实上，可以说awk是一种编程语言。</p>
-<h2 id="awk程序结构"><a href="#awk程序结构" class="headerlink" title="awk程序结构"></a>awk程序结构</h2><p>任何awk语句都由模式(pattern)及动作(action)组成。其中模式是一组用于测试输入行是否需要执行动作的规则，动作则是找到匹配内容后的执行动作（包含语句、函数和表达式的执行过程）。调用方式<br>awk [-F  field-separator] ‘pattern{action}’  filename<br>其中，pattern和action都可以省略不写。无pattern默认匹配全部的记录；而无action则是打印原始记录。简单的AWK表达式之外，pattern可以是BEGIN或END；这两种条件对应的action分别是读取所有的记录之前和之后。  filename可以用｜输入替代。</p>
-<p><strong>几个概念</strong></p>
-<ol>
-<li>BEGIN 及 END 语句<br>awk定义了两个特殊字段BEGIN和END，分别在程序开始前和结束前执行，相当于类的构造及析构函数。<br>awk的执行过程： 执行BEGIN语句，然后按行处理输入文本，最后执行END语句。  </li>
-<li>记录和域<br>awk 认为纪录是结构化的，awk将输入文件按行处理，行中每个字符串定义为域，域中用分隔符分隔(通常以空格或, :等分隔)，如：  </li>
-</ol>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> bin</div><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> include</div></pre></td></tr></table></figure>
-<p>上面的输入有2行，每行有9个域<br>域在awk中用$N表示，其中N＝1、2…, $0表示整条纪录</p>
-<h3 id="awk编程"><a href="#awk编程" class="headerlink" title="awk编程"></a>awk编程</h3><ul>
-<li>awk 内置变量<br>AWK的内建变量包括域变量，例如$1, $2, $3，以及$0。这些变量给出了记录中域的内容。 内建变量也包括一些其他变量：</li>
-</ul>
-<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> NR：已输入记录的条数。</span></div><div class="line">-<span class="ruby"> NF：当前记录中域的个数。记录中最后一个域可以以$NF的方式引用。</span></div><div class="line">-<span class="ruby"> FILENAME：当前输入文件的文件名。</span></div><div class="line">-<span class="ruby"> FS：“域分隔符”，用于将输入记录分割成域。其默认值为“空白字符”，即空格和制表符。FS可以替换为其它字符，从而改变域分隔符。</span></div><div class="line">-<span class="ruby"> RS：当前的“记录分隔符”。默认状态下，输入的每行都被作为一个记录，因此默认记录分隔符是换行符。</span></div><div class="line">-<span class="ruby"> OFS：“输出域分隔符”，即分隔print命令的参数的符号。其默认值为空格。</span></div><div class="line">-<span class="ruby"> ORS：“输出记录分隔符”，即每个print命令之间的符号。其默认值为换行符。</span></div><div class="line">-<span class="ruby"> OFMT：“输出数字格式”（Format <span class="keyword">for</span> numeric output），其默认值为<span class="string">"%.6g"</span>。</span></div></pre></td></tr></table></figure>
-<ul>
-<li>函数<br>awk内置和很多函数，当然也可以自定义函数，示例如下：</li>
-</ul>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">awk '</div><div class="line"><span class="keyword">function</span> <span class="title">add_three</span> (number) &#123;</div><div class="line">  <span class="keyword">return</span> <span class="type">number</span> + <span class="number">3</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">BEGIN</span> &#123;result=add_three(<span class="number">1</span>); print result&#125;</div><div class="line">'</div></pre></td></tr></table></figure>
-<p>上面的例子输出4.</p>
-<ul>
-<li>awk脚本<br>可以使用awk脚本的方式来执行awk命令，awk脚本模版如下，与命令行方式类似：  </li>
-</ul>
-<figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#! /bin/awk -f</span></div><div class="line">BEGIN&#123;&#125;</div><div class="line">&#123;&#125;</div><div class="line">END&#123;&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>匹配<br>可以使用  </li>
-</ul>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk 'BEGIN &#123;FS=<span class="string">","</span>&#125; &#123;<span class="keyword">if</span>(<span class="variable">$1</span>~/xxx/) <span class="keyword">print</span> <span class="variable">$2</span> &gt;&gt;data.txt&#125;' filename</div></pre></td></tr></table></figure>
-<p>来提取匹配的域，其中xxx为匹配的正则表达式    </p>
-<ul>
-<li><p>格式化<br>可以使用printf来代替print，输出格式化的文本。格式符和c语言类似，常用的为％d，％s，</p>
+        <h2 id="驱动程序的hello-world"><a href="#驱动程序的hello-world" class="headerlink" title="驱动程序的hello world"></a>驱动程序的hello world</h2><h2 id="程序及makefile"><a href="#程序及makefile" class="headerlink" title="程序及makefile"></a>程序及makefile</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __KERNEL__</span></div><div class="line"><span class="meta">#  <span class="meta-keyword">define</span> __KERNEL__</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MODULE</span></div><div class="line"><span class="meta">#  <span class="meta-keyword">define</span> MODULE</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line"><span class="comment">// 下面的是主要的内容</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/module.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/init.h&gt;</span></span></div><div class="line"></div><div class="line">MODULE_LICENSE(<span class="string">"GPL"</span>);</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> year=<span class="number">2017</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">hello_init</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    printk(KERN_WARNING <span class="string">"Hello kernel, it's %d!\n"</span>,year);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello_exit</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    printk(<span class="string">"Bye, kernel!\n"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 下面两个为关键的模块函数</span></div><div class="line">module_init(hello_init);</div><div class="line">module_exit(hello_exit);</div></pre></td></tr></table></figure>
+<p><strong>Makefile</strong></p>
+<pre><code>obj-m := hello.o
+
+all :
+    $(MAKE) -C /usr/src/kernels/2.6.32-642.13.1.el6.x86_64 M=$(PWD) modules
+
+clean:
+    $(MAKE) -C /usr/src/kernels/2.6.32-642.13.1.el6.x86_64 M=$(PWD) clean
+</code></pre><p>以上为Centos 64位系统环境；正常情况下也可设置为/lib/modules/$(shell uname -r)/build或/usr/src/kernels/$(shell uname -r)。</p>
+<p>执行make编译，可以得到驱动hello.ko </p>
+<h3 id="加载和卸载驱动"><a href="#加载和卸载驱动" class="headerlink" title="加载和卸载驱动"></a>加载和卸载驱动</h3><ul>
+<li><p>加载模块: insmod hello.ko</p>
 </li>
-<li><p>循环及条件语句<br>awk中的循环语句同样借鉴于C语言，支持while、do/while、for、break、continue，这些关键字的语义和C语言中的语义完全相同。</p>
+<li><p>查看模块: lsmod |grep hello</p>
+</li>
+<li><p>卸载模块: rmmod hello</p>
 </li>
 </ul>
-<p>条件语句为if/else，与C语言也相同  </p>
-<h2 id="awk中使用shell命令"><a href="#awk中使用shell命令" class="headerlink" title="awk中使用shell命令"></a>awk中使用shell命令</h2><ol>
-<li><strong>通过getline函数，获取命令执行结果</strong></li>
-</ol>
-<p>通过在awk内使用管道,可以把shell命令的输出传送给awk<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ awk 'BEGIN&#123; "<span class="built_in">date</span>" | getline <span class="built_in">date</span>; <span class="built_in">print</span> <span class="built_in">date</span>; &#125;'</div><div class="line">Sat Jul  <span class="number">8</span> <span class="number">22</span>:<span class="number">04</span>:<span class="number">20</span> HKT <span class="number">2017</span></div></pre></td></tr></table></figure></p>
-<p>如果不使用管道，则getline默认从标准输入读取输入字符，这时不能当命令执行；<br>可以使用&lt;，让getline从文件中读取内容</p>
-<ol>
-<li><strong>使用awk内置system函数</strong></li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk '<span class="keyword">BEGIN</span>&#123;<span class="keyword">system</span>(<span class="string">"ls -l"</span>)&#125;<span class="string">'</span></div></pre></td></tr></table></figure>
-<p>执行结果如下：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">total <span class="number">16</span></div><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> X11 -&gt; /opt/X11</div><div class="line">lrwxr-xr-x     <span class="number">1</span> root         wheel      <span class="number">8</span> Jun <span class="number">26</span>  <span class="number">2016</span> X11R6 -&gt; /opt/X11</div><div class="line">drwxr-xr-x     <span class="number">3</span> root         wheel    <span class="number">102</span> Feb <span class="number">27</span>  <span class="number">2016</span> adic</div><div class="line">drwxr-xr-x  <span class="number">1055</span> root         wheel  <span class="number">35870</span> Jun <span class="number">19</span>  <span class="number">2016</span> bin</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>搭配getline使用，则为：<br><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk 'BEGIN&#123;<span class="keyword">while</span>(<span class="keyword">system</span>(<span class="string">"ls -l"</span>) | getline <span class="keyword">line</span>) &#123;<span class="keyword">print</span> <span class="keyword">line</span>&#125;&#125;'</div></pre></td></tr></table></figure></p>
-<ol>
-<li><strong>使用awk print出要执行的命令，然后交给/bin/bash处理</strong></li>
-</ol>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk 'BEGIN&#123;print <span class="string">"ls -l"</span><span class="string">|"</span>bash<span class="string">"&#125;'</span></div></pre></td></tr></table></figure>
-<p>以下是一篇比较好的文章，可供参考：<br><a href="http://www.gnu.org/software/gawk/manual/gawk.html" target="_blank" rel="external">linux awk命令详解</a><br><a href="http://www.gnu.org/software/gawk/manual/gawk.html" target="_blank" rel="external">awk官方文档</a></p>
-<p>注意：<br>可以将awk命令写在文件中，然后用awk -f awk-script-file filename 方式执行，其中脚本中的#!/bin/sh改为#!/bin/awk<br>当变量不从管道输入awk时，awk无法引用已经定义的变量</p>
+<p>使用dmesg可以看到内核输出了相应的打印: </p>
+<p>Hello kernel, it’s 2017!<br>Bye, kernel!</p>
+<p>说明：<br>代码说明：<br><a href="http://www.cnblogs.com/QuLory/archive/2012/10/23/2736339.html" target="_blank" rel="external">Ubuntu12.10 内核源码外编译 linux模块–编译驱动模块的基本方法</a><br>驱动文件的makefile说明可参考：<br><a href="http://blog.csdn.net/hanp_linux/article/details/52289648" target="_blank" rel="external">linux驱动模块Makefile解</a></p>
 
       
     </div>
@@ -1984,7 +1948,7 @@ clean:
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/awk/">awk</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel-modules/">kernel modules</a></li></ul>
 	</div>
 
       
