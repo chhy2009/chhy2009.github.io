@@ -6,16 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>内核协议数据包调用过程 | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="网络数据包内核协议栈分析：参考百度文库上的内容，很详细内核协议栈数据包转发完全解析">
+  <meta name="description" content="网络数据包内核协议栈分析：参考百度文库上的内容，很详细内核协议栈数据包转发完全解析
+我的csdn 博客 linux内核网络栈—socket调用内核路径">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内核协议数据包调用过程">
 <meta property="og:url" content="http://yoursite.com/2017/08/27/kernel/内核协议数据包调用过程/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="网络数据包内核协议栈分析：参考百度文库上的内容，很详细内核协议栈数据包转发完全解析">
-<meta property="og:updated_time" content="2017-09-02T12:37:27.000Z">
+<meta property="og:description" content="网络数据包内核协议栈分析：参考百度文库上的内容，很详细内核协议栈数据包转发完全解析
+我的csdn 博客 linux内核网络栈—socket调用内核路径">
+<meta property="og:updated_time" content="2017-09-06T12:46:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内核协议数据包调用过程">
-<meta name="twitter:description" content="网络数据包内核协议栈分析：参考百度文库上的内容，很详细内核协议栈数据包转发完全解析">
+<meta name="twitter:description" content="网络数据包内核协议栈分析：参考百度文库上的内容，很详细内核协议栈数据包转发完全解析
+我的csdn 博客 linux内核网络栈—socket调用内核路径">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -119,7 +122,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 15px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 15px;">TCP/IP</a> <a href="/tags/Wi-Fi/" style="font-size: 12.5px;">Wi-Fi</a> <a href="/tags/argpaser/" style="font-size: 10px;">argpaser</a> <a href="/tags/awk/" style="font-size: 10px;">awk</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/compile-and-debug-tools/" style="font-size: 10px;">compile and debug tools</a> <a href="/tags/crawel/" style="font-size: 10px;">crawel</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 10px;">epoll</a> <a href="/tags/github/" style="font-size: 12.5px;">github</a> <a href="/tags/googletest/" style="font-size: 10px;">googletest</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/kernel/" style="font-size: 17.5px;">kernel</a> <a href="/tags/kernel-modules/" style="font-size: 10px;">kernel modules</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 12.5px;">mysql</a> <a href="/tags/netlink/" style="font-size: 10px;">netlink</a> <a href="/tags/network/" style="font-size: 12.5px;">network</a> <a href="/tags/openssl/" style="font-size: 12.5px;">openssl</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/redis/" style="font-size: 17.5px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/unit-test/" style="font-size: 10px;">unit test</a> <a href="/tags/vim/" style="font-size: 12.5px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 12.5px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/算法，排序/" style="font-size: 10px;">算法，排序</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a>
+						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 14px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 16px;">TCP/IP</a> <a href="/tags/Wi-Fi/" style="font-size: 12px;">Wi-Fi</a> <a href="/tags/argpaser/" style="font-size: 10px;">argpaser</a> <a href="/tags/awk/" style="font-size: 10px;">awk</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/compile-and-debug-tools/" style="font-size: 10px;">compile and debug tools</a> <a href="/tags/crawel/" style="font-size: 10px;">crawel</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/epoll/" style="font-size: 12px;">epoll</a> <a href="/tags/github/" style="font-size: 12px;">github</a> <a href="/tags/googletest/" style="font-size: 10px;">googletest</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/kernel/" style="font-size: 18px;">kernel</a> <a href="/tags/kernel-modules/" style="font-size: 10px;">kernel modules</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mysql/" style="font-size: 12px;">mysql</a> <a href="/tags/netlink/" style="font-size: 10px;">netlink</a> <a href="/tags/network/" style="font-size: 12px;">network</a> <a href="/tags/openssl/" style="font-size: 12px;">openssl</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/redis/" style="font-size: 18px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/unit-test/" style="font-size: 10px;">unit test</a> <a href="/tags/vim/" style="font-size: 12px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 12px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/算法，排序/" style="font-size: 10px;">算法，排序</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a>
 					</div>
 				</section>
 				
@@ -243,6 +246,7 @@
 
          
         <p>网络数据包内核协议栈分析：<br>参考百度文库上的内容，很详细<a href="https://wenku.baidu.com/view/0c5dcb0a844769eae009ed90.html" target="_blank" rel="external">内核协议栈数据包转发完全解析</a></p>
+<p>我的csdn 博客 <a href="http://blog.csdn.net/codingcs/article/details/77803983" target="_blank" rel="external">linux内核网络栈—socket调用内核路径</a></p>
 
       
     </div>
@@ -366,8 +370,8 @@
     </a>
   
   
-    <a href="/2017/08/13/python/crawel/crawel-primary/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">python 爬虫初窥</div>
+    <a href="/2017/08/13/python/crawel/argpaser/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python argparser解析</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
