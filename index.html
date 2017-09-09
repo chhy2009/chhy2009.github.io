@@ -224,7 +224,7 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#多进程"><span class="toc-text">多进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程池（进程池）技术"><span class="toc-text">线程池（进程池）技术</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#多进程"><span class="toc-text">多进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程"><span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程池（进程池）技术"><span class="toc-text">线程池（进程池）技术</span></a></li></ol>
 </div>
 
          
@@ -234,36 +234,12 @@
 <ul>
 <li>父进程需要处理子进程的SIGCHLD信号，做一些子进程结束后的清理工作，释放资源（调用waitpid等待子进程退出，防止出现僵尸进程及关闭accept的套接字）。  </li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_chld</span><span class="params">(<span class="keyword">int</span> signo)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">pid_t</span> pid;</div><div class="line">	<span class="keyword">int</span> status;</div><div class="line">	<span class="keyword">while</span>((pid=waitpid(<span class="number">-1</span>, &amp;status, WNOHANG)) &gt; <span class="number">0</span>) <span class="comment">//WNOHANG 若pid指定的子进程没有结束，则waitpid()函数返回0，不予以等待。若结束，则返回该子进程的ID。</span></div><div class="line">		<span class="built_in">printf</span>(<span class="string">"child %d terminated\n"</span>, pid);</div><div class="line">	<span class="keyword">return</span>;</div><div class="line">&#125;</div><div class="line">```  </div><div class="line"></div><div class="line">- 由于fork的写时复制特性，子进程执行fork后需要关闭父进程listen的描述符，然后再处理客户端的请求，处理完后关闭该socket</div><div class="line"></div><div class="line">## 多线程</div><div class="line">多线程技术相比多进程来说，由于线程是轻量级的进程，创建线程的速度和效率要高很多（需要指出的是，有的操作系统不支持多线程）。其流程和多进程一致（只是fork换成了pthread_create），代码框架如下（摘自unp源码）：</div></pre></td></tr></table></figure>
-<p>/<em> include serv06 </em>/</p>
-<p>#include    “unpthread.h”</p>
-<p>int<br>main(int argc, char <em>*argv)<br>{<br>    int                listenfd, connfd;<br>    void            sig_int(int);<br>    void            </em>doit(void <em>);<br>    pthread_t        tid;<br>    socklen_t        clilen, addrlen;<br>    struct sockaddr    </em>cliaddr;</p>
-<pre><code>if (argc == 2)
-    listenfd = Tcp_listen(NULL, argv[1], &amp;addrlen);
-else if (argc == 3)
-    listenfd = Tcp_listen(argv[1], argv[2], &amp;addrlen);
-else
-    err_quit(&quot;usage: serv06 [ &lt;host&gt; ] &lt;port#&gt;&quot;);
-cliaddr = Malloc(addrlen);
-
-Signal(SIGINT, sig_int);
-
-for ( ; ; ) {
-    clilen = addrlen;
-    connfd = Accept(listenfd, cliaddr, &amp;clilen);
-
-    Pthread_create(&amp;tid, NULL, &amp;doit, (void *) connfd);     }
-</code></pre><p>}</p>
-<p>void <em><br>doit(void </em>arg)<br>{<br>    void    web_child(int);</p>
-<pre><code>Pthread_detach(pthread_self());
-web_child((int) arg);
-Close((int) arg);
-return(NULL);
-</code></pre><p>}<br>/<em> end serv06 </em>/</p>
-<p>void<br>sig_int(int signo)<br>{<br>    void    pr_cpu_time(void);</p>
-<pre><code>pr_cpu_time();
-exit(0);
-</code></pre><p>}<br>```</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_chld</span><span class="params">(<span class="keyword">int</span> signo)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">pid_t</span> pid;</div><div class="line">	<span class="keyword">int</span> status;</div><div class="line">	<span class="keyword">while</span>((pid=waitpid(<span class="number">-1</span>, &amp;status, WNOHANG)) &gt; <span class="number">0</span>) <span class="comment">//WNOHANG 若pid指定的子进程没有结束，则waitpid()函数返回0，不予以等待。若结束，则返回该子进程的ID。</span></div><div class="line">		<span class="built_in">printf</span>(<span class="string">"child %d terminated\n"</span>, pid);</div><div class="line">	<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>由于fork的写时复制特性，子进程执行fork后需要关闭父进程listen的描述符，然后再处理客户端的请求，处理完后关闭该socket</li>
+</ul>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>多线程技术相比多进程来说，由于线程是轻量级的进程，创建线程的速度和效率要高很多（需要指出的是，有的操作系统不支持多线程）。其流程和多进程一致（只是fork换成了pthread_create），代码框架如下（摘自unp源码）：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* include serv06 */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpthread.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span></span></div><div class="line"><span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span>				listenfd, connfd;</div><div class="line">	<span class="function"><span class="keyword">void</span>			<span class="title">sig_int</span><span class="params">(<span class="keyword">int</span>)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">void</span>			*<span class="title">doit</span><span class="params">(<span class="keyword">void</span> *)</span></span>;</div><div class="line">	<span class="keyword">pthread_t</span>		tid;</div><div class="line">	<span class="keyword">socklen_t</span>		clilen, addrlen;</div><div class="line">	<span class="keyword">struct</span> sockaddr	*cliaddr;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (argc == <span class="number">2</span>)</div><div class="line">		listenfd = Tcp_listen(<span class="literal">NULL</span>, argv[<span class="number">1</span>], &amp;addrlen);</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (argc == <span class="number">3</span>)</div><div class="line">		listenfd = Tcp_listen(argv[<span class="number">1</span>], argv[<span class="number">2</span>], &amp;addrlen);</div><div class="line">	<span class="keyword">else</span></div><div class="line">		err_quit(<span class="string">"usage: serv06 [ &lt;host&gt; ] &lt;port#&gt;"</span>);</div><div class="line">	cliaddr = Malloc(addrlen);</div><div class="line"></div><div class="line">	Signal(SIGINT, sig_int);</div><div class="line"></div><div class="line">	<span class="keyword">for</span> ( ; ; ) &#123;</div><div class="line">		clilen = addrlen;</div><div class="line">		connfd = Accept(listenfd, cliaddr, &amp;clilen);</div><div class="line"></div><div class="line">		Pthread_create(&amp;tid, <span class="literal">NULL</span>, &amp;doit, (<span class="keyword">void</span> *) connfd); 	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> *</span></div><div class="line"><span class="title">doit</span><span class="params">(<span class="keyword">void</span> *arg)</span></div><div class="line">&#123;</div><div class="line">	<span class="function"><span class="keyword">void</span>	<span class="title">web_child</span><span class="params">(<span class="keyword">int</span>)</span></span>;</div><div class="line"></div><div class="line">	Pthread_detach(pthread_self());</div><div class="line">	web_child((<span class="keyword">int</span>) arg);</div><div class="line">	Close((<span class="keyword">int</span>) arg);</div><div class="line">	<span class="keyword">return</span>(<span class="literal">NULL</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">/* end serv06 */</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span></span></div><div class="line"><span class="title">sig_int</span><span class="params">(<span class="keyword">int</span> signo)</span></div><div class="line">&#123;</div><div class="line">	<span class="function"><span class="keyword">void</span>	<span class="title">pr_cpu_time</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"></div><div class="line">	pr_cpu_time();</div><div class="line">	<span class="built_in">exit</span>(<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>编程注意点：<br>子线程要调用pthread_detach，由自己释放资源，避免资源泄露。</p>
 <h2 id="线程池（进程池）技术"><a href="#线程池（进程池）技术" class="headerlink" title="线程池（进程池）技术"></a>线程池（进程池）技术</h2><p>线程池技术的原理：类似于某企业的客服系统，假设共有10个客服（相当于线程池中有10个线程），当业务繁忙时（服务人数大于10），则后面来的只能等待，直到有客服人员处理完业务后才能处理  </p>
 <ul>
@@ -1495,10 +1471,10 @@ exit(0);
 
 
   
-    <article id="post-database/redis/redis-c-api" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-database/redis/redis-in-action" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/26/database/redis/redis-c-api/" class="article-date">
+      <a href="/2017/07/26/database/redis/redis-in-action/" class="article-date">
   	<time datetime="2017-07-26T13:58:55.000Z" itemprop="datePublished">2017-07-26</time>
 </a>
     </div>
@@ -1512,7 +1488,7 @@ exit(0);
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/database/redis/redis-c-api/">redis c、java编程api</a>
+      <a class="article-title" href="/2017/07/26/database/redis/redis-in-action/">redis实战书籍笔记</a>
     </h1>
   
 
@@ -1523,26 +1499,15 @@ exit(0);
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-c-编程api"><span class="toc-text">redis c 编程api</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-java编程api"><span class="toc-text">redis java编程api</span></a></li></ol>
+    
 </div>
 
          
-        <h2 id="redis-c-编程api"><a href="#redis-c-编程api" class="headerlink" title="redis c 编程api"></a>redis c 编程api</h2><p>官方推荐使用的API接口：</p>
-<ul>
-<li><p>hiredis<br>This is the official C client. Support for the whole command set, pipelining, event driven programming.See <a href="https://github.com/redis/hiredis" target="_blank" rel="external">redis/hiredis</a></p>
-</li>
-<li><p>hiredis-vip<br>This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.     See <a href="https://github.com/vipshop/hiredis-vip" target="_blank" rel="external">vipshop/hiredis-vip</a></p>
-</li>
-</ul>
-<p>其中，hiredis-vip是基于hiredis衍生出来的，其支持hiredis的所有操作，并支持redis集群操作</p>
-<p>api使用方法，可见github上的test.c:<br><a href="https://github.com/redis/hiredis/blob/master/test.c" target="_blank" rel="external">hiredis/test.c</a><br><a href="https://github.com/vipshop/hiredis-vip/blob/master/test.c" target="_blank" rel="external">hiredis-vip/test.c</a></p>
-<h2 id="redis-java编程api"><a href="#redis-java编程api" class="headerlink" title="redis java编程api"></a>redis java编程api</h2><p>官方推荐使用的API接口：</p>
-<ul>
-<li>Jedis</li>
-<li>lettuce<br>Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.</li>
-<li>Redisson<br>distributed and scalable Java data structures on top of Redis server</li>
-</ul>
-<p>tips:<br>可以在redis官网上查看各种编程语言支持的redis API接口<a href="https://redis.io/clients" target="_blank" rel="external">Clients</a>,其中，带星号的是redis官方推荐使用的</p>
+        <p>性能工具：<br>redis-benchmark<br>redis-benchmark -c 1 -q</p>
+<p>redis事务<br>同数据库事务的概念一样，具有ACID性质。<br>为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。<br>使用watch命令支持redis事务</p>
+<p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
+<p>redis锁<br>细粒度锁</p>
+<p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
 
       
     </div>
@@ -1681,10 +1646,10 @@ exit(0);
 
 
   
-    <article id="post-database/redis/redis-in-action" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-database/redis/redis-c-api" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/26/database/redis/redis-in-action/" class="article-date">
+      <a href="/2017/07/26/database/redis/redis-c-api/" class="article-date">
   	<time datetime="2017-07-26T13:58:55.000Z" itemprop="datePublished">2017-07-26</time>
 </a>
     </div>
@@ -1698,7 +1663,7 @@ exit(0);
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/database/redis/redis-in-action/">redis实战书籍笔记</a>
+      <a class="article-title" href="/2017/07/26/database/redis/redis-c-api/">redis c、java编程api</a>
     </h1>
   
 
@@ -1709,15 +1674,26 @@ exit(0);
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-c-编程api"><span class="toc-text">redis c 编程api</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-java编程api"><span class="toc-text">redis java编程api</span></a></li></ol>
 </div>
 
          
-        <p>性能工具：<br>redis-benchmark<br>redis-benchmark -c 1 -q</p>
-<p>redis事务<br>同数据库事务的概念一样，具有ACID性质。<br>为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。<br>使用watch命令支持redis事务</p>
-<p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
-<p>redis锁<br>细粒度锁</p>
-<p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
+        <h2 id="redis-c-编程api"><a href="#redis-c-编程api" class="headerlink" title="redis c 编程api"></a>redis c 编程api</h2><p>官方推荐使用的API接口：</p>
+<ul>
+<li><p>hiredis<br>This is the official C client. Support for the whole command set, pipelining, event driven programming.See <a href="https://github.com/redis/hiredis" target="_blank" rel="external">redis/hiredis</a></p>
+</li>
+<li><p>hiredis-vip<br>This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.     See <a href="https://github.com/vipshop/hiredis-vip" target="_blank" rel="external">vipshop/hiredis-vip</a></p>
+</li>
+</ul>
+<p>其中，hiredis-vip是基于hiredis衍生出来的，其支持hiredis的所有操作，并支持redis集群操作</p>
+<p>api使用方法，可见github上的test.c:<br><a href="https://github.com/redis/hiredis/blob/master/test.c" target="_blank" rel="external">hiredis/test.c</a><br><a href="https://github.com/vipshop/hiredis-vip/blob/master/test.c" target="_blank" rel="external">hiredis-vip/test.c</a></p>
+<h2 id="redis-java编程api"><a href="#redis-java编程api" class="headerlink" title="redis java编程api"></a>redis java编程api</h2><p>官方推荐使用的API接口：</p>
+<ul>
+<li>Jedis</li>
+<li>lettuce<br>Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.</li>
+<li>Redisson<br>distributed and scalable Java data structures on top of Redis server</li>
+</ul>
+<p>tips:<br>可以在redis官网上查看各种编程语言支持的redis API接口<a href="https://redis.io/clients" target="_blank" rel="external">Clients</a>,其中，带星号的是redis官方推荐使用的</p>
 
       
     </div>
