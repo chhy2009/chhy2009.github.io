@@ -21,7 +21,7 @@
 
 父进程需要处理子进程的SIGCHL">
 <meta property="og:image" content="http://yoursite.com/img/tcpip_server_fork.png">
-<meta property="og:updated_time" content="2017-09-09T07:48:57.000Z">
+<meta property="og:updated_time" content="2017-09-09T07:50:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="socket通信服务端编程">
 <meta name="twitter:description" content="当开发一个Unix服务器程序时，需要处理的1对多或者多对更多的问题，我们有如下类型的进程控制可供选择：
@@ -278,12 +278,17 @@
 </ul>
 <p>综上，如果系统支持多线程的话，使用多线程技术可以获得更高的效率。</p>
 <p>tips：</p>
+<ol>
+<li>如何修改用户能fork的最大子进程数？  </li>
+</ol>
 <ul>
-<li><p>如何修改用户能fork的最大子进程数？<br>1 通过ulimit -a查看用户能fork的最大子进程数目：<br><code>max user processes              (-u) 3810</code><br>2 通过修改/etc/sercurity/limits.conf，增加用户限制条目：<br>@user hard nproc 65535<br>3 由于操作系统对系统最多pid数有限制，如果要突破该限制的话需要更改kernel.pid_max参数<br>sysctl kernel.pid_max  #查看<br>sysctl -w kernel.pid_max=num #修改，其中num为进程数</p>
-</li>
-<li><p>如何获取进程耗费的cpu时间？<br>使用getrusage函数，设置第一个参数为RUSAGE_SELF和RUSAGE_CHILDREN分别获取父子进程的cpu使用情况，在分别统计用户态耗时(ru_utime结构)及内核态耗时(ru_stime结构)</p>
-</li>
+<li>通过ulimit -a查看用户能fork的最大子进程数目：<br><code>max user processes              (-u) 3810</code>  </li>
+<li>通过修改/etc/sercurity/limits.conf，增加用户限制条目：<br>@user hard nproc 65535</li>
+<li>由于操作系统对系统最多pid数有限制，如果要突破该限制的话需要更改kernel.pid_max参数<br>sysctl kernel.pid_max  #查看<br>sysctl -w kernel.pid_max=num #修改，其中num为进程数</li>
 </ul>
+<ol>
+<li>如何获取进程耗费的cpu时间？<br>使用getrusage函数，设置第一个参数为RUSAGE_SELF和RUSAGE_CHILDREN分别获取父子进程的cpu使用情况，在分别统计用户态耗时(ru_utime结构)及内核态耗时(ru_stime结构)</li>
+</ol>
 
       
     </div>
