@@ -196,10 +196,10 @@
 
       <div class="body-wrap">
   
-    <article id="post-database/redis/redis-in-action" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-database/redis/redis-c-api" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/26/database/redis/redis-in-action/" class="article-date">
+      <a href="/2017/07/26/database/redis/redis-c-api/" class="article-date">
   	<time datetime="2017-07-26T13:58:55.000Z" itemprop="datePublished">2017-07-26</time>
 </a>
     </div>
@@ -213,7 +213,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/database/redis/redis-in-action/">redis实战书籍笔记</a>
+      <a class="article-title" href="/2017/07/26/database/redis/redis-c-api/">redis c、java编程api</a>
     </h1>
   
 
@@ -224,15 +224,26 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-c-编程api"><span class="toc-text">redis c 编程api</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-java编程api"><span class="toc-text">redis java编程api</span></a></li></ol>
 </div>
 
          
-        <p>性能工具：<br>redis-benchmark<br>redis-benchmark -c 1 -q</p>
-<p>redis事务<br>同数据库事务的概念一样，具有ACID性质。<br>为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。<br>使用watch命令支持redis事务</p>
-<p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
-<p>redis锁<br>细粒度锁</p>
-<p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
+        <h2 id="redis-c-编程api"><a href="#redis-c-编程api" class="headerlink" title="redis c 编程api"></a>redis c 编程api</h2><p>官方推荐使用的API接口：</p>
+<ul>
+<li><p>hiredis<br>This is the official C client. Support for the whole command set, pipelining, event driven programming.See <a href="https://github.com/redis/hiredis" target="_blank" rel="external">redis/hiredis</a></p>
+</li>
+<li><p>hiredis-vip<br>This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.     See <a href="https://github.com/vipshop/hiredis-vip" target="_blank" rel="external">vipshop/hiredis-vip</a></p>
+</li>
+</ul>
+<p>其中，hiredis-vip是基于hiredis衍生出来的，其支持hiredis的所有操作，并支持redis集群操作</p>
+<p>api使用方法，可见github上的test.c:<br><a href="https://github.com/redis/hiredis/blob/master/test.c" target="_blank" rel="external">hiredis/test.c</a><br><a href="https://github.com/vipshop/hiredis-vip/blob/master/test.c" target="_blank" rel="external">hiredis-vip/test.c</a></p>
+<h2 id="redis-java编程api"><a href="#redis-java编程api" class="headerlink" title="redis java编程api"></a>redis java编程api</h2><p>官方推荐使用的API接口：</p>
+<ul>
+<li>Jedis</li>
+<li>lettuce<br>Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.</li>
+<li>Redisson<br>distributed and scalable Java data structures on top of Redis server</li>
+</ul>
+<p>tips:<br>可以在redis官网上查看各种编程语言支持的redis API接口<a href="https://redis.io/clients" target="_blank" rel="external">Clients</a>,其中，带星号的是redis官方推荐使用的</p>
 
       
     </div>
@@ -371,10 +382,10 @@
 
 
   
-    <article id="post-database/redis/redis-c-api" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-database/redis/redis-in-action" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/26/database/redis/redis-c-api/" class="article-date">
+      <a href="/2017/07/26/database/redis/redis-in-action/" class="article-date">
   	<time datetime="2017-07-26T13:58:55.000Z" itemprop="datePublished">2017-07-26</time>
 </a>
     </div>
@@ -388,7 +399,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/database/redis/redis-c-api/">redis c、java编程api</a>
+      <a class="article-title" href="/2017/07/26/database/redis/redis-in-action/">redis实战书籍笔记</a>
     </h1>
   
 
@@ -399,26 +410,15 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-c-编程api"><span class="toc-text">redis c 编程api</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis-java编程api"><span class="toc-text">redis java编程api</span></a></li></ol>
+    
 </div>
 
          
-        <h2 id="redis-c-编程api"><a href="#redis-c-编程api" class="headerlink" title="redis c 编程api"></a>redis c 编程api</h2><p>官方推荐使用的API接口：</p>
-<ul>
-<li><p>hiredis<br>This is the official C client. Support for the whole command set, pipelining, event driven programming.See <a href="https://github.com/redis/hiredis" target="_blank" rel="external">redis/hiredis</a></p>
-</li>
-<li><p>hiredis-vip<br>This is the C client for redis cluster. Support for synchronous api, MSET/MGET/DEL, pipelining, asynchronous api.     See <a href="https://github.com/vipshop/hiredis-vip" target="_blank" rel="external">vipshop/hiredis-vip</a></p>
-</li>
-</ul>
-<p>其中，hiredis-vip是基于hiredis衍生出来的，其支持hiredis的所有操作，并支持redis集群操作</p>
-<p>api使用方法，可见github上的test.c:<br><a href="https://github.com/redis/hiredis/blob/master/test.c" target="_blank" rel="external">hiredis/test.c</a><br><a href="https://github.com/vipshop/hiredis-vip/blob/master/test.c" target="_blank" rel="external">hiredis-vip/test.c</a></p>
-<h2 id="redis-java编程api"><a href="#redis-java编程api" class="headerlink" title="redis java编程api"></a>redis java编程api</h2><p>官方推荐使用的API接口：</p>
-<ul>
-<li>Jedis</li>
-<li>lettuce<br>Advanced Redis client for thread-safe sync, async, and reactive usage. Supports Cluster, Sentinel, Pipelining, and codecs.</li>
-<li>Redisson<br>distributed and scalable Java data structures on top of Redis server</li>
-</ul>
-<p>tips:<br>可以在redis官网上查看各种编程语言支持的redis API接口<a href="https://redis.io/clients" target="_blank" rel="external">Clients</a>,其中，带星号的是redis官方推荐使用的</p>
+        <p>性能工具：<br>redis-benchmark<br>redis-benchmark -c 1 -q</p>
+<p>redis事务<br>同数据库事务的概念一样，具有ACID性质。<br>为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。<br>使用watch命令支持redis事务</p>
+<p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
+<p>redis锁<br>细粒度锁</p>
+<p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
 
       
     </div>
