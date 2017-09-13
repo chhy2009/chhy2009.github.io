@@ -6,22 +6,25 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>syslog-ng详解——运行syslog-ng | chenhy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装完syslog-ng后，就是如何使用的问题了。在https://syslog-ng.org 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng:
+  <meta name="description" content="安装完syslog-ng后，就是如何使用的问题了。在https://syslog-ng.org 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng。
 安装目录结构介绍在syslog-ng安装目录下，文件夹及作用如下：  
-- bin 存放一些用于测试syslog-ng的">
+
+bin 存放一些用于测试syslog-ng的工">
 <meta property="og:type" content="article">
 <meta property="og:title" content="syslog-ng详解——运行syslog-ng">
 <meta property="og:url" content="http://yoursite.com/2017/09/13/syslog-ng/syslog-ng-run/index.html">
 <meta property="og:site_name" content="chenhy's blog">
-<meta property="og:description" content="安装完syslog-ng后，就是如何使用的问题了。在https://syslog-ng.org 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng:
+<meta property="og:description" content="安装完syslog-ng后，就是如何使用的问题了。在https://syslog-ng.org 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng。
 安装目录结构介绍在syslog-ng安装目录下，文件夹及作用如下：  
-- bin 存放一些用于测试syslog-ng的">
-<meta property="og:updated_time" content="2017-09-13T14:50:12.000Z">
+
+bin 存放一些用于测试syslog-ng的工">
+<meta property="og:updated_time" content="2017-09-13T14:51:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="syslog-ng详解——运行syslog-ng">
-<meta name="twitter:description" content="安装完syslog-ng后，就是如何使用的问题了。在https://syslog-ng.org 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng:
+<meta name="twitter:description" content="安装完syslog-ng后，就是如何使用的问题了。在https://syslog-ng.org 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng。
 安装目录结构介绍在syslog-ng安装目录下，文件夹及作用如下：  
-- bin 存放一些用于测试syslog-ng的">
+
+bin 存放一些用于测试syslog-ng的工">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -248,16 +251,18 @@
 </div>
 
          
-        <p>安装完syslog-ng后，就是如何使用的问题了。在<a href="https://syslog-ng.org" target="_blank" rel="external">https://syslog-ng.org</a> 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng:</p>
-<h2 id="安装目录结构介绍"><a href="#安装目录结构介绍" class="headerlink" title="安装目录结构介绍"></a>安装目录结构介绍</h2><pre><code>在syslog-ng安装目录下，文件夹及作用如下：  
-- bin 存放一些用于测试syslog-ng的工具，如loggen， pdbtool   
- - etc 存放syslog-ng的配置文件，⚠主要为syslog-ng.conf   
-- include 头文件  
-- lib syslog-ng相关库文件，如libsyslog-ng.so已经syslog-ng的各种plugin  
-- sbin syslog-ng可执行程序syslog-ng及交互程序syslog-ng-ctl  
-- share 帮助文档  
-- var存放syslog-ng运行时的一些信息  
-</code></pre><h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><p>在使用syslog-ng前，需要先对其进行配置，其对应的配置文件为syslog-ng.conf(位于syslog-ng安装目录etc下面),默认配置如下（为了能更好的描述配置文件，我加了个filter语法）：</p>
+        <p>安装完syslog-ng后，就是如何使用的问题了。在<a href="https://syslog-ng.org" target="_blank" rel="external">https://syslog-ng.org</a> 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng。</p>
+<h2 id="安装目录结构介绍"><a href="#安装目录结构介绍" class="headerlink" title="安装目录结构介绍"></a>安装目录结构介绍</h2><p>在syslog-ng安装目录下，文件夹及作用如下：  </p>
+<ul>
+<li>bin 存放一些用于测试syslog-ng的工具，如loggen， pdbtool   </li>
+<li>etc 存放syslog-ng的配置文件，⚠主要为syslog-ng.conf   </li>
+<li>include 头文件  </li>
+<li>lib syslog-ng相关库文件，如libsyslog-ng.so已经syslog-ng的各种plugin  </li>
+<li>sbin syslog-ng可执行程序syslog-ng及交互程序syslog-ng-ctl  </li>
+<li>share 帮助文档  </li>
+<li>var存放syslog-ng运行时的一些信息  </li>
+</ul>
+<h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><p>在使用syslog-ng前，需要先对其进行配置，其对应的配置文件为syslog-ng.conf(位于syslog-ng安装目录etc下面),默认配置如下（为了能更好的描述配置文件，我加了个filter语法）：</p>
 <pre><code>#############################################################################
 # Default syslog-ng.conf file which collects all local logs into a
 # single file called /var/log/messages.
@@ -411,18 +416,18 @@ Sep 13 22:46:49 localhost Hello, syslog-ng
     
 <nav id="article-nav">
   
-    <a href="/2017/09/13/syslog-ng/syslog-ng-install/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/13/syslog/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          syslog-ng详解——简介及安装syslog-ng
+          syslog
         
       </div>
     </a>
   
   
-    <a href="/2017/09/13/syslog/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">syslog</div>
+    <a href="/2017/09/13/syslog-ng/syslog-ng-install/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">syslog-ng详解——简介及安装syslog-ng</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

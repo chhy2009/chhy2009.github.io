@@ -196,10 +196,10 @@
 
       <div class="body-wrap">
   
-    <article id="post-syslog-ng/syslog-ng-install" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-syslog" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/13/syslog-ng/syslog-ng-install/" class="article-date">
+      <a href="/2017/09/13/syslog/" class="article-date">
   	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
 </a>
     </div>
@@ -213,7 +213,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-install/">syslog-ng详解——简介及安装syslog-ng</a>
+      <a class="article-title" href="/2017/09/13/syslog/">syslog</a>
     </h1>
   
 
@@ -224,29 +224,11 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装syslog-ng"><span class="toc-text">安装syslog-ng</span></a></li></ol>
+    
 </div>
 
          
-        <p>日志管理模块作为软件系统的一个重要子模块，其记录着系统运行的有关信息。当系统故障时，日志是用于问题定位的必备信息。所以，一个设计良好的日志模块及其重要，在Linux系统上往往用syslog(rsyslogd及klogd程序)来管理系统的日志。本文介绍的syslog-ng是syslog的next generation，具有比syslog更强大的功能和性能，优势体现在以下几个方面：  </p>
-<ul>
-<li>兼容syslog的功能，可扩展性强(支持plugin)，更新速度快 </li>
-<li>更多的配置语法，管理日志方式更加(日志源和日志目的地很丰富)  </li>
-<li>支持网络日志传输(TLS方式传输)，即分布式日志管理功能  </li>
-</ul>
-<h2 id="安装syslog-ng"><a href="#安装syslog-ng" class="headerlink" title="安装syslog-ng"></a>安装syslog-ng</h2><p>本文只介绍从源码包安装syslog-ng的方法，掌握了源码包安装后，就可以在嵌入式系统(如Android)上用类似的方法集成syslog-ng。<br>a)    下载源码包<br>    在<a href="https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。" target="_blank" rel="external">https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。</a></p>
-<p>b)    编译及安装<br>由于syslog-ng依赖于eventlog和glib，所以需要先编译eventlog和 glib （这边用的glib为2.46.2版本，依赖zlib, libffi，可以从<a href="http://ftp.gnome.org/pub/gnome/sources/glib/上下载）" target="_blank" rel="external">http://ftp.gnome.org/pub/gnome/sources/glib/上下载）</a> </p>
-<p>从源码包编译软件的步骤如下(以eventlog为例，假设系统用户为user)：</p>
-<pre><code>#./configure –-prefix=/home/user/software/eventlog-0.2.13
-#make install
-</code></pre><p>然后eventlog软件就被安装到了~/software/eventlog-0.2.13目录下。</p>
-<p>用同样的方法编译安装glib到/home/user/software/glib-2.46.2/目录，然后就可以编译安装syslog-ng.详细步骤如下：</p>
-<p>在syslog-ng-3.4.2源码包下执行  </p>
-<pre><code>#export PKG_CONFIG_PATH＝/home/user/software/eventlog-    0.2.13/lib/pkgconfig/:/home/user/software/glib-2.46.2/lib/pkgconfig/:$PKG_CONFIG_PATH
-#./configure –-prefix=~/software/syslog-ng－3.4.2
-#make install
-</code></pre><p>其中，PKG_CONFIG_PATH用于告诉configure依赖库的安装路径，否则configure的时候会报No package ‘xxx’ found<br>这样，就是成功安装了syslog-ng到~/software/syslog-ng－3.4.2目录下，下一篇讲解如何运行syslog-ng及其配置文件语法。</p>
-
+        
       
     </div>
     
@@ -357,10 +339,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
-	</div>
-
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>
@@ -416,16 +394,18 @@
 </div>
 
          
-        <p>安装完syslog-ng后，就是如何使用的问题了。在<a href="https://syslog-ng.org" target="_blank" rel="external">https://syslog-ng.org</a> 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng:</p>
-<h2 id="安装目录结构介绍"><a href="#安装目录结构介绍" class="headerlink" title="安装目录结构介绍"></a>安装目录结构介绍</h2><pre><code>在syslog-ng安装目录下，文件夹及作用如下：  
-- bin 存放一些用于测试syslog-ng的工具，如loggen， pdbtool   
- - etc 存放syslog-ng的配置文件，⚠主要为syslog-ng.conf   
-- include 头文件  
-- lib syslog-ng相关库文件，如libsyslog-ng.so已经syslog-ng的各种plugin  
-- sbin syslog-ng可执行程序syslog-ng及交互程序syslog-ng-ctl  
-- share 帮助文档  
-- var存放syslog-ng运行时的一些信息  
-</code></pre><h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><p>在使用syslog-ng前，需要先对其进行配置，其对应的配置文件为syslog-ng.conf(位于syslog-ng安装目录etc下面),默认配置如下（为了能更好的描述配置文件，我加了个filter语法）：</p>
+        <p>安装完syslog-ng后，就是如何使用的问题了。在<a href="https://syslog-ng.org" target="_blank" rel="external">https://syslog-ng.org</a> 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng。</p>
+<h2 id="安装目录结构介绍"><a href="#安装目录结构介绍" class="headerlink" title="安装目录结构介绍"></a>安装目录结构介绍</h2><p>在syslog-ng安装目录下，文件夹及作用如下：  </p>
+<ul>
+<li>bin 存放一些用于测试syslog-ng的工具，如loggen， pdbtool   </li>
+<li>etc 存放syslog-ng的配置文件，⚠主要为syslog-ng.conf   </li>
+<li>include 头文件  </li>
+<li>lib syslog-ng相关库文件，如libsyslog-ng.so已经syslog-ng的各种plugin  </li>
+<li>sbin syslog-ng可执行程序syslog-ng及交互程序syslog-ng-ctl  </li>
+<li>share 帮助文档  </li>
+<li>var存放syslog-ng运行时的一些信息  </li>
+</ul>
+<h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><p>在使用syslog-ng前，需要先对其进行配置，其对应的配置文件为syslog-ng.conf(位于syslog-ng安装目录etc下面),默认配置如下（为了能更好的描述配置文件，我加了个filter语法）：</p>
 <pre><code>#############################################################################
 # Default syslog-ng.conf file which collects all local logs into a
 # single file called /var/log/messages.
@@ -604,10 +584,10 @@ Sep 13 22:46:49 localhost Hello, syslog-ng
 
 
   
-    <article id="post-syslog" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-syslog-ng/syslog-ng-install" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/13/syslog/" class="article-date">
+      <a href="/2017/09/13/syslog-ng/syslog-ng-install/" class="article-date">
   	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
 </a>
     </div>
@@ -621,7 +601,7 @@ Sep 13 22:46:49 localhost Hello, syslog-ng
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/syslog/">syslog</a>
+      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-install/">syslog-ng详解——简介及安装syslog-ng</a>
     </h1>
   
 
@@ -632,11 +612,29 @@ Sep 13 22:46:49 localhost Hello, syslog-ng
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装syslog-ng"><span class="toc-text">安装syslog-ng</span></a></li></ol>
 </div>
 
          
-        
+        <p>日志管理模块作为软件系统的一个重要子模块，其记录着系统运行的有关信息。当系统故障时，日志是用于问题定位的必备信息。所以，一个设计良好的日志模块及其重要，在Linux系统上往往用syslog(rsyslogd及klogd程序)来管理系统的日志。本文介绍的syslog-ng是syslog的next generation，具有比syslog更强大的功能和性能，优势体现在以下几个方面：  </p>
+<ul>
+<li>兼容syslog的功能，可扩展性强(支持plugin)，更新速度快 </li>
+<li>更多的配置语法，管理日志方式更加(日志源和日志目的地很丰富)  </li>
+<li>支持网络日志传输(TLS方式传输)，即分布式日志管理功能  </li>
+</ul>
+<h2 id="安装syslog-ng"><a href="#安装syslog-ng" class="headerlink" title="安装syslog-ng"></a>安装syslog-ng</h2><p>本文只介绍从源码包安装syslog-ng的方法，掌握了源码包安装后，就可以在嵌入式系统(如Android)上用类似的方法集成syslog-ng。<br>a)    下载源码包<br>    在<a href="https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。" target="_blank" rel="external">https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。</a></p>
+<p>b)    编译及安装<br>由于syslog-ng依赖于eventlog和glib，所以需要先编译eventlog和 glib （这边用的glib为2.46.2版本，依赖zlib, libffi，可以从<a href="http://ftp.gnome.org/pub/gnome/sources/glib/上下载）" target="_blank" rel="external">http://ftp.gnome.org/pub/gnome/sources/glib/上下载）</a> </p>
+<p>从源码包编译软件的步骤如下(以eventlog为例，假设系统用户为user)：</p>
+<pre><code>#./configure –-prefix=/home/user/software/eventlog-0.2.13
+#make install
+</code></pre><p>然后eventlog软件就被安装到了~/software/eventlog-0.2.13目录下。</p>
+<p>用同样的方法编译安装glib到/home/user/software/glib-2.46.2/目录，然后就可以编译安装syslog-ng.详细步骤如下：</p>
+<p>在syslog-ng-3.4.2源码包下执行  </p>
+<pre><code>#export PKG_CONFIG_PATH＝/home/user/software/eventlog-0.2.13/lib/pkgconfig/:/home/user/software/glib-2.46.2/lib/pkgconfig/:$PKG_CONFIG_PATH
+#./configure –-prefix=~/software/syslog-ng－3.4.2
+#make install
+</code></pre><p>其中，PKG_CONFIG_PATH用于告诉configure依赖库的安装路径，否则configure的时候会报No package ‘xxx’ found<br>这样，就是成功安装了syslog-ng到~/software/syslog-ng－3.4.2目录下，下一篇讲解如何运行syslog-ng及其配置文件语法。</p>
+
       
     </div>
     
@@ -747,6 +745,10 @@ Sep 13 22:46:49 localhost Hello, syslog-ng
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
+	</div>
+
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/coding/">编程</a>

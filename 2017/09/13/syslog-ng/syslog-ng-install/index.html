@@ -16,7 +16,7 @@
 <meta property="og:description" content="日志管理模块作为软件系统的一个重要子模块，其记录着系统运行的有关信息。当系统故障时，日志是用于问题定位的必备信息。所以，一个设计良好的日志模块及其重要，在Linux系统上往往用syslog(rsyslogd及klogd程序)来管理系统的日志。本文介绍的syslog-ng是syslog的next generation，具有比syslog更强大的功能和性能，优势体现在以下几个方面：  
 
 兼容sysl">
-<meta property="og:updated_time" content="2017-09-13T14:37:41.000Z">
+<meta property="og:updated_time" content="2017-09-13T14:52:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="syslog-ng详解——简介及安装syslog-ng">
 <meta name="twitter:description" content="日志管理模块作为软件系统的一个重要子模块，其记录着系统运行的有关信息。当系统故障时，日志是用于问题定位的必备信息。所以，一个设计良好的日志模块及其重要，在Linux系统上往往用syslog(rsyslogd及klogd程序)来管理系统的日志。本文介绍的syslog-ng是syslog的next generation，具有比syslog更强大的功能和性能，优势体现在以下几个方面：  
@@ -262,7 +262,7 @@
 </code></pre><p>然后eventlog软件就被安装到了~/software/eventlog-0.2.13目录下。</p>
 <p>用同样的方法编译安装glib到/home/user/software/glib-2.46.2/目录，然后就可以编译安装syslog-ng.详细步骤如下：</p>
 <p>在syslog-ng-3.4.2源码包下执行  </p>
-<pre><code>#export PKG_CONFIG_PATH＝/home/user/software/eventlog-    0.2.13/lib/pkgconfig/:/home/user/software/glib-2.46.2/lib/pkgconfig/:$PKG_CONFIG_PATH
+<pre><code>#export PKG_CONFIG_PATH＝/home/user/software/eventlog-0.2.13/lib/pkgconfig/:/home/user/software/glib-2.46.2/lib/pkgconfig/:$PKG_CONFIG_PATH
 #./configure –-prefix=~/software/syslog-ng－3.4.2
 #make install
 </code></pre><p>其中，PKG_CONFIG_PATH用于告诉configure依赖库的安装路径，否则configure的时候会报No package ‘xxx’ found<br>这样，就是成功安装了syslog-ng到~/software/syslog-ng－3.4.2目录下，下一篇讲解如何运行syslog-ng及其配置文件语法。</p>
@@ -379,9 +379,18 @@
     
 <nav id="article-nav">
   
+    <a href="/2017/09/13/syslog-ng/syslog-ng-run/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          syslog-ng详解——运行syslog-ng
+        
+      </div>
+    </a>
   
-    <a href="/2017/09/13/syslog-ng/syslog-ng-run/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">syslog-ng详解——运行syslog-ng</div>
+  
+    <a href="/2017/09/08/tcp-ip-server/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">socket通信服务端编程</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
