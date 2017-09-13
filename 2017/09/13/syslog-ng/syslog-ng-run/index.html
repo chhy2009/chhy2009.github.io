@@ -18,7 +18,7 @@ bin 存放一些用于测试syslog-ng的工">
 安装目录结构介绍在syslog-ng安装目录下，文件夹及作用如下：  
 
 bin 存放一些用于测试syslog-ng的工">
-<meta property="og:updated_time" content="2017-09-13T15:03:30.000Z">
+<meta property="og:updated_time" content="2017-09-13T15:09:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="syslog-ng详解——运行syslog-ng">
 <meta name="twitter:description" content="安装完syslog-ng后，就是如何使用的问题了。在https://syslog-ng.org 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng。
@@ -263,43 +263,45 @@ bin 存放一些用于测试syslog-ng的工">
 <li>var存放syslog-ng运行时的一些信息  </li>
 </ul>
 <h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><p>在使用syslog-ng前，需要先对其进行配置，其对应的配置文件为syslog-ng.conf(位于syslog-ng安装目录etc下面),默认配置如下（为了能更好的描述配置文件，我加了个filter语法）：</p>
-<pre><code>@version: 3.4
+<pre><code>```
+@version: 3.4
 @include &quot;scl.conf&quot;
 
 source s_local {
-        system();
-        internal();
+    system();
+    internal();
 };
 
 source s_network {
-        udp();
+    udp();
 };
 
 destination d_local {
-        file(&quot;/var/log/messages&quot;);
+    file(&quot;/var/log/messages&quot;);
 };
 
 filter f_level {
-        &quot;${LEVEL_NUM}&quot; &gt; &quot;5&quot;;
+    &quot;${LEVEL_NUM}&quot; &gt; &quot;5&quot;;
 };
 
 log {
-        source(s_local);
-        # uncomment this line to open port 514 to receive messages
-        #source(s_network);
-        filter(f_level);
-        destination(d_local);
+    source(s_local);
+    # uncomment this line to open port 514 to receive messages
+    #source(s_network);
+    filter(f_level);
+    destination(d_local);
 };
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">上边配置了两个日志源:s_local及s_network， 一个日志目的地:d_local; 然后定义了日志收集语法 <span class="keyword">log</span> &#123;<span class="keyword">source</span>(s_xxx); <span class="keyword">filter</span>(f_xxx); destination(d_xxx);&#125;;.即收集<span class="keyword">system</span>(指送往/dev/<span class="keyword">log</span>及/<span class="keyword">proc</span>/kmsg的日志)及internal(指syslog-ng进程本身的日志)，然后日志经过<span class="keyword">filter</span>，将日志级别小于等于<span class="number">7</span>(debug)级别的日志输出到/var/<span class="keyword">log</span>/messages目录。  配置完syslog-ng后，便可以运行syslog-ng了。## 运行syslog-ng进入sbin目录，执行./syslog-ng运行syslog-ng.如果用上面的配置文件，会发现运行时报错：</div></pre></td></tr></table></figure>
 
-system(): /proc/kmsg is not readable, please check permissions if this is unintentional.; error=&apos;Permission denied (13)&apos;
-Error binding socket; addr=&apos;AF_UNIX(/dev/log)&apos;, error=&apos;Address already in use (98)&apos;
+system(): /proc/kmsg is not readable, please check permissions if this is     unintentional.; error=&apos;Permission denied (13)&apos;
+Error binding socket; addr=&apos;AF_UNIX(/dev/log)&apos;, error=&apos;Address already in     use (98)&apos;
 Error initializing message pipeline;
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">这是因为我们现在是以非root用户运行的，所以无法读取/proc/kmsg文件；另外/dev/<span class="keyword">log</span>这个socket，当前rsyslogd进程正在使用，你也无法使用；    所以先将system这个语法用’#’注释掉，换成<span class="keyword">file</span>(<span class="string">".../syslog-ng-3.4.2/syslog-ng.in"</span>);  还有d_local中的目的文件可以改成.../syslog-ng-3.4.2/syslog-ng.<span class="keyword">out</span>，方便我们分析(这边我们也没有操作/<span class="keyword">var</span>/<span class="keyword">log</span>/messages的权限)。其中...为软件的安装上级目录，且配置文件中的路径要使用绝对路径。  </div><div class="line">修改后的配置文件如下：</div><div class="line">  ```@<span class="keyword">include</span> <span class="string">"scl.conf"</span>source s_local &#123;        #system();        <span class="keyword">file</span>(<span class="string">"/home/user/software/syslog-ng-3.4.2/syslog-ng.in"</span>);        internal();&#125;;source s_network &#123;        udp();&#125;;destination d_local &#123;        #<span class="keyword">file</span>(<span class="string">"/var/log/messages"</span>);        <span class="keyword">file</span>(<span class="string">"/home/user/software/syslog-ng-3.4.2/syslog-ng.out"</span>);&#125;;filter f_level &#123;        <span class="string">"$&#123;LEVEL_NUM&#125;"</span> &lt;= <span class="string">"7"</span>;&#125;;<span class="keyword">log</span> &#123;        source(s_local);        # uncomment this <span class="keyword">line</span> to <span class="keyword">open</span> port 514 to receive messages        #source(s_network);        filter(f_level);        destination(d_local);&#125;;```  再次运行syslog-ng，可见在安装目录下生成了syslog-ng.<span class="keyword">out</span>文件，<span class="keyword">cat</span>看一下,输出：  ```  Sep 13 22:17:28 localhost syslog-ng[84496]: syslog-ng starting up; <span class="keyword">version</span>='3.4.2'```  这说明syslog-ng已经成功运行起来了。用ps命令看下：```  <span class="variable">$ps</span> -elf|grep syslog-ng 1 S user        84495      1  0  80   0 -  6150 wait   22:17 ?        00:00:00 supervising syslog-ng1 S user        84496  84495  0  80   0 -  8832 ep_pol 22:17 ?        00:00:00 ./syslog-ng```  其中，主进程为./syslog-ng这时，我们可以试下往/home/user/software/syslog-ng-3.4.2/syslog-ng.<span class="keyword">in</span>文件中输入一条信息，syslog-ng将会把此信息一起收集到syslog-ng.<span class="keyword">out</span>文件中。</div></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">这是因为我们现在是以非root用户运行的，所以无法读取/proc/kmsg文件；另外/dev/<span class="keyword">log</span>这个socket，当前rsyslogd进程正在使用，你也无法使用；    所以先将system这个语法用’#’注释掉，换成<span class="keyword">file</span>(<span class="string">".../syslog-ng-3.4.2/syslog-ng.in"</span>);  还有d_local中的目的文件可以改成.../syslog-ng-3.4.2/syslog-ng.<span class="keyword">out</span>，方便我们分析(这边我们也没有操作/<span class="keyword">var</span>/<span class="keyword">log</span>/messages的权限)。其中...为软件的安装上级目录，且配置文件中的路径要使用绝对路径。  </div><div class="line">修改后的配置文件如下：</div><div class="line">  	```	@<span class="keyword">include</span> <span class="string">"scl.conf"</span>		source s_local &#123;        #system();        <span class="keyword">file</span>(<span class="string">"/home/user/software/syslog-ng-3.4.2/syslog-ng.in"</span>);        internal();	&#125;;	source s_network &#123;        udp();	&#125;;	destination d_local &#123;        #<span class="keyword">file</span>(<span class="string">"/var/log/messages"</span>);        <span class="keyword">file</span>(<span class="string">"/home/user/software/syslog-ng-3.4.2/syslog-ng.out"</span>);	&#125;;	filter f_level &#123;        <span class="string">"$&#123;LEVEL_NUM&#125;"</span> &lt;= <span class="string">"7"</span>;	&#125;;	<span class="keyword">log</span> &#123;        source(s_local);        # uncomment this <span class="keyword">line</span> to <span class="keyword">open</span> port 514 to receive messages        #source(s_network);        filter(f_level);        destination(d_local);	&#125;;	```  再次运行syslog-ng，可见在安装目录下生成了syslog-ng.<span class="keyword">out</span>文件，<span class="keyword">cat</span>看一下,输出：  	```  	Sep 13 22:17:28 localhost syslog-ng[84496]: syslog-ng starting up; 	<span class="keyword">version</span>='3.4.2'	```  这说明syslog-ng已经成功运行起来了。用ps命令看下：	```  	<span class="variable">$ps</span> -elf|grep syslog-ng 	1 S user        84495      1  0  80   0 -  6150 wait   22:17 ?        	00:00:00 supervising syslog-ng	1 S user        84496  84495  0  80   0 -  8832 ep_pol 22:17 ?        	00:00:00 ./syslog-ng	```  其中，主进程为./syslog-ng这时，我们可以试下往/home/user/software/syslog-ng-3.4.2/syslog-ng.<span class="keyword">in</span>文件中输入一条信息，syslog-ng将会把此信息一起收集到syslog-ng.<span class="keyword">out</span>文件中。</div></pre></td></tr></table></figure>
 
 $echo &quot;Hello, syslog-ng&quot;  &gt; syslog-ng.in
 $cat syslog-ng.out
 Sep 13 22:46:49 localhost Hello, syslog-ng
+```  
 </code></pre><p>这样，我们就大概清楚了syslog-ng运行的原理：即将某个日志源的信息进行收集，然后对日志进行一些处理（如果过滤，文本替换等），然后输出到指定的目的地(本地或者网络)。</p>
 
       
@@ -424,8 +426,8 @@ Sep 13 22:46:49 localhost Hello, syslog-ng
     </a>
   
   
-    <a href="/2017/09/08/tcp-ip-server/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">socket通信服务端编程</div>
+    <a href="/2017/09/13/syslog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">syslog</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
