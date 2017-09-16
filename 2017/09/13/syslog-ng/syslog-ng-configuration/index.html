@@ -22,7 +22,7 @@
 由设备号和日志级别我们可以计算出log的级别(facili">
 <meta property="og:image" content="http://yoursite.com/img/syslog-ng/loglevel.png">
 <meta property="og:image" content="http://yoursite.com/img/syslog-ng/logfacility.png">
-<meta property="og:updated_time" content="2017-09-16T02:29:21.000Z">
+<meta property="og:updated_time" content="2017-09-16T02:35:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="syslog-ng配置语法">
 <meta name="twitter:description" content="在“运行syslog-ng”中我们简单介绍了一个基本配置文件的大概结构，保证syslog-ng能正常运行起来。这边将详细介绍下syslog-ng的日志配置及如何进行高效的配置，先介绍下syslog的一些基本知识：
@@ -314,11 +314,15 @@ options { file-template(global_format); }; #用于file-like destination
 <h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>日志处理中最常用的filter当属级别过滤。此外，filter还具有很强大的关键字过滤功能，支持多个filter同时使用，具体语法参考Chapter 8. Routing messages: log paths and filters。</p>
 <h3 id="TLS传输"><a href="#TLS传输" class="headerlink" title="TLS传输"></a>TLS传输</h3><p>详见Chapter 10. TLS-encrypted message transfer<br>关于证书生成和配置的操作可参考<a href="http://blog.csdn.net/codingcs/article/details/51816115" target="_blank" rel="external">证书相关概念及使用openssl生成自认证证书</a></p>
 <h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
-<li>关键字替换 </li>
-</ul>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rewrite r_rewrite_set&#123;set(<span class="string">"myhost"</span>, value(<span class="string">"HOST"</span>)condition(program(<span class="string">"myapplication"</span>)))<span class="comment">;&#125;;</span></div><div class="line">log &#123;source(<span class="built_in">s1</span>)<span class="comment">;</span>rewrite(r_rewrite_set)<span class="comment">;</span>destination(d1)<span class="comment">;&#125;;</span></div></pre></td></tr></table></figure>
-<ul>
-<li>flow control<br>tcp： max-connections(300)<br>指定发送往网络目的地的日志缓冲区大小： log-fifo-size(40000)<br>在destination中启用flow control： flags(flow-control)  </li>
+<li><p>关键字替换 </p>
+<p>  rewrite r_rewrite_set{set(“myhost”, value(“HOST”)<br>  condition(program(“myapplication”)));};<br>  log {   </p>
+<pre><code>source(s1);  
+rewrite(r_rewrite_set);  
+destination(d1);  
+</code></pre><p>  };  </p>
+</li>
+<li><p>flow control<br>tcp： max-connections(300)<br>指定发送往网络目的地的日志缓冲区大小： log-fifo-size(40000)<br>在destination中启用flow control： flags(flow-control)  </p>
+</li>
 </ul>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>syslog-ng支持的配置语法众多，具体可根据使用时查阅手册进行配置，本文讲解的是一些比较常用的操作，如有错误，欢迎指出。<br>后续会讲解下syslog-ng的源码，作为一个优秀的日志服务器和客户端，深入理解下应该还是能有不少收获的</p>
 
@@ -434,18 +438,9 @@ options { file-template(global_format); }; #用于file-like destination
     
 <nav id="article-nav">
   
-    <a href="/2017/09/13/syslog-ng/syslog-ng-install/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          syslog-ng详解——简介及安装syslog-ng
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/09/13/syslog-ng/syslog-ng-run/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">syslog-ng详解——运行syslog-ng</div>
+    <a href="/2017/09/13/syslog-ng/syslog-ng-install/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">syslog-ng详解——简介及安装syslog-ng</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
