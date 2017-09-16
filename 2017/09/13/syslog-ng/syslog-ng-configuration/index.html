@@ -22,7 +22,7 @@
 由设备号和日志级别我们可以计算出log的级别(facili">
 <meta property="og:image" content="http://yoursite.com/img/syslog-ng/loglevel.png">
 <meta property="og:image" content="http://yoursite.com/img/syslog-ng/logfacility.png">
-<meta property="og:updated_time" content="2017-09-16T02:37:41.000Z">
+<meta property="og:updated_time" content="2017-09-16T02:38:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="syslog-ng配置语法">
 <meta name="twitter:description" content="在“运行syslog-ng”中我们简单介绍了一个基本配置文件的大概结构，保证syslog-ng能正常运行起来。这边将详细介绍下syslog-ng的日志配置及如何进行高效的配置，先介绍下syslog的一些基本知识：
@@ -316,14 +316,14 @@ options { file-template(global_format); }; #用于file-like destination
 <h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
 <li>关键字替换 </li>
 </ul>
-<pre><code>rewrite r_rewrite_set{set(&quot;myhost&quot;, value(&quot;HOST&quot;)};
-condition(program(&quot;myapplication&quot;)));}; 
-log {   
-    source(s1);  
-    rewrite(r_rewrite_set);  
-    destination(d1);  
-};  
-</code></pre><ul>
+<p><code>rewrite r_rewrite_set{set(&quot;myhost&quot;, value(&quot;HOST&quot;)};
+    condition(program(&quot;myapplication&quot;)));}; 
+    log {   
+        source(s1);  
+        rewrite(r_rewrite_set);  
+        destination(d1);  
+    };</code></p>
+<ul>
 <li>flow control<br>tcp： max-connections(300)<br>指定发送往网络目的地的日志缓冲区大小： log-fifo-size(40000)<br>在destination中启用flow control： flags(flow-control)  </li>
 </ul>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>syslog-ng支持的配置语法众多，具体可根据使用时查阅手册进行配置，本文讲解的是一些比较常用的操作，如有错误，欢迎指出。<br>后续会讲解下syslog-ng的源码，作为一个优秀的日志服务器和客户端，深入理解下应该还是能有不少收获的</p>
@@ -440,18 +440,18 @@ log {
     
 <nav id="article-nav">
   
-    <a href="/2017/09/13/syslog-ng/syslog-ng-run/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/13/syslog-ng/syslog-ng-install/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          syslog-ng详解——运行syslog-ng
+          syslog-ng详解——简介及安装syslog-ng
         
       </div>
     </a>
   
   
-    <a href="/2017/09/08/tcp-ip-server/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">socket通信服务端编程</div>
+    <a href="/2017/09/13/syslog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">syslog</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
