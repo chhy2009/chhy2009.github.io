@@ -22,7 +22,7 @@
 由设备号和日志级别我们可以计算出log的级别(facili">
 <meta property="og:image" content="http://yoursite.com/img/syslog-ng/loglevel.png">
 <meta property="og:image" content="http://yoursite.com/img/syslog-ng/logfacility.png">
-<meta property="og:updated_time" content="2017-09-16T02:38:30.000Z">
+<meta property="og:updated_time" content="2017-09-16T03:03:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="syslog-ng配置语法">
 <meta name="twitter:description" content="在“运行syslog-ng”中我们简单介绍了一个基本配置文件的大概结构，保证syslog-ng能正常运行起来。这边将详细介绍下syslog-ng的日志配置及如何进行高效的配置，先介绍下syslog的一些基本知识：
@@ -291,7 +291,7 @@ loselog(); //使用完后关闭
 <pre><code>template global_format{
     template(&quot;&lt;${PRI}&gt; ${ISODATE} ${HOST} ${PROGRAM} ${PID} ${MESSAGE}\n&quot;);
 };
-options { proto-template(t_isostamp); };  #用于protocol-like destination, like syslog() and network()   
+options { proto-template(global_format); };  #用于protocol-like destination, like syslog() and network()   
 options { file-template(global_format); }; #用于file-like destination
 </code></pre><p>其中也可以使用${MSGHDR}来替代$PROGRAM[${PID}]的使用；新的syslog-ng版本也支持单独在template destination中指定template，则该template只会在该destination中生效（需要较新的syslog-ng版本才支持，比如3.4.2版本就不支持这种语法）。如：  </p>
 <pre><code>destination d_file {
@@ -440,18 +440,18 @@ options { file-template(global_format); }; #用于file-like destination
     
 <nav id="article-nav">
   
-    <a href="/2017/09/13/syslog-ng/syslog-ng-install/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/13/syslog/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          syslog-ng详解——简介及安装syslog-ng
+          syslog
         
       </div>
     </a>
   
   
-    <a href="/2017/09/13/syslog/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">syslog</div>
+    <a href="/2017/09/13/syslog-ng/syslog-ng-run/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">syslog-ng详解——运行syslog-ng</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
