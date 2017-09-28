@@ -196,10 +196,10 @@
 
       <div class="body-wrap">
   
-    <article id="post-syslog-ng/syslog-ng-logrotate" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-syslog-ng/syslog-ng-configuration" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/13/syslog-ng/syslog-ng-logrotate/" class="article-date">
+      <a href="/2017/09/13/syslog-ng/syslog-ng-configuration/" class="article-date">
   	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
 </a>
     </div>
@@ -213,7 +213,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-logrotate/">syslog-ng详解——日志备份</a>
+      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-configuration/">syslog-ng配置语法</a>
     </h1>
   
 
@@ -224,41 +224,80 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#logrotate开源软件"><span class="toc-text">logrotate开源软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#logrotate配置文件"><span class="toc-text">logrotate配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#logrotate源码获取"><span class="toc-text">logrotate源码获取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#syslog-ng-ctl"><span class="toc-text">syslog-ng-ctl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用logrotate对syslog-ng进行日志备份"><span class="toc-text">使用logrotate对syslog-ng进行日志备份</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#日志级别及日志设备"><span class="toc-text">日志级别及日志设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用syslog函数打印日志到syslog"><span class="toc-text">使用syslog函数打印日志到syslog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置syslog-ng"><span class="toc-text">配置syslog-ng</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本语法"><span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#格式化输出"><span class="toc-text">格式化输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLS传输"><span class="toc-text">TLS传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它"><span class="toc-text">其它</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-text">结语</span></a></li></ol>
 </div>
 
          
-        <h2 id="logrotate开源软件"><a href="#logrotate开源软件" class="headerlink" title="logrotate开源软件"></a>logrotate开源软件</h2><p>logrotate为日志备份开源软件，其开源license为GPL。在Linux系统下，一般都默认安装好，配合syslog使用，可以使用man logrotate查看帮助信息：  </p>
+        <p>在“运行syslog-ng”中我们简单介绍了一个基本配置文件的大概结构，保证syslog-ng能正常运行起来。这边将详细介绍下syslog-ng的日志配置及如何进行高效的配置，先介绍下syslog的一些基本知识：</p>
+<h2 id="日志级别及日志设备"><a href="#日志级别及日志设备" class="headerlink" title="日志级别及日志设备"></a>日志级别及日志设备</h2><p>syslog-ng和syslog一样，日志级别都有以下8种：<br><img src="/img/syslog-ng/loglevel.png" alt="img1"></p>
+<p>级别越低代表越重要的日志。</p>
+<p>设备号有以下几种：<br><img src="/img/syslog-ng/logfacility.png" alt="img"></p>
+<p>由设备号和日志级别我们可以计算出log的级别(facility_num * 8 + level_num)</p>
+<h2 id="使用syslog函数打印日志到syslog"><a href="#使用syslog函数打印日志到syslog" class="headerlink" title="使用syslog函数打印日志到syslog"></a>使用syslog函数打印日志到syslog</h2><p>了解了日志级别及日志设备后，我们就可以使用syslog函数来往设备(/dev/log)发送日志了（syslog-ng的system()设备其实就是获取送往/dev/log设备的日志,传统的syslog也会监控该设备）。函数用法可以使用man 3 syslog查看：  </p>
 <pre><code>NAME
-   logrotate - rotates, compresses, and mails system logs
+   closelog, openlog, syslog, vsyslog - send messages to the system logger
 
 SYNOPSIS
-   logrotate [-dv] [-f|--force] [-s|--state file] config_file ..
-</code></pre><p>logrotate使用的主要在于掌握其配置文件语法，命令中常用选项为-f，表示强制执行备份动作(忽略触发备份的条件)</p>
-<h3 id="logrotate配置文件"><a href="#logrotate配置文件" class="headerlink" title="logrotate配置文件"></a>logrotate配置文件</h3><p>一个典型示例配置文件如下：</p>
-<pre><code># sample logrotate configuration file
-   compress
+   #include &lt;syslog.h&gt;
 
-   /var/log/messages {
-          prerotate
-                  sh  prerotate.sh #&quot;execute prerotate script&quot;
-          endscript
-          compress #compress the log
-          create mode owner group #specify the log&apos;s owner and file mode
-       rotate 5  #max rotate count
-       size 100k #rotate begin when the file size excess 100k
-       postrotate
-           sh  postrotate.sh #&quot;execute prerotate script&quot;
-       endscript
-   }
-</code></pre><p>其中，prerotate和postrotate用于指定当触发备份时执行的动作（相当于初始化和退出清理动作）；<br>更多的选项可以参考man</p>
-<h3 id="logrotate源码获取"><a href="#logrotate源码获取" class="headerlink" title="logrotate源码获取"></a>logrotate源码获取</h3><p>可以从<a href="http://www.linuxfromscratch.org/blfs/view/cvs/general/logrotate.html" target="_blank" rel="external">Logrotate-3.11.0</a>下载，依赖popt<br>logrotate的源码不多，也比较容易看懂，有兴趣的可以自行了解，一般在需要增加另外的配置选项时才会去修改源码。</p>
-<h2 id="syslog-ng-ctl"><a href="#syslog-ng-ctl" class="headerlink" title="syslog-ng-ctl"></a>syslog-ng-ctl</h2><p>syslog-ng-ctl是和syslog-ng配套的软件，其源码也在syslog-ng源码包中，其使用unix-socket和syslog-ng进行通信，用于控制syslog-ng的一些行为，比如重新加载配置文件(syslog-ng-ctl reload，适用于在配置文件发生变化时，通知syslog-ng重新解析配置文件并用新的配置运行)等，具体可以通过syslog-ng-ctl -h查看。</p>
-<h2 id="使用logrotate对syslog-ng进行日志备份"><a href="#使用logrotate对syslog-ng进行日志备份" class="headerlink" title="使用logrotate对syslog-ng进行日志备份"></a>使用logrotate对syslog-ng进行日志备份</h2><p>有了logrotate和syslog-ng-ctl工具，下面说说如何对syslog-ng进行日志备份：<br>1、 写个小程序(类似cron定时任务的)，定时执行下logrotate<br>其中logrotate配置中可以使用文件大小或者时间条件，当日志满足条件的时候触发备份；<br>记得在logrotate配置文件(logrotate.conf)中的加上</p>
-<pre><code>postrotate
-    syslog-ng-ctl reload
-endscript
-</code></pre><p>让syslog-ng重新加载下配置。这是因为当触发日志备份时，syslog-ng的输出文件被移除了，需要重新reload下，syslog-ng才会重新生成输出文件。</p>
+   void openlog(const char *ident, int option, int facility);
+   void syslog(int priority, const char *format, ...);
+   void closelog(void);
+</code></pre><p>使用例子如下：  </p>
+<pre><code>openlog(&quot;redis_server&quot;, LOG_PID, 1);  //设置设备号为1，ident(标识为redis_server),option为LOG_PID
+syslog(LOG_DEBUG, &quot;%s&quot;, “redis_server is started!”); //打印debug日志信息
+loselog(); //使用完后关闭
+</code></pre><p>了解完上面知识后，我们来看看如何对syslog-ng进行日志配置：</p>
+<h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p>syslog-ng的配置文件为syslog-ng.conf,syslog-ng 运行时会解析该配置文件，然后对日志来源进行监听(看描述符是否可读)，再对收集来的日志做一些指定的处理（如过滤，替换，格式化等）后，将日志写往各个destination：<br>    log{<br>        source(s_xxx);<br>        filter(f_xxx);<br>        destination(d_xxx)<br>    };</p>
+<p>其中source支持的设备主要有：file，network, tcp, udp, pipe, unix-dgram等<br>具体参见说明文档：Chapter 6. Collecting log messages — sources and source drivers</p>
+<p>destination支持的有：file, network, syslog, redis, sql, hdfs, mongodb<br>具体参见说明文档：Chapter 7. Sending and storing log messages — destinations and destination drivers<br>（随着大数据和分布式时代的到来，syslog-ng也增加了对redis,hdfs等的支持，更新很快的，这也是开源的优势）  </p>
+<p>syslog-ng支持将收集的日志进行不同的处理，然后写入不同的目的地，这时候语法如下：<br>    log{<br>        source(s1);<br>        source(s2);<br>        {filter(f1); destination(d1);}<br>        {filter(f2); destination(d2);}<br>    };</p>
+<h3 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h3><p>格式化输出就是对捕获的日志进行排版，以一种方便阅读和使用的格式存储日志(如方便使用awk等进行日志诊断)。在日志格式化时，就不能不提syslog协议，其格式如下： </p>
+<pre><code>HEADER SYSLOGPRO_VERSION ISOTIMESTAMP HOSTNAME APPLICATION PROC_ID MESSAGEID STRUCTURED-DATA BOM(\xEF\BB\xBF) MSG  
+</code></pre><p>其中HEADER为信息头，通常包含信息长度(HEADER以后内容的长度)及日志优先级PRI(logFacility * 8 + logLevel), 具体说明请参考RFC5424<a href="https://tools.ietf.org/html/rfc5424" target="_blank" rel="external">The Syslog Protocol</a><br>举例：</p>
+<pre><code>&lt;34&gt;1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - BOM&apos;su root&apos; failed for lonvick on /dev/pts/8  
+</code></pre><p> 对应的格式如下(这边没有proc_id，也没有structured data，两者都用’-‘替代了, BOM指出使用的是UTF-8编码)：</p>
+<pre><code>&lt;PRI&gt;SYSLOGPRO_VERSION ISOTIMESTAMP HOSTNAME APPLICATION PROC_ID MESSAGEID STRUCTURED-DATA BOM MSG  
+</code></pre><p>在syslog-ng中，支持自定义日志格式，这时候我们可以使用template语法：</p>
+<pre><code>template global_format{
+    template(&quot;&lt;${PRI}&gt; ${ISODATE} ${HOST} ${PROGRAM} ${PID} ${MESSAGE}\n&quot;);
+};
+options { proto-template(global_format); };  #用于protocol-like destination, like syslog() and network()   
+options { file-template(global_format); }; #用于file-like destination
+</code></pre><p>其中也可以使用${MSGHDR}来替代$PROGRAM[${PID}]的使用；新的syslog-ng版本也支持单独在template destination中指定template，则该template只会在该destination中生效（需要较新的syslog-ng版本才支持，比如3.4.2版本就不支持这种语法）。如：  </p>
+<pre><code>destination d_file {
+    file (&quot;/var/log/messages&quot;
+    template(&quot;${ISODATE} ${HOST} ${MESSAGE}\n&quot;) );  #或template(template_name)
+};
+</code></pre><p>下面我们在syslog-ng.conf中实际操作以下，增加上面的template语法，然后启动syslog-ng,输出的日志变为： </p>
+<pre><code>&lt;45&gt; 2017-09-16T09:16:35+08:00 localhost syslog-ng 86650 syslog-ng starting up; version=&apos;3.4.2&apos;
+</code></pre><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>syslog-ng中的marco变量十分丰富（如HOST, LEVEL_NUM等等）。此外，其还支持变量展开，作用类似shell脚本的$var功能： <code>var＝hello;  echo $var</code>  ,下面来看看如何自定义和使用变量.</p>
+<ol>
+<li><p>定义语法<br>使用@define语句定义一个变量(或者叫宏)，如下：  </p>
+<p> @define local_loglevel 5<br> @define local_file “/va/log/messages”  </p>
+</li>
+<li><p>使用语法<br>使用``符号进行变量展开，如：    </p>
+<p> filter f_level{“${LEVEL_NUM}” &lt;= “`local_loglevel`“;}  </p>
+</li>
+<li><p>文件包含<br>可以使用@include ‘filename’，将某个配置文件包含进syslog-ng.conf，这种语法在需要对配置文件拆分的场合很有用，如有个配置文件中的参数会变化(被外部修改)，这时可以单独把这些参数放到另外的文件中，方便修改，也减少了破坏syslog-ng.conf文件的可能</p>
+</li>
+</ol>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>日志处理中最常用的filter当属级别过滤。此外，filter还具有很强大的关键字过滤功能，支持多个filter同时使用，具体语法参考Chapter 8. Routing messages: log paths and filters。</p>
+<h3 id="TLS传输"><a href="#TLS传输" class="headerlink" title="TLS传输"></a>TLS传输</h3><p>详见Chapter 10. TLS-encrypted message transfer<br>关于证书生成和配置的操作可参考<a href="http://blog.csdn.net/codingcs/article/details/51816115" target="_blank" rel="external">证书相关概念及使用openssl生成自认证证书</a></p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
+<li>关键字替换 </li>
+</ul>
+<p><code>rewrite r_rewrite_set{set(&quot;myhost&quot;, value(&quot;HOST&quot;)};
+    condition(program(&quot;myapplication&quot;)));}; 
+    log {   
+        source(s1);  
+        rewrite(r_rewrite_set);  
+        destination(d1);  
+    };</code></p>
+<ul>
+<li>flow control<br>tcp： max-connections(300)<br>指定发送往网络目的地的日志缓冲区大小： log-fifo-size(40000)<br>在destination中启用flow control： flags(flow-control)  </li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>syslog-ng支持的配置语法众多，具体可根据使用时查阅手册进行配置，本文讲解的是一些比较常用的操作，如有错误，欢迎指出。<br>后续会讲解下syslog-ng的源码，作为一个优秀的日志服务器和客户端，深入理解下应该还是能有不少收获的</p>
 
       
     </div>
@@ -371,7 +410,7 @@ endscript
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logrotate/">logrotate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
 	</div>
 
       
@@ -751,246 +790,6 @@ endscript
 
 
   
-    <article id="post-syslog-ng/syslog-ng-configuration" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/13/syslog-ng/syslog-ng-configuration/" class="article-date">
-  	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-configuration/">syslog-ng配置语法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#日志级别及日志设备"><span class="toc-text">日志级别及日志设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用syslog函数打印日志到syslog"><span class="toc-text">使用syslog函数打印日志到syslog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置syslog-ng"><span class="toc-text">配置syslog-ng</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本语法"><span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#格式化输出"><span class="toc-text">格式化输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLS传输"><span class="toc-text">TLS传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它"><span class="toc-text">其它</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-text">结语</span></a></li></ol>
-</div>
-
-         
-        <p>在“运行syslog-ng”中我们简单介绍了一个基本配置文件的大概结构，保证syslog-ng能正常运行起来。这边将详细介绍下syslog-ng的日志配置及如何进行高效的配置，先介绍下syslog的一些基本知识：</p>
-<h2 id="日志级别及日志设备"><a href="#日志级别及日志设备" class="headerlink" title="日志级别及日志设备"></a>日志级别及日志设备</h2><p>syslog-ng和syslog一样，日志级别都有以下8种：<br><img src="/img/syslog-ng/loglevel.png" alt="img1"></p>
-<p>级别越低代表越重要的日志。</p>
-<p>设备号有以下几种：<br><img src="/img/syslog-ng/logfacility.png" alt="img"></p>
-<p>由设备号和日志级别我们可以计算出log的级别(facility_num * 8 + level_num)</p>
-<h2 id="使用syslog函数打印日志到syslog"><a href="#使用syslog函数打印日志到syslog" class="headerlink" title="使用syslog函数打印日志到syslog"></a>使用syslog函数打印日志到syslog</h2><p>了解了日志级别及日志设备后，我们就可以使用syslog函数来往设备(/dev/log)发送日志了（syslog-ng的system()设备其实就是获取送往/dev/log设备的日志,传统的syslog也会监控该设备）。函数用法可以使用man 3 syslog查看：  </p>
-<pre><code>NAME
-   closelog, openlog, syslog, vsyslog - send messages to the system logger
-
-SYNOPSIS
-   #include &lt;syslog.h&gt;
-
-   void openlog(const char *ident, int option, int facility);
-   void syslog(int priority, const char *format, ...);
-   void closelog(void);
-</code></pre><p>使用例子如下：  </p>
-<pre><code>openlog(&quot;redis_server&quot;, LOG_PID, 1);  //设置设备号为1，ident(标识为redis_server),option为LOG_PID
-syslog(LOG_DEBUG, &quot;%s&quot;, “redis_server is started!”); //打印debug日志信息
-loselog(); //使用完后关闭
-</code></pre><p>了解完上面知识后，我们来看看如何对syslog-ng进行日志配置：</p>
-<h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p>syslog-ng的配置文件为syslog-ng.conf,syslog-ng 运行时会解析该配置文件，然后对日志来源进行监听(看描述符是否可读)，再对收集来的日志做一些指定的处理（如过滤，替换，格式化等）后，将日志写往各个destination：<br>    log{<br>        source(s_xxx);<br>        filter(f_xxx);<br>        destination(d_xxx)<br>    };</p>
-<p>其中source支持的设备主要有：file，network, tcp, udp, pipe, unix-dgram等<br>具体参见说明文档：Chapter 6. Collecting log messages — sources and source drivers</p>
-<p>destination支持的有：file, network, syslog, redis, sql, hdfs, mongodb<br>具体参见说明文档：Chapter 7. Sending and storing log messages — destinations and destination drivers<br>（随着大数据和分布式时代的到来，syslog-ng也增加了对redis,hdfs等的支持，更新很快的，这也是开源的优势）  </p>
-<p>syslog-ng支持将收集的日志进行不同的处理，然后写入不同的目的地，这时候语法如下：<br>    log{<br>        source(s1);<br>        source(s2);<br>        {filter(f1); destination(d1);}<br>        {filter(f2); destination(d2);}<br>    };</p>
-<h3 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h3><p>格式化输出就是对捕获的日志进行排版，以一种方便阅读和使用的格式存储日志(如方便使用awk等进行日志诊断)。在日志格式化时，就不能不提syslog协议，其格式如下： </p>
-<pre><code>HEADER SYSLOGPRO_VERSION ISOTIMESTAMP HOSTNAME APPLICATION PROC_ID MESSAGEID STRUCTURED-DATA BOM(\xEF\BB\xBF) MSG  
-</code></pre><p>其中HEADER为信息头，通常包含信息长度(HEADER以后内容的长度)及日志优先级PRI(logFacility * 8 + logLevel), 具体说明请参考RFC5424<a href="https://tools.ietf.org/html/rfc5424" target="_blank" rel="external">The Syslog Protocol</a><br>举例：</p>
-<pre><code>&lt;34&gt;1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - BOM&apos;su root&apos; failed for lonvick on /dev/pts/8  
-</code></pre><p> 对应的格式如下(这边没有proc_id，也没有structured data，两者都用’-‘替代了, BOM指出使用的是UTF-8编码)：</p>
-<pre><code>&lt;PRI&gt;SYSLOGPRO_VERSION ISOTIMESTAMP HOSTNAME APPLICATION PROC_ID MESSAGEID STRUCTURED-DATA BOM MSG  
-</code></pre><p>在syslog-ng中，支持自定义日志格式，这时候我们可以使用template语法：</p>
-<pre><code>template global_format{
-    template(&quot;&lt;${PRI}&gt; ${ISODATE} ${HOST} ${PROGRAM} ${PID} ${MESSAGE}\n&quot;);
-};
-options { proto-template(global_format); };  #用于protocol-like destination, like syslog() and network()   
-options { file-template(global_format); }; #用于file-like destination
-</code></pre><p>其中也可以使用${MSGHDR}来替代$PROGRAM[${PID}]的使用；新的syslog-ng版本也支持单独在template destination中指定template，则该template只会在该destination中生效（需要较新的syslog-ng版本才支持，比如3.4.2版本就不支持这种语法）。如：  </p>
-<pre><code>destination d_file {
-    file (&quot;/var/log/messages&quot;
-    template(&quot;${ISODATE} ${HOST} ${MESSAGE}\n&quot;) );  #或template(template_name)
-};
-</code></pre><p>下面我们在syslog-ng.conf中实际操作以下，增加上面的template语法，然后启动syslog-ng,输出的日志变为： </p>
-<pre><code>&lt;45&gt; 2017-09-16T09:16:35+08:00 localhost syslog-ng 86650 syslog-ng starting up; version=&apos;3.4.2&apos;
-</code></pre><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>syslog-ng中的marco变量十分丰富（如HOST, LEVEL_NUM等等）。此外，其还支持变量展开，作用类似shell脚本的$var功能： <code>var＝hello;  echo $var</code>  ,下面来看看如何自定义和使用变量.</p>
-<ol>
-<li><p>定义语法<br>使用@define语句定义一个变量(或者叫宏)，如下：  </p>
-<p> @define local_loglevel 5<br> @define local_file “/va/log/messages”  </p>
-</li>
-<li><p>使用语法<br>使用``符号进行变量展开，如：    </p>
-<p> filter f_level{“${LEVEL_NUM}” &lt;= “`local_loglevel`“;}  </p>
-</li>
-<li><p>文件包含<br>可以使用@include ‘filename’，将某个配置文件包含进syslog-ng.conf，这种语法在需要对配置文件拆分的场合很有用，如有个配置文件中的参数会变化(被外部修改)，这时可以单独把这些参数放到另外的文件中，方便修改，也减少了破坏syslog-ng.conf文件的可能</p>
-</li>
-</ol>
-<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>日志处理中最常用的filter当属级别过滤。此外，filter还具有很强大的关键字过滤功能，支持多个filter同时使用，具体语法参考Chapter 8. Routing messages: log paths and filters。</p>
-<h3 id="TLS传输"><a href="#TLS传输" class="headerlink" title="TLS传输"></a>TLS传输</h3><p>详见Chapter 10. TLS-encrypted message transfer<br>关于证书生成和配置的操作可参考<a href="http://blog.csdn.net/codingcs/article/details/51816115" target="_blank" rel="external">证书相关概念及使用openssl生成自认证证书</a></p>
-<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
-<li>关键字替换 </li>
-</ul>
-<p><code>rewrite r_rewrite_set{set(&quot;myhost&quot;, value(&quot;HOST&quot;)};
-    condition(program(&quot;myapplication&quot;)));}; 
-    log {   
-        source(s1);  
-        rewrite(r_rewrite_set);  
-        destination(d1);  
-    };</code></p>
-<ul>
-<li>flow control<br>tcp： max-connections(300)<br>指定发送往网络目的地的日志缓冲区大小： log-fifo-size(40000)<br>在destination中启用flow control： flags(flow-control)  </li>
-</ul>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>syslog-ng支持的配置语法众多，具体可根据使用时查阅手册进行配置，本文讲解的是一些比较常用的操作，如有错误，欢迎指出。<br>后续会讲解下syslog-ng的源码，作为一个优秀的日志服务器和客户端，深入理解下应该还是能有不少收获的</p>
-
-      
-    </div>
-    
-      
-  <!-- css -->
-  <style type="text/css">
-      .center {
-          text-align: center;
-      }
-      .hidden {
-          display: none;
-      }
-    .donate_bar a.btn_donate{
-      display: inline-block;
-      width: 82px;
-      height: 82px;
-      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
-
-      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
-           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
-         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
-         嵌入其它博客时不一定要它们。 -->
-      -webkit-transition: background 0s;
-      -moz-transition: background 0s;
-      -o-transition: background 0s;
-      -ms-transition: background 0s;
-      transition: background 0s;
-      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
-    }
-
-    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
-    .donate_bar .donate_txt {
-      display: block;
-      color: #9d9d9d;
-      font: 14px/2 "Microsoft Yahei";
-    }
-    .bold{ font-weight: bold; }
-  </style>
-  <!-- /css -->
-
-    <!-- Donate Module -->
-    <div id="donate_module">
-
-  <!-- btn_donate & tips -->
-  <div id="donate_board" class="donate_bar center">
-      <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-      
-    
-  </div>
-  <!-- /btn_donate & tips -->
-
-  <!-- donate guide -->
-    
-  <div id="donate_guide" class="donate_bar center hidden">
-        <br>
-      ------------------------------------------------------------------------------------------------------------------------------
-      <br>
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
-    </a>
-        
-        &nbsp;&nbsp;
-
-    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
-      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
-    </a>
-
-    <span class="donate_txt">
-      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
-    </span>
-
-  </div>
-  <!-- /donate guide -->
-
-  <!-- donate script -->
-  <script type="text/javascript">
-    document.getElementById('btn_donate').onclick = function() {
-      $('#donate_board').addClass('hidden');
-      $('#donate_guide').removeClass('hidden');
-    }
-
-    function donate_on_web(){
-      $('#donate').submit();
-        }
-
-    var original_window_onload = window.onload;
-        window.onload = function () {
-            if (original_window_onload) {
-                original_window_onload();
-            }
-            document.getElementById('donate_board_wdg').className = 'hidden';
-    }
-  </script>
-  <!-- /donate script -->
-</div>
-<!-- /Donate Module -->
-   
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-syslog-ng/syslog-ng-run" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1223,6 +1022,207 @@ Sep 13 22:46:49 localhost Hello, syslog-ng
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-syslog-ng/syslog-ng-logrotate" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/13/syslog-ng/syslog-ng-logrotate/" class="article-date">
+  	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-logrotate/">syslog-ng详解——日志备份</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#logrotate开源软件"><span class="toc-text">logrotate开源软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#logrotate配置文件"><span class="toc-text">logrotate配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#logrotate源码获取"><span class="toc-text">logrotate源码获取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#syslog-ng-ctl"><span class="toc-text">syslog-ng-ctl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用logrotate对syslog-ng进行日志备份"><span class="toc-text">使用logrotate对syslog-ng进行日志备份</span></a></li></ol>
+</div>
+
+         
+        <h2 id="logrotate开源软件"><a href="#logrotate开源软件" class="headerlink" title="logrotate开源软件"></a>logrotate开源软件</h2><p>logrotate为日志备份开源软件，其开源license为GPL。在Linux系统下，一般都默认安装好，配合syslog使用，可以使用man logrotate查看帮助信息：  </p>
+<pre><code>NAME
+   logrotate - rotates, compresses, and mails system logs
+
+SYNOPSIS
+   logrotate [-dv] [-f|--force] [-s|--state file] config_file ..
+</code></pre><p>logrotate使用的主要在于掌握其配置文件语法，命令中常用选项为-f，表示强制执行备份动作(忽略触发备份的条件)</p>
+<h3 id="logrotate配置文件"><a href="#logrotate配置文件" class="headerlink" title="logrotate配置文件"></a>logrotate配置文件</h3><p>一个典型示例配置文件如下：</p>
+<pre><code># sample logrotate configuration file
+   compress
+
+   /var/log/messages {
+          prerotate
+                  sh  prerotate.sh #&quot;execute prerotate script&quot;
+          endscript
+          compress #compress the log
+          create mode owner group #specify the log&apos;s owner and file mode
+       rotate 5  #max rotate count
+       size 100k #rotate begin when the file size excess 100k
+       postrotate
+           sh  postrotate.sh #&quot;execute prerotate script&quot;
+       endscript
+   }
+</code></pre><p>其中，prerotate和postrotate用于指定当触发备份时执行的动作（相当于初始化和退出清理动作）；<br>更多的选项可以参考man</p>
+<h3 id="logrotate源码获取"><a href="#logrotate源码获取" class="headerlink" title="logrotate源码获取"></a>logrotate源码获取</h3><p>可以从<a href="http://www.linuxfromscratch.org/blfs/view/cvs/general/logrotate.html" target="_blank" rel="external">Logrotate-3.11.0</a>下载，依赖popt<br>logrotate的源码不多，也比较容易看懂，有兴趣的可以自行了解，一般在需要增加另外的配置选项时才会去修改源码。</p>
+<h2 id="syslog-ng-ctl"><a href="#syslog-ng-ctl" class="headerlink" title="syslog-ng-ctl"></a>syslog-ng-ctl</h2><p>syslog-ng-ctl是和syslog-ng配套的软件，其源码也在syslog-ng源码包中，其使用unix-socket和syslog-ng进行通信，用于控制syslog-ng的一些行为，比如重新加载配置文件(syslog-ng-ctl reload，适用于在配置文件发生变化时，通知syslog-ng重新解析配置文件并用新的配置运行)等，具体可以通过syslog-ng-ctl -h查看。</p>
+<h2 id="使用logrotate对syslog-ng进行日志备份"><a href="#使用logrotate对syslog-ng进行日志备份" class="headerlink" title="使用logrotate对syslog-ng进行日志备份"></a>使用logrotate对syslog-ng进行日志备份</h2><p>有了logrotate和syslog-ng-ctl工具，下面说说如何对syslog-ng进行日志备份：<br>1、 写个小程序(类似cron定时任务的)，定时执行下logrotate<br>其中logrotate配置中可以使用文件大小或者时间条件，当日志满足条件的时候触发备份；<br>记得在logrotate配置文件(logrotate.conf)中的加上</p>
+<pre><code>postrotate
+    syslog-ng-ctl reload
+endscript
+</code></pre><p>让syslog-ng重新加载下配置。这是因为当触发日志备份时，syslog-ng的输出文件被移除了，需要重新reload下，syslog-ng才会重新生成输出文件。</p>
+
+      
+    </div>
+    
+      
+  <!-- css -->
+  <style type="text/css">
+      .center {
+          text-align: center;
+      }
+      .hidden {
+          display: none;
+      }
+    .donate_bar a.btn_donate{
+      display: inline-block;
+      width: 82px;
+      height: 82px;
+      background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+      _background: url("http://7xsl28.com1.z0.glb.clouddn.com/btn_reward.gif") no-repeat;
+
+      <!-- http://img.t.sinajs.cn/t5/style/images/apps_PRF/e_media/btn_reward.gif
+           因为本 hexo 生成的博客所用的 theme 的 a:hover 带动画效果，
+         为了在让打赏按钮显示效果正常 而 添加了以下几行 css，
+         嵌入其它博客时不一定要它们。 -->
+      -webkit-transition: background 0s;
+      -moz-transition: background 0s;
+      -o-transition: background 0s;
+      -ms-transition: background 0s;
+      transition: background 0s;
+      <!-- /让打赏按钮的效果显示正常 而 添加的几行 css 到此结束 -->
+    }
+
+    .donate_bar a.btn_donate:hover{ background-position: 0px -82px;}
+    .donate_bar .donate_txt {
+      display: block;
+      color: #9d9d9d;
+      font: 14px/2 "Microsoft Yahei";
+    }
+    .bold{ font-weight: bold; }
+  </style>
+  <!-- /css -->
+
+    <!-- Donate Module -->
+    <div id="donate_module">
+
+  <!-- btn_donate & tips -->
+  <div id="donate_board" class="donate_bar center">
+      <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+    <a id="btn_donate" class="btn_donate" target="_self" href="javascript:;" title="Donate 打赏"></a>
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+      
+    
+  </div>
+  <!-- /btn_donate & tips -->
+
+  <!-- donate guide -->
+    
+  <div id="donate_guide" class="donate_bar center hidden">
+        <br>
+      ------------------------------------------------------------------------------------------------------------------------------
+      <br>
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="用微信扫一扫哦~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_alipay.jpg" title="微信打赏 Colin" height="190px" width="auto"/>
+    </a>
+        
+        &nbsp;&nbsp;
+
+    <a href="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="用支付宝扫一扫即可~" class="fancybox" rel="article0">
+      <img src="http://odix5916v.bkt.clouddn.com/image/pay/my_wechat_pay.jpg" title="支付宝打赏 Colin" height="190px" width="auto"/>
+    </a>
+
+    <span class="donate_txt">
+      Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+
+  </div>
+  <!-- /donate guide -->
+
+  <!-- donate script -->
+  <script type="text/javascript">
+    document.getElementById('btn_donate').onclick = function() {
+      $('#donate_board').addClass('hidden');
+      $('#donate_guide').removeClass('hidden');
+    }
+
+    function donate_on_web(){
+      $('#donate').submit();
+        }
+
+    var original_window_onload = window.onload;
+        window.onload = function () {
+            if (original_window_onload) {
+                original_window_onload();
+            }
+            document.getElementById('donate_board_wdg').className = 'hidden';
+    }
+  </script>
+  <!-- /donate script -->
+</div>
+<!-- /Donate Module -->
+   
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logrotate/">logrotate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
 	</div>
 
       
