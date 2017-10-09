@@ -14,13 +14,13 @@
 <meta property="og:site_name" content="chenhy's blog">
 <meta property="og:description" content="红黑树的5条性质：1）每个结点要么是红的，要么是黑的。2）根结点是黑的。3）每个叶结点（叶结点即指树尾端NIL指针或NULL结点）是黑的。4）如果一个结点是红的，那么它的俩个儿子都是黑的。5）对于任一结点而言，其到叶结点树尾端NIL指针的每一条路径都包含相同数目的黑结点。这决定了红黑树是相对平衡的二叉树，其查找，删除和插入的的时间复杂度为O(log n)
 树的旋转树的旋转，分为左旋和右旋，下面介绍">
-<meta property="og:image" content="http://yoursite.com/img/tree-left-rotate.png">
-<meta property="og:updated_time" content="2017-10-06T03:59:28.000Z">
+<meta property="og:image" content="http://yoursite.com/img/tree_left_rotate.png">
+<meta property="og:updated_time" content="2017-10-09T15:13:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="红黑树">
 <meta name="twitter:description" content="红黑树的5条性质：1）每个结点要么是红的，要么是黑的。2）根结点是黑的。3）每个叶结点（叶结点即指树尾端NIL指针或NULL结点）是黑的。4）如果一个结点是红的，那么它的俩个儿子都是黑的。5）对于任一结点而言，其到叶结点树尾端NIL指针的每一条路径都包含相同数目的黑结点。这决定了红黑树是相对平衡的二叉树，其查找，删除和插入的的时间复杂度为O(log n)
 树的旋转树的旋转，分为左旋和右旋，下面介绍">
-<meta name="twitter:image" content="http://yoursite.com/img/tree-left-rotate.png">
+<meta name="twitter:image" content="http://yoursite.com/img/tree_left_rotate.png">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -248,7 +248,7 @@
 
          
         <p>红黑树的5条性质：<br>1）每个结点要么是红的，要么是黑的。<br>2）根结点是黑的。<br>3）每个叶结点（叶结点即指树尾端NIL指针或NULL结点）是黑的。<br>4）如果一个结点是红的，那么它的俩个儿子都是黑的。<br>5）对于任一结点而言，其到叶结点树尾端NIL指针的每一条路径都包含相同数目的黑结点。<br>这决定了红黑树是相对平衡的二叉树，其查找，删除和插入的的时间复杂度为O(log n)</p>
-<h2 id="树的旋转"><a href="#树的旋转" class="headerlink" title="树的旋转"></a>树的旋转</h2><p>树的旋转，分为左旋和右旋，下面介绍下左旋(右旋的原理类似)<br>左旋是指以某个结点current和他的右子结点right为“支轴”，使right结点成为current子树新的根结点。即将right结点成为current结点的父结点，right结点的左子结点成为current结点的右子结点。其原理图如下：<br><img src="/img/tree-left-rotate.png" alt="left-rotate">  </p>
+<h2 id="树的旋转"><a href="#树的旋转" class="headerlink" title="树的旋转"></a>树的旋转</h2><p>树的旋转，分为左旋和右旋，下面介绍下左旋(右旋的原理类似)<br>左旋是指以某个结点current和他的右子结点right为“支轴”，使right结点成为current子树新的根结点。即将right结点成为current结点的父结点，right结点的左子结点成为current结点的右子结点。其原理图如下：<br><img src="/img/tree_left_rotate.png" alt="left-rotate">  </p>
 <p>左旋操作的伪代码如下(x为上图的pivot结点)：  </p>
 <pre><code>LEFT-ROTATE(T, x)  
 y ← right[x] //Set y.  
@@ -277,7 +277,7 @@ if p[x] = nil[T]        //Set P&apos;s child node
 </ul>
 <p>对于插入修复情况1，对策：将当前结点的父结点和叔叔结点涂黑，祖父结点涂红，把当前结点指向祖父结点，从新的当前结点重新开始算法<br>对于插入修复情况2，对策：当前结点的父结点做为新的当前结点，以新当前结点为支点左旋，把当前结点指向祖父结点，从新的当前结点重新开始算法  ，。<br>对于插入修复情况3，对策：父结点变为黑色，祖父结点变为红色，在祖父结点为支点右旋</p>
 <p>可以将上面5种情况看成状态机的5种状态，包括红黑树（已经调整到位，终止状态）共6种状态。红黑树的插入就是状态机几种状态的转移。</p>
-<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>1、先按照二叉查找树删除结点的方式删除结点，然后再对整棵树进行调整，使其保持红黑树的性质</p>
+<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>先按照二叉查找树删除结点的方式删除结点，然后再对整棵树进行调整，使其保持红黑树的性质<br>也是分为几种情况分别处理（其中可能发生情况的转化），略</p>
 
       
     </div>
@@ -290,11 +290,11 @@ if p[x] = nil[T]        //Set P&apos;s child node
     
 <nav id="article-nav">
   
-    <a href="/2017/09/13/syslog-ng/syslog-ng-install/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/09/13/syslog-ng/syslog-ng-logrotate/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          syslog-ng详解——简介及安装syslog-ng
+          syslog-ng详解——日志备份
         
       </div>
     </a>

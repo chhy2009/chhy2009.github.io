@@ -449,93 +449,6 @@ endscript
 
 
   
-    <article id="post-syslog-ng/syslog-ng-install" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/13/syslog-ng/syslog-ng-install/" class="article-date">
-  	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-install/">syslog-ng详解——简介及安装syslog-ng</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装syslog-ng"><span class="toc-text">安装syslog-ng</span></a></li></ol>
-</div>
-
-         
-        <p>日志管理模块作为软件系统的一个重要子模块，其记录着系统运行的有关信息。当系统故障时，日志是用于问题定位的必备信息。所以，一个设计良好的日志模块及其重要，在Linux系统上往往用syslog(rsyslogd及klogd程序)来管理系统的日志。本文介绍的syslog-ng是syslog的next generation，具有比syslog更强大的功能和性能，优势体现在以下几个方面：  </p>
-<ul>
-<li>兼容syslog的功能，可扩展性强(支持plugin)，更新速度快 </li>
-<li>更多的配置语法，管理日志方式更加(日志源和日志目的地很丰富)  </li>
-<li>支持网络日志传输(TLS方式传输)，即分布式日志管理功能  </li>
-</ul>
-<h2 id="安装syslog-ng"><a href="#安装syslog-ng" class="headerlink" title="安装syslog-ng"></a>安装syslog-ng</h2><p>本文只介绍从源码包安装syslog-ng的方法，掌握了源码包安装后，就可以在嵌入式系统(如Android)上用类似的方法集成syslog-ng。<br>a)    下载源码包<br>    在<a href="https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。" target="_blank" rel="external">https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。</a></p>
-<p>b)    编译及安装<br>由于syslog-ng依赖于eventlog和glib，所以需要先编译eventlog和 glib （这边用的glib为2.46.2版本，依赖zlib, libffi，可以从<a href="http://ftp.gnome.org/pub/gnome/sources/glib/上下载）" target="_blank" rel="external">http://ftp.gnome.org/pub/gnome/sources/glib/上下载）</a> </p>
-<p>从源码包编译软件的步骤如下(以eventlog为例，假设系统用户为user)：</p>
-<pre><code>#./configure –-prefix=/home/user/software/eventlog-0.2.13
-#make install
-</code></pre><p>然后eventlog软件就被安装到了~/software/eventlog-0.2.13目录下。</p>
-<p>用同样的方法编译安装glib到/home/user/software/glib-2.46.2/目录，然后就可以编译安装syslog-ng.详细步骤如下：</p>
-<p>在syslog-ng-3.4.2源码包下执行  </p>
-<pre><code>#export PKG_CONFIG_PATH＝/home/user/software/eventlog-0.2.13/lib/pkgconfig/:/home/user/software/glib-2.46.2/lib/pkgconfig/:$PKG_CONFIG_PATH
-#./configure –-prefix=~/software/syslog-ng－3.4.2
-#make install
-</code></pre><p>其中，PKG_CONFIG_PATH用于告诉configure依赖库的安装路径，否则configure的时候会报No package ‘xxx’ found<br>这样，就是成功安装了syslog-ng到~/software/syslog-ng－3.4.2目录下，下一篇讲解如何运行syslog-ng及其配置文件语法。</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-dataStructure/RB-tree" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -569,7 +482,7 @@ endscript
 
          
         <p>红黑树的5条性质：<br>1）每个结点要么是红的，要么是黑的。<br>2）根结点是黑的。<br>3）每个叶结点（叶结点即指树尾端NIL指针或NULL结点）是黑的。<br>4）如果一个结点是红的，那么它的俩个儿子都是黑的。<br>5）对于任一结点而言，其到叶结点树尾端NIL指针的每一条路径都包含相同数目的黑结点。<br>这决定了红黑树是相对平衡的二叉树，其查找，删除和插入的的时间复杂度为O(log n)</p>
-<h2 id="树的旋转"><a href="#树的旋转" class="headerlink" title="树的旋转"></a>树的旋转</h2><p>树的旋转，分为左旋和右旋，下面介绍下左旋(右旋的原理类似)<br>左旋是指以某个结点current和他的右子结点right为“支轴”，使right结点成为current子树新的根结点。即将right结点成为current结点的父结点，right结点的左子结点成为current结点的右子结点。其原理图如下：<br><img src="/img/tree-left-rotate.png" alt="left-rotate">  </p>
+<h2 id="树的旋转"><a href="#树的旋转" class="headerlink" title="树的旋转"></a>树的旋转</h2><p>树的旋转，分为左旋和右旋，下面介绍下左旋(右旋的原理类似)<br>左旋是指以某个结点current和他的右子结点right为“支轴”，使right结点成为current子树新的根结点。即将right结点成为current结点的父结点，right结点的左子结点成为current结点的右子结点。其原理图如下：<br><img src="/img/tree_left_rotate.png" alt="left-rotate">  </p>
 <p>左旋操作的伪代码如下(x为上图的pivot结点)：  </p>
 <pre><code>LEFT-ROTATE(T, x)  
 y ← right[x] //Set y.  
@@ -598,7 +511,7 @@ if p[x] = nil[T]        //Set P&apos;s child node
 </ul>
 <p>对于插入修复情况1，对策：将当前结点的父结点和叔叔结点涂黑，祖父结点涂红，把当前结点指向祖父结点，从新的当前结点重新开始算法<br>对于插入修复情况2，对策：当前结点的父结点做为新的当前结点，以新当前结点为支点左旋，把当前结点指向祖父结点，从新的当前结点重新开始算法  ，。<br>对于插入修复情况3，对策：父结点变为黑色，祖父结点变为红色，在祖父结点为支点右旋</p>
 <p>可以将上面5种情况看成状态机的5种状态，包括红黑树（已经调整到位，终止状态）共6种状态。红黑树的插入就是状态机几种状态的转移。</p>
-<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>1、先按照二叉查找树删除结点的方式删除结点，然后再对整棵树进行调整，使其保持红黑树的性质</p>
+<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>先按照二叉查找树删除结点的方式删除结点，然后再对整棵树进行调整，使其保持红黑树的性质<br>也是分为几种情况分别处理（其中可能发生情况的转化），略</p>
 
       
     </div>
@@ -755,6 +668,93 @@ log {
 $cat syslog-ng.out
 Sep 13 22:46:49 localhost Hello, syslog-ng
 </code></pre><p>这样，我们就大概清楚了syslog-ng运行的原理：即将某个日志源的信息进行收集，然后对日志进行一些处理（如果过滤，文本替换等），然后输出到指定的目的地(本地或者网络)。</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-syslog-ng/syslog-ng-install" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/13/syslog-ng/syslog-ng-install/" class="article-date">
+  	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-install/">syslog-ng详解——简介及安装syslog-ng</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装syslog-ng"><span class="toc-text">安装syslog-ng</span></a></li></ol>
+</div>
+
+         
+        <p>日志管理模块作为软件系统的一个重要子模块，其记录着系统运行的有关信息。当系统故障时，日志是用于问题定位的必备信息。所以，一个设计良好的日志模块及其重要，在Linux系统上往往用syslog(rsyslogd及klogd程序)来管理系统的日志。本文介绍的syslog-ng是syslog的next generation，具有比syslog更强大的功能和性能，优势体现在以下几个方面：  </p>
+<ul>
+<li>兼容syslog的功能，可扩展性强(支持plugin)，更新速度快 </li>
+<li>更多的配置语法，管理日志方式更加(日志源和日志目的地很丰富)  </li>
+<li>支持网络日志传输(TLS方式传输)，即分布式日志管理功能  </li>
+</ul>
+<h2 id="安装syslog-ng"><a href="#安装syslog-ng" class="headerlink" title="安装syslog-ng"></a>安装syslog-ng</h2><p>本文只介绍从源码包安装syslog-ng的方法，掌握了源码包安装后，就可以在嵌入式系统(如Android)上用类似的方法集成syslog-ng。<br>a)    下载源码包<br>    在<a href="https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。" target="_blank" rel="external">https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。</a></p>
+<p>b)    编译及安装<br>由于syslog-ng依赖于eventlog和glib，所以需要先编译eventlog和 glib （这边用的glib为2.46.2版本，依赖zlib, libffi，可以从<a href="http://ftp.gnome.org/pub/gnome/sources/glib/上下载）" target="_blank" rel="external">http://ftp.gnome.org/pub/gnome/sources/glib/上下载）</a> </p>
+<p>从源码包编译软件的步骤如下(以eventlog为例，假设系统用户为user)：</p>
+<pre><code>#./configure –-prefix=/home/user/software/eventlog-0.2.13
+#make install
+</code></pre><p>然后eventlog软件就被安装到了~/software/eventlog-0.2.13目录下。</p>
+<p>用同样的方法编译安装glib到/home/user/software/glib-2.46.2/目录，然后就可以编译安装syslog-ng.详细步骤如下：</p>
+<p>在syslog-ng-3.4.2源码包下执行  </p>
+<pre><code>#export PKG_CONFIG_PATH＝/home/user/software/eventlog-0.2.13/lib/pkgconfig/:/home/user/software/glib-2.46.2/lib/pkgconfig/:$PKG_CONFIG_PATH
+#./configure –-prefix=~/software/syslog-ng－3.4.2
+#make install
+</code></pre><p>其中，PKG_CONFIG_PATH用于告诉configure依赖库的安装路径，否则configure的时候会报No package ‘xxx’ found<br>这样，就是成功安装了syslog-ng到~/software/syslog-ng－3.4.2目录下，下一篇讲解如何运行syslog-ng及其配置文件语法。</p>
 
       
     </div>

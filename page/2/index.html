@@ -530,80 +530,6 @@
 
 
   
-    <article id="post-database/redis/redis-in-action" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/26/database/redis/redis-in-action/" class="article-date">
-  	<time datetime="2017-07-26T13:58:55.000Z" itemprop="datePublished">2017-07-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/database/redis/redis-in-action/">redis实战书籍笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    
-</div>
-
-         
-        <p>性能工具：<br>redis-benchmark<br>redis-benchmark -c 1 -q</p>
-<p>redis事务<br>同数据库事务的概念一样，具有ACID性质。<br>为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。<br>使用watch命令支持redis事务</p>
-<p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
-<p>redis锁<br>细粒度锁</p>
-<p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-database/redis/redis-c-api" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -652,6 +578,80 @@
 <li>Redisson<br>distributed and scalable Java data structures on top of Redis server</li>
 </ul>
 <p>tips:<br>可以在redis官网上查看各种编程语言支持的redis API接口<a href="https://redis.io/clients" target="_blank" rel="external">Clients</a>,其中，带星号的是redis官方推荐使用的</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-database/redis/redis-in-action" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/26/database/redis/redis-in-action/" class="article-date">
+  	<time datetime="2017-07-26T13:58:55.000Z" itemprop="datePublished">2017-07-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/26/database/redis/redis-in-action/">redis实战书籍笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+         
+        <p>性能工具：<br>redis-benchmark<br>redis-benchmark -c 1 -q</p>
+<p>redis事务<br>同数据库事务的概念一样，具有ACID性质。<br>为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。<br>使用watch命令支持redis事务</p>
+<p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
+<p>redis锁<br>细粒度锁</p>
+<p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
 
       
     </div>
