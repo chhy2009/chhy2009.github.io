@@ -267,97 +267,6 @@
 
 
   
-    <article id="post-python/crawel/crawel-primary" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/13/python/crawel/crawel-primary/" class="article-date">
-  	<time datetime="2017-08-13T14:07:03.000Z" itemprop="datePublished">2017-08-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/13/python/crawel/crawel-primary/">python 爬虫初窥</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    
-</div>
-
-         
-        <p>github下了个crawel入门的python 源码，我fork了一份，研究下看看：<br><a href="https://github.com/chhy2009/Mini-Spider.git" target="_blank" rel="external">Mini-Spider</a></p>
-<p>代码调用关系：<br>入口(执行方式):<br>test_all.sh</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python3 mini-spider -<span class="selector-tag">a</span> http:<span class="comment">//bbs.fengniao.com/forum/9373824.html jpg html</span></div></pre></td></tr></table></figure>
-<p>先由<strong>main</strong>.py中调用parser.parse_args解析参数，match规则为：  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Add arguments.</span></div><div class="line">    analysis_help = <span class="string">'Analysis a URL.'</span></div><div class="line">    parser.add_argument(<span class="string">'-a'</span>, <span class="built_in">help</span>=analysis_help, nargs=<span class="string">'+'</span>, dest=<span class="string">'analysis_url'</span>, metavar=<span class="string">'[URL]'</span>)</div></pre></td></tr></table></figure>
-<p>进一步调用：  </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Parse analysis url.</span></div><div class="line">    <span class="keyword">if</span> args.analysis_url:</div><div class="line">        <span class="keyword">if</span> len(args.analysis_url) == <span class="number">1</span>:  <span class="comment">#需要至少指定两个参数，指定需要获取的资源类型</span></div><div class="line">            print(<span class="string">'Error: Please input what resource you are looking for!'</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        timeout = <span class="number">2.0</span></div><div class="line">        <span class="keyword">if</span> args.time_out:</div><div class="line">            timeout = args.time_out[<span class="number">0</span>]</div><div class="line">        <span class="keyword">if</span> args.similarity:</div><div class="line">            spider = MiniSpider(args.analysis_url[<span class="number">0</span>], search=args.analysis_url[<span class="number">1</span>:],</div><div class="line">                                similarity_threshold=args.similarity[<span class="number">0</span>], timeout=timeout)</div><div class="line">            spider.analysis_url()</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            spider = MiniSpider(args.analysis_url[<span class="number">0</span>], search=args.analysis_url[<span class="number">1</span>:], similarity_threshold=<span class="number">0.6</span>,</div><div class="line">                                timeout=timeout)</div><div class="line">            spider.analysis_url()</div></pre></td></tr></table></figure>
-<p>解析args  </p>
-<p>最后调用spider.analysis_url做实际性的工作（解析url并获取资源）.  </p>
-<p>来看下MiniSpider这个类（scheduler.py）：  </p>
-<ol>
-<li>调用<strong>init</strong>函数解析url及资源类型列表</li>
-<li>调用analysis_url函数下载资源,具体如下：</li>
-</ol>
-<ul>
-<li>调用_url_read下载网页</li>
-<li>使用python正则表达式查找匹配的资源<code>match = re.findall(i, content)</code></li>
-<li>使用_handle_match处理结果<code>self._handle_match(match_list)</code></li>
-<li>使用_save_temp保存结果</li>
-</ul>
-<p>进阶：</p>
-<p><a href="https://seofangfa.com/other-note/python网络爬虫实战项目代码大全（长期更新，欢迎补.html" target="_blank" rel="external">Python网络爬虫实战项目代码大全（长期更新，欢迎补充） – Python中文社区 – 知乎专栏</a></p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crawel/">crawel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-python/crawel/argpaser" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -424,6 +333,97 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/argpaser/">argpaser</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-python/crawel/crawel-primary" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/13/python/crawel/crawel-primary/" class="article-date">
+  	<time datetime="2017-08-13T14:07:03.000Z" itemprop="datePublished">2017-08-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/13/python/crawel/crawel-primary/">python 爬虫初窥</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+         
+        <p>github下了个crawel入门的python 源码，我fork了一份，研究下看看：<br><a href="https://github.com/chhy2009/Mini-Spider.git" target="_blank" rel="external">Mini-Spider</a></p>
+<p>代码调用关系：<br>入口(执行方式):<br>test_all.sh</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python3 mini-spider -<span class="selector-tag">a</span> http:<span class="comment">//bbs.fengniao.com/forum/9373824.html jpg html</span></div></pre></td></tr></table></figure>
+<p>先由<strong>main</strong>.py中调用parser.parse_args解析参数，match规则为：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Add arguments.</span></div><div class="line">    analysis_help = <span class="string">'Analysis a URL.'</span></div><div class="line">    parser.add_argument(<span class="string">'-a'</span>, <span class="built_in">help</span>=analysis_help, nargs=<span class="string">'+'</span>, dest=<span class="string">'analysis_url'</span>, metavar=<span class="string">'[URL]'</span>)</div></pre></td></tr></table></figure>
+<p>进一步调用：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Parse analysis url.</span></div><div class="line">    <span class="keyword">if</span> args.analysis_url:</div><div class="line">        <span class="keyword">if</span> len(args.analysis_url) == <span class="number">1</span>:  <span class="comment">#需要至少指定两个参数，指定需要获取的资源类型</span></div><div class="line">            print(<span class="string">'Error: Please input what resource you are looking for!'</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        timeout = <span class="number">2.0</span></div><div class="line">        <span class="keyword">if</span> args.time_out:</div><div class="line">            timeout = args.time_out[<span class="number">0</span>]</div><div class="line">        <span class="keyword">if</span> args.similarity:</div><div class="line">            spider = MiniSpider(args.analysis_url[<span class="number">0</span>], search=args.analysis_url[<span class="number">1</span>:],</div><div class="line">                                similarity_threshold=args.similarity[<span class="number">0</span>], timeout=timeout)</div><div class="line">            spider.analysis_url()</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            spider = MiniSpider(args.analysis_url[<span class="number">0</span>], search=args.analysis_url[<span class="number">1</span>:], similarity_threshold=<span class="number">0.6</span>,</div><div class="line">                                timeout=timeout)</div><div class="line">            spider.analysis_url()</div></pre></td></tr></table></figure>
+<p>解析args  </p>
+<p>最后调用spider.analysis_url做实际性的工作（解析url并获取资源）.  </p>
+<p>来看下MiniSpider这个类（scheduler.py）：  </p>
+<ol>
+<li>调用<strong>init</strong>函数解析url及资源类型列表</li>
+<li>调用analysis_url函数下载资源,具体如下：</li>
+</ol>
+<ul>
+<li>调用_url_read下载网页</li>
+<li>使用python正则表达式查找匹配的资源<code>match = re.findall(i, content)</code></li>
+<li>使用_handle_match处理结果<code>self._handle_match(match_list)</code></li>
+<li>使用_save_temp保存结果</li>
+</ul>
+<p>进阶：</p>
+<p><a href="https://seofangfa.com/other-note/python网络爬虫实战项目代码大全（长期更新，欢迎补.html" target="_blank" rel="external">Python网络爬虫实战项目代码大全（长期更新，欢迎补充） – Python中文社区 – 知乎专栏</a></p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crawel/">crawel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
 	</div>
 
       
@@ -600,80 +600,6 @@
 
 
   
-    <article id="post-database/redis/redis-in-action" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/26/database/redis/redis-in-action/" class="article-date">
-  	<time datetime="2017-07-26T13:58:55.000Z" itemprop="datePublished">2017-07-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/database/redis/redis-in-action/">redis实战书籍笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    
-</div>
-
-         
-        <p>性能工具：<br>redis-benchmark<br>redis-benchmark -c 1 -q</p>
-<p>redis事务<br>同数据库事务的概念一样，具有ACID性质。<br>为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。<br>使用watch命令支持redis事务</p>
-<p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
-<p>redis锁<br>细粒度锁</p>
-<p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-database/redis/redis-c-api" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -722,6 +648,80 @@
 <li>Redisson<br>distributed and scalable Java data structures on top of Redis server</li>
 </ul>
 <p>tips:<br>可以在redis官网上查看各种编程语言支持的redis API接口<a href="https://redis.io/clients" target="_blank" rel="external">Clients</a>,其中，带星号的是redis官方推荐使用的</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-database/redis/redis-in-action" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/26/database/redis/redis-in-action/" class="article-date">
+  	<time datetime="2017-07-26T13:58:55.000Z" itemprop="datePublished">2017-07-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/26/database/redis/redis-in-action/">redis实战书籍笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+         
+        <p>性能工具：<br>redis-benchmark<br>redis-benchmark -c 1 -q</p>
+<p>redis事务<br>同数据库事务的概念一样，具有ACID性质。<br>为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。<br>使用watch命令支持redis事务</p>
+<p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
+<p>redis锁<br>细粒度锁</p>
+<p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
 
       
     </div>
