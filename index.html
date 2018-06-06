@@ -239,36 +239,14 @@
 <p>接近真相了，奥秘就在container_of这个方法中:<br>include/stddef.h  </p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __compiler_offsetof</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> offsetof(TYPE,MEMBER) __compiler_offsetof(TYPE,MEMBER)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> offsetof(TYPE, MEMBER) ((size_t) &amp;((TYPE *)0)-&gt;MEMBER)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
 <p>include/kernel.h  </p>
-<figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * container_of - cast a member of a structure out to the containing structure</div><div class="line"> * @ptr:	the pointer to the member.</div><div class="line"> * @type:	the type of the container struct this is embedded in.</div><div class="line"> * @member:	the name of the member within the struct.</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="comment">#define container_of(ptr, type, member) (&#123;			\</span></div><div class="line">	<span class="keyword">const</span> <span class="keyword">typeof</span><span class="function"><span class="params">( ((type *)<span class="number">0</span>)-&gt;member )</span> *<span class="title">__mptr</span> = <span class="params">(ptr)</span>;	</span></div><div class="line">	<span class="params">(type *)( (char *)__mptr - offsetof(type,member) )</span>;&#125;)</div><div class="line"></div><div class="line">```  </div><div class="line"></div><div class="line">结合一下，就是</div></pre></td></tr></table></figure>
-<p>#define container_of(ptr, type, member) \<br>    (type <em>)((char </em>)(ptr) - (char <em>) &amp;((type </em>)0)-&gt;member)<br><figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">看到这句代码(<span class="built_in">char</span> *) &amp;((<span class="keyword">type</span> *)<span class="number">0</span>)-&gt;member), 还能这样玩，顿时感觉c的指针确实能做很多事，像magic一样，研究了下，这句代码是用于获取<span class="keyword">type</span>结构的member成员的相对首地址的偏移。  </div><div class="line">所以kernel中<span class="built_in">list</span>使用原理：获取结构中<span class="built_in">list</span>成员的地址，然后－<span class="built_in">list</span>成员在结构中的相对偏移，从而得到<span class="keyword">type</span>结构的地址，很巧妙。  </div><div class="line"></div><div class="line">下面是我的一段测试代码，不明白的话可以再自己研究下：</div></pre></td></tr></table></figure></p>
-<p>/**</p>
-<ul>
-<li>Returns a pointer to the container of this list element.<br>*</li>
-<li>Example:</li>
-<li>struct foo* f;</li>
-<li>f = container_of(&amp;foo-&gt;entry, struct foo, entry);</li>
-<li>assert(f == foo);<br>*</li>
-<li>@param ptr Pointer to the struct list_head.</li>
-<li>@param type Data type of the list element.</li>
-<li>@param member Member name of the struct list_head field in the list element.</li>
-<li>@return A pointer to the data struct containing the list head.<br><em>/<br>#include <stdio.h><br>#ifndef container_of<br>#define container_of(ptr, type, member) \<br> (type </stdio.h></em>)((char <em>)(ptr) - (char </em>) &amp;((type *)0)-&gt;member)<br>#endif</li>
-</ul>
-<p>struct entry{<br>    int a;<br>};</p>
-<p>struct foo{<br>    int data;<br>    int key;<br>    struct entry list;<br>};</p>
-<p>int  main()<br>{<br>    struct foo f;<br>    struct foo *ptr;<br>    ptr = container_of(&amp;(f.list), struct foo, list);</p>
-<pre><code>printf(&quot;ptr address of foo:  %p \n&quot;, (char *)&amp;f);
-printf(&quot;ptr address of foo list :  %p \n&quot;,(char *) &amp;(f.list));
-printf(&quot;ptr address of 0-&gt;member: %p \n&quot;, (char *)&amp;((struct foo*)0)-&gt;list);
-if (ptr == &amp;f)
-{
-    printf(&quot;return ok\n&quot;);
-    return 0;
-}
-
-return -1;
-</code></pre><p>}<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">编译运行后，输出：</div></pre></td></tr></table></figure></p>
-<p>ptr address of foo:  0x7fff587c1af0<br>ptr address of foo list :  0x7fff587c1af8<br>ptr address of 0-&gt;member: 0x8<br>return ok<br>```</p>
-
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * container_of - cast a member of a structure out to the containing structure</div><div class="line"> * @ptr:	the pointer to the member.</div><div class="line"> * @type:	the type of the container struct this is embedded in.</div><div class="line"> * @member:	the name of the member within the struct.</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="comment">#define container_of(ptr, type, member) (&#123;			\</span></div><div class="line">	<span class="keyword">const</span> <span class="keyword">typeof</span><span class="function"><span class="params">( ((type *)<span class="number">0</span>)-&gt;member )</span> *<span class="title">__mptr</span> = <span class="params">(ptr)</span>;	</span></div><div class="line">	<span class="params">(type *)( (char *)__mptr - offsetof(type,member) )</span>;&#125;)</div></pre></td></tr></table></figure>
+<p>结合一下，就是  </p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define container_of(ptr, <span class="built_in">type</span>, member) \</div><div class="line">    (<span class="built_in">type</span> *)(<span class="function"><span class="params">(char *)(ptr)</span> - <span class="params">(char *)</span> &amp;(<span class="params">(<span class="built_in">type</span> *)</span>0)-&gt;</span>member)</div></pre></td></tr></table></figure>
+<p>看到这句代码(char <em>) &amp;((type </em>)0)-&gt;member), 还能这样玩，顿时感觉c的指针确实能做很多事，像magic一样，研究了下，这句代码是用于获取type结构的member成员的相对首地址的偏移。<br>所以kernel中list使用原理：获取结构中list成员的地址，然后－list成员在结构中的相对偏移，从而得到type结构的地址，很巧妙。  </p>
+<p>下面是我的一段测试代码，不明白的话可以再自己研究下：    </p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * <span class="type">Returns</span> a pointer <span class="keyword">to</span> the container <span class="keyword">of</span> this <span class="built_in">list</span> element.</div><div class="line"> *</div><div class="line"> * <span class="type">Example</span>:</div><div class="line"> * <span class="keyword">struct</span> foo* f;</div><div class="line"> * f = container_of(&amp;foo-&gt;entry, <span class="keyword">struct</span> foo, entry);</div><div class="line"> * <span class="keyword">assert</span>(f == foo);</div><div class="line"> *</div><div class="line"> * @param ptr <span class="type">Pointer</span> <span class="keyword">to</span> the <span class="keyword">struct</span> list_head.</div><div class="line"> * @param <span class="keyword">type</span> <span class="type">Data</span> <span class="keyword">type</span> <span class="keyword">of</span> the <span class="built_in">list</span> element.</div><div class="line"> * @param member <span class="type">Member</span> name <span class="keyword">of</span> the <span class="keyword">struct</span> list_head field <span class="keyword">in</span> the <span class="built_in">list</span> element.</div><div class="line"> * @return <span class="type">A</span> pointer <span class="keyword">to</span> the data <span class="keyword">struct</span> containing the <span class="built_in">list</span> head.</div><div class="line"> */</div><div class="line">#<span class="keyword">include</span> &lt;stdio.h&gt;</div><div class="line">#ifndef container_of</div><div class="line">#define container_of(ptr, <span class="keyword">type</span>, member) \</div><div class="line">    (<span class="keyword">type</span> *)((<span class="built_in">char</span> *)(ptr) - (<span class="built_in">char</span> *) &amp;((<span class="keyword">type</span> *)<span class="number">0</span>)-&gt;member)</div><div class="line">#endif</div><div class="line"></div><div class="line"><span class="keyword">struct</span> entry&#123;</div><div class="line">    <span class="built_in">int</span> a;    </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> foo&#123;</div><div class="line">    <span class="built_in">int</span> data;</div><div class="line">    <span class="built_in">int</span> key;</div><div class="line">    <span class="keyword">struct</span> entry <span class="built_in">list</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">int</span>  main<span class="literal">()</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">struct</span> foo f;</div><div class="line">    <span class="keyword">struct</span> foo *ptr;</div><div class="line">    ptr = container_of(&amp;(f.<span class="built_in">list</span>), <span class="keyword">struct</span> foo, <span class="built_in">list</span>);</div><div class="line"></div><div class="line">    printf(<span class="string">"ptr address of foo:  %p \n"</span>, (<span class="built_in">char</span> *)&amp;f);</div><div class="line">    printf(<span class="string">"ptr address of foo list :  %p \n"</span>,(<span class="built_in">char</span> *) &amp;(f.<span class="built_in">list</span>));</div><div class="line">    printf(<span class="string">"ptr address of 0-&gt;member: %p \n"</span>, (<span class="built_in">char</span> *)&amp;((<span class="keyword">struct</span> foo*)<span class="number">0</span>)-&gt;<span class="built_in">list</span>);</div><div class="line">    <span class="keyword">if</span> (ptr == &amp;f)</div><div class="line">    &#123;</div><div class="line">        printf(<span class="string">"return ok\n"</span>);</div><div class="line">        return <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return -<span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译运行后，输出：  </p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ptr</span> address <span class="keyword">of</span> foo:  <span class="number">0x7fff587c1af0</span> </div><div class="line"><span class="keyword">ptr</span> address <span class="keyword">of</span> foo list :  <span class="number">0x7fff587c1af8</span> </div><div class="line"><span class="keyword">ptr</span> address <span class="keyword">of</span> <span class="number">0</span>-&gt;member: <span class="number">0x8</span> </div><div class="line"><span class="keyword">return</span> ok</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -451,97 +429,6 @@ return -1;
 
 
   
-    <article id="post-nginx/nginx" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/04/nginx/nginx/" class="article-date">
-  	<time datetime="2017-12-04T14:53:25.000Z" itemprop="datePublished">2017-12-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/04/nginx/nginx/">nginx</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx安装"><span class="toc-text">nginx安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx模块"><span class="toc-text">nginx模块</span></a></li></ol>
-</div>
-
-         
-        <h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><ul>
-<li><p>下载链接：<br><a href="http://nginx.org/download/" target="_blank" rel="external">http://nginx.org/download/</a><br>依赖库<a href="http://zlib.net/" target="_blank" rel="external">zlib</a>, <a href="http://www.pcre.org/" target="_blank" rel="external">pcre</a></p>
-</li>
-<li><p>编译及安装<br>./configure –prefix=/home/mycount/software/nginx-1.13.6 –with-pcre=/home/mycount/pcre-8.39 –with-zlib=/home/mycount/Downloads/zlib-1.2.11<br>make install<br>其中pcre-8.39及zlib-1.2.11 为pcre和zlib的源码目录（注意是源码目录）</p>
-</li>
-<li><p>运行<br>启动和停止nginx需要以root身份运行，或者使用sudo命令<br>sbin/nginx  #使用默认的配置文件conf/nginx.conf</p>
-</li>
-<li>验证安装<br>nginx的默认配置文件开启了localhost:80服务</li>
-</ul>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]<span class="comment"># curl -v -o /dev/null http://localhost/index.html</span></div><div class="line">* About to connect() to localhost port<span class="number"> 80 </span>(<span class="comment">#0)</span></div><div class="line">*   Trying 127.0.0.1... connected</div><div class="line">* Connected to localhost (127.0.0.1) port<span class="number"> 80 </span>(<span class="comment">#0)</span></div><div class="line">&gt; GET /index.html HTTP/1.1</div><div class="line">&gt; User-Agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2</div><div class="line">&gt; Host: localhost</div><div class="line">&gt; Accept: */*</div><div class="line">&gt; </div><div class="line">&lt; HTTP/1.1<span class="number"> 403 </span>Forbidden</div><div class="line">&lt; Server: nginx/1.13.6</div><div class="line">&lt; Date: Tue,<span class="number"> 05 </span>Dec<span class="number"> 2017 </span>14:35:32 GMT</div><div class="line">&lt; Content-Type: text/html</div><div class="line">&lt; Content-Length: 169</div><div class="line">&lt; Connection: keep-alive</div><div class="line">&lt; </div><div class="line">&#123; [data not shown]</div><div class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</div><div class="line">                                 Dload  Upload   Total   Spent    Left  Speed</div><div class="line">169  <span class="number"> 169 </span><span class="number"> 169 </span> <span class="number"> 169 </span>  <span class="number"> 0 </span>   <span class="number"> 0 </span> <span class="number"> 8154 </span>    <span class="number"> 0 </span>--:--:-- --:--:-- --:--:--     0* Connection <span class="comment">#0 to host localhost left intact</span></div><div class="line"></div><div class="line">* Closing connection <span class="comment">#0</span></div></pre></td></tr></table></figure>
-<p>使用ps命令也可以看到所有nginx进程，也可以验证nginx是否正常运行：  </p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ps aux |greo nignx</div><div class="line">[root@localhost 13.6]<span class="comment"># ps aux |grep nginx</span></div><div class="line">root    <span class="number"> 109323 </span> 0.0  0.0 <span class="number"> 15768 </span> <span class="number"> 624 </span>?        Ss   22:34   0:00 nginx: master process /home/hy/software/nginx-1/13.6/sbin/nginx</div><div class="line">nobody  <span class="number"> 109324 </span> 0.0  0.1 <span class="number"> 16212 </span><span class="number"> 1532 </span>?        S    22:34   0:00 nginx: worker process</div></pre></td></tr></table></figure>
-<h2 id="nginx模块"><a href="#nginx模块" class="headerlink" title="nginx模块"></a>nginx模块</h2><p>编译<br>[root@localhost nginx-1.13.6]# ./configure –prefix=/home/hy/software/nginx-1.13.6 –add-module=/home/hy/Documents/nginx-1.13.6/src/test/ –with-pcre=/home/hy/Downloads/pcre-8.39 –with-zlib=/home/hy/Downloads/zlib-1.2.11</p>
-<p>编译时会提示：<br>configuring additional modules<br>adding module in /home/hy/Documents/nginx-1.13.6/src/test/</p>
-<ul>
-<li>ngx_http_hello_module was configured<br>creating objs/Makefile</li>
-</ul>
-<p>如何支持C++文件？<br>需要简单了解下nginx的编译过程<br>1、直接修改Makefile文件<br>2、通过修改auto目录下的文件</p>
-<p>使用<br>使用一个模块需要根据这个模块定义的配置指令来做。比如我们这个简单的hello handler module的使用就很简单。在我的测试服务器的配置文件里，就是在http里面的默认的server里面加入如下的配置：</p>
-<p>location /test {<br>                hello_string jizhao;<br>                hello_counter on;<br>}<br>当我们访问这个地址的时候, lynx <a href="http://127.0.0.1/test的时候，就可以看到返回的结果。" target="_blank" rel="external">http://127.0.0.1/test的时候，就可以看到返回的结果。</a></p>
-<p>jizhao Visited Times:1</p>
-<p>当然你访问多次，这个次数是会增加的。</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-nginx/nginx-module-analysis" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -609,6 +496,97 @@ return -1;
 <p>load-balance模块</p>
 <p>filter模块</p>
 <p>http模块</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-nginx/nginx" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/04/nginx/nginx/" class="article-date">
+  	<time datetime="2017-12-04T14:53:25.000Z" itemprop="datePublished">2017-12-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/04/nginx/nginx/">nginx</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx安装"><span class="toc-text">nginx安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx模块"><span class="toc-text">nginx模块</span></a></li></ol>
+</div>
+
+         
+        <h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><ul>
+<li><p>下载链接：<br><a href="http://nginx.org/download/" target="_blank" rel="external">http://nginx.org/download/</a><br>依赖库<a href="http://zlib.net/" target="_blank" rel="external">zlib</a>, <a href="http://www.pcre.org/" target="_blank" rel="external">pcre</a></p>
+</li>
+<li><p>编译及安装<br>./configure –prefix=/home/mycount/software/nginx-1.13.6 –with-pcre=/home/mycount/pcre-8.39 –with-zlib=/home/mycount/Downloads/zlib-1.2.11<br>make install<br>其中pcre-8.39及zlib-1.2.11 为pcre和zlib的源码目录（注意是源码目录）</p>
+</li>
+<li><p>运行<br>启动和停止nginx需要以root身份运行，或者使用sudo命令<br>sbin/nginx  #使用默认的配置文件conf/nginx.conf</p>
+</li>
+<li>验证安装<br>nginx的默认配置文件开启了localhost:80服务</li>
+</ul>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]<span class="comment"># curl -v -o /dev/null http://localhost/index.html</span></div><div class="line">* About to connect() to localhost port<span class="number"> 80 </span>(<span class="comment">#0)</span></div><div class="line">*   Trying 127.0.0.1... connected</div><div class="line">* Connected to localhost (127.0.0.1) port<span class="number"> 80 </span>(<span class="comment">#0)</span></div><div class="line">&gt; GET /index.html HTTP/1.1</div><div class="line">&gt; User-Agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2</div><div class="line">&gt; Host: localhost</div><div class="line">&gt; Accept: */*</div><div class="line">&gt; </div><div class="line">&lt; HTTP/1.1<span class="number"> 403 </span>Forbidden</div><div class="line">&lt; Server: nginx/1.13.6</div><div class="line">&lt; Date: Tue,<span class="number"> 05 </span>Dec<span class="number"> 2017 </span>14:35:32 GMT</div><div class="line">&lt; Content-Type: text/html</div><div class="line">&lt; Content-Length: 169</div><div class="line">&lt; Connection: keep-alive</div><div class="line">&lt; </div><div class="line">&#123; [data not shown]</div><div class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</div><div class="line">                                 Dload  Upload   Total   Spent    Left  Speed</div><div class="line">169  <span class="number"> 169 </span><span class="number"> 169 </span> <span class="number"> 169 </span>  <span class="number"> 0 </span>   <span class="number"> 0 </span> <span class="number"> 8154 </span>    <span class="number"> 0 </span>--:--:-- --:--:-- --:--:--     0* Connection <span class="comment">#0 to host localhost left intact</span></div><div class="line"></div><div class="line">* Closing connection <span class="comment">#0</span></div></pre></td></tr></table></figure>
+<p>使用ps命令也可以看到所有nginx进程，也可以验证nginx是否正常运行：  </p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ps aux |greo nignx</div><div class="line">[root@localhost 13.6]<span class="comment"># ps aux |grep nginx</span></div><div class="line">root    <span class="number"> 109323 </span> 0.0  0.0 <span class="number"> 15768 </span> <span class="number"> 624 </span>?        Ss   22:34   0:00 nginx: master process /home/hy/software/nginx-1/13.6/sbin/nginx</div><div class="line">nobody  <span class="number"> 109324 </span> 0.0  0.1 <span class="number"> 16212 </span><span class="number"> 1532 </span>?        S    22:34   0:00 nginx: worker process</div></pre></td></tr></table></figure>
+<h2 id="nginx模块"><a href="#nginx模块" class="headerlink" title="nginx模块"></a>nginx模块</h2><p>编译<br>[root@localhost nginx-1.13.6]# ./configure –prefix=/home/hy/software/nginx-1.13.6 –add-module=/home/hy/Documents/nginx-1.13.6/src/test/ –with-pcre=/home/hy/Downloads/pcre-8.39 –with-zlib=/home/hy/Downloads/zlib-1.2.11</p>
+<p>编译时会提示：<br>configuring additional modules<br>adding module in /home/hy/Documents/nginx-1.13.6/src/test/</p>
+<ul>
+<li>ngx_http_hello_module was configured<br>creating objs/Makefile</li>
+</ul>
+<p>如何支持C++文件？<br>需要简单了解下nginx的编译过程<br>1、直接修改Makefile文件<br>2、通过修改auto目录下的文件</p>
+<p>使用<br>使用一个模块需要根据这个模块定义的配置指令来做。比如我们这个简单的hello handler module的使用就很简单。在我的测试服务器的配置文件里，就是在http里面的默认的server里面加入如下的配置：</p>
+<p>location /test {<br>                hello_string jizhao;<br>                hello_counter on;<br>}<br>当我们访问这个地址的时候, lynx <a href="http://127.0.0.1/test的时候，就可以看到返回的结果。" target="_blank" rel="external">http://127.0.0.1/test的时候，就可以看到返回的结果。</a></p>
+<p>jizhao Visited Times:1</p>
+<p>当然你访问多次，这个次数是会增加的。</p>
 
       
     </div>
@@ -1013,10 +991,10 @@ options { file-template(global_format); }; #用于file-like destination
 
 
   
-    <article id="post-dataStructure/RB-tree" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-syslog-ng/syslog-ng-install" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/13/dataStructure/RB-tree/" class="article-date">
+      <a href="/2017/09/13/syslog-ng/syslog-ng-install/" class="article-date">
   	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
 </a>
     </div>
@@ -1030,7 +1008,7 @@ options { file-template(global_format); }; #用于file-like destination
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/dataStructure/RB-tree/">红黑树</a>
+      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-install/">syslog-ng详解——简介及安装syslog-ng</a>
     </h1>
   
 
@@ -1041,41 +1019,28 @@ options { file-template(global_format); }; #用于file-like destination
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#树的旋转"><span class="toc-text">树的旋转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#红黑树的插入"><span class="toc-text">红黑树的插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#红黑树的删除"><span class="toc-text">红黑树的删除</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装syslog-ng"><span class="toc-text">安装syslog-ng</span></a></li></ol>
 </div>
 
          
-        <p>红黑树的5条性质：<br>1）每个结点要么是红的，要么是黑的。<br>2）根结点是黑的。<br>3）每个叶结点（叶结点即指树尾端NIL指针或NULL结点）是黑的。<br>4）如果一个结点是红的，那么它的俩个儿子都是黑的。<br>5）对于任一结点而言，其到叶结点树尾端NIL指针的每一条路径都包含相同数目的黑结点。<br>这决定了红黑树是相对平衡的二叉树，其查找，删除和插入的的时间复杂度为O(log n)</p>
-<h2 id="树的旋转"><a href="#树的旋转" class="headerlink" title="树的旋转"></a>树的旋转</h2><p>树的旋转，分为左旋和右旋，下面介绍下左旋(右旋的原理类似)<br>左旋是指以某个结点current和他的右子结点right为“支轴”，使right结点成为current子树新的根结点。即将right结点成为current结点的父结点，right结点的左子结点成为current结点的右子结点。其原理图如下：<br><img src="/img/tree_left_rotate.png" alt="left-rotate">  </p>
-<p>左旋操作的伪代码如下(x为上图的pivot结点)：  </p>
-<pre><code>LEFT-ROTATE(T, x)  
-y ← right[x] //Set y.  
-right[x] ← left[y]      //Turn y&apos;s left subtree into x&apos;s right subtree.  
-p[left[y]] ← x  
-p[y] ← p[x]             //Link x&apos;s parent to y.  
-if p[x] = nil[T]        //Set P&apos;s child node
-   then root[T] ← y  
-   else if x = left[p[x]]  
-           then left[p[x]] ← y  
-           else right[p[x]] ← y  
- left[y] ← x             //Put x on y&apos;s left.  
- p[x] ← y
-</code></pre><h2 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h2><p>1、 先按照二叉查找树插入的方式插入节点，然后把插入节点的左右孩子都置为叶结点nil，将插入节点涂色成红色。</p>
-<p>2、在插入节点后，对节点进行旋转并重新着色，使整棵树保持红黑树的性质</p>
-<p>这时会有下面几种情况：</p>
+        <p>日志管理模块作为软件系统的一个重要子模块，其记录着系统运行的有关信息。当系统故障时，日志是用于问题定位的必备信息。所以，一个设计良好的日志模块及其重要，在Linux系统上往往用syslog(rsyslogd及klogd程序)来管理系统的日志。本文介绍的syslog-ng是syslog的next generation，具有比syslog更强大的功能和性能，优势体现在以下几个方面：  </p>
 <ul>
-<li>如果插入的是根结点，因为原树是空树，此情况只会违反性质2，所以直接把此结点涂为黑色。</li>
-<li>如果插入的结点的父结点是黑色，由于此不会违反性质2和性质4，红黑树没有被破坏，所以此时也是什么也不做。</li>
+<li>兼容syslog的功能，可扩展性强(支持plugin)，更新速度快 </li>
+<li>更多的配置语法，管理日志方式更加(日志源和日志目的地很丰富)  </li>
+<li>支持网络日志传输(TLS方式传输)，即分布式日志管理功能  </li>
 </ul>
-<p>但遇到下述三种情况时：</p>
-<ul>
-<li>插入修复情况1：如果当前结点的父结点是红色且祖父结点的另一个子结点（叔叔结点）是红色</li>
-<li>插入修复情况2：当前结点的父结点是红色,叔叔结点是黑色，当前结点是其父结点的右子</li>
-<li>插入修复情况3：当前结点的父结点是红色,叔叔结点是黑色，当前结点是其父结点的左子</li>
-</ul>
-<p>对于插入修复情况1，对策：将当前结点的父结点和叔叔结点涂黑，祖父结点涂红，把当前结点指向祖父结点，从新的当前结点重新开始算法<br>对于插入修复情况2，对策：当前结点的父结点做为新的当前结点，以新当前结点为支点左旋，把当前结点指向祖父结点，从新的当前结点重新开始算法  ，。<br>对于插入修复情况3，对策：父结点变为黑色，祖父结点变为红色，在祖父结点为支点右旋</p>
-<p>可以将上面5种情况看成状态机的5种状态，包括红黑树（已经调整到位，终止状态）共6种状态。红黑树的插入就是状态机几种状态的转移。</p>
-<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>先按照二叉查找树删除结点的方式删除结点，然后再对整棵树进行调整，使其保持红黑树的性质<br>也是分为几种情况分别处理（其中可能发生情况的转化），略</p>
+<h2 id="安装syslog-ng"><a href="#安装syslog-ng" class="headerlink" title="安装syslog-ng"></a>安装syslog-ng</h2><p>本文只介绍从源码包安装syslog-ng的方法，掌握了源码包安装后，就可以在嵌入式系统(如Android)上用类似的方法集成syslog-ng。<br>a)    下载源码包<br>    在<a href="https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。" target="_blank" rel="external">https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。</a></p>
+<p>b)    编译及安装<br>由于syslog-ng依赖于eventlog和glib，所以需要先编译eventlog和 glib （这边用的glib为2.46.2版本，依赖zlib, libffi，可以从<a href="http://ftp.gnome.org/pub/gnome/sources/glib/上下载）" target="_blank" rel="external">http://ftp.gnome.org/pub/gnome/sources/glib/上下载）</a> </p>
+<p>从源码包编译软件的步骤如下(以eventlog为例，假设系统用户为user)：</p>
+<pre><code>#./configure –-prefix=/home/user/software/eventlog-0.2.13
+#make install
+</code></pre><p>然后eventlog软件就被安装到了~/software/eventlog-0.2.13目录下。</p>
+<p>用同样的方法编译安装glib到/home/user/software/glib-2.46.2/目录，然后就可以编译安装syslog-ng.详细步骤如下：</p>
+<p>在syslog-ng-3.4.2源码包下执行  </p>
+<pre><code>#export PKG_CONFIG_PATH＝/home/user/software/eventlog-0.2.13/lib/pkgconfig/:/home/user/software/glib-2.46.2/lib/pkgconfig/:$PKG_CONFIG_PATH
+#./configure –-prefix=~/software/syslog-ng－3.4.2
+#make install
+</code></pre><p>其中，PKG_CONFIG_PATH用于告诉configure依赖库的安装路径，否则configure的时候会报No package ‘xxx’ found<br>这样，就是成功安装了syslog-ng到~/software/syslog-ng－3.4.2目录下，下一篇讲解如何运行syslog-ng及其配置文件语法。</p>
 
       
     </div>
@@ -1087,7 +1052,7 @@ if p[x] = nil[T]        //Set P&apos;s child node
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/data-structure/">data structure</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
 	</div>
 
       
