@@ -10,10 +10,10 @@
 kernel/power  
 drivers/base/power  
 
-待机及唤醒流程分析可以查看我的csdn博客
+待机及唤醒流程分析可以查看我的csdn博客Linux Kernel and Android 休眠与唤醒(中文版)
 如何统计模块唤醒时长废话不多说，直接贴代码：
 drivers/base/power/main.c
-123456789101112131415161718192021static int dpm_run_callback(pm_callback_t cb, s">
+123456789101112131415161718192021static int d">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈kernel待机及唤醒">
 <meta property="og:url" content="http://yoursite.com/2018/06/10/kernel/kernel-resume/index.html">
@@ -22,21 +22,21 @@ drivers/base/power/main.c
 kernel/power  
 drivers/base/power  
 
-待机及唤醒流程分析可以查看我的csdn博客
+待机及唤醒流程分析可以查看我的csdn博客Linux Kernel and Android 休眠与唤醒(中文版)
 如何统计模块唤醒时长废话不多说，直接贴代码：
 drivers/base/power/main.c
-123456789101112131415161718192021static int dpm_run_callback(pm_callback_t cb, s">
-<meta property="og:updated_time" content="2018-06-10T03:37:43.000Z">
+123456789101112131415161718192021static int d">
+<meta property="og:updated_time" content="2018-06-10T03:47:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈kernel待机及唤醒">
 <meta name="twitter:description" content="内核待机和唤醒代码分布
 kernel/power  
 drivers/base/power  
 
-待机及唤醒流程分析可以查看我的csdn博客
+待机及唤醒流程分析可以查看我的csdn博客Linux Kernel and Android 休眠与唤醒(中文版)
 如何统计模块唤醒时长废话不多说，直接贴代码：
 drivers/base/power/main.c
-123456789101112131415161718192021static int dpm_run_callback(pm_callback_t cb, s">
+123456789101112131415161718192021static int d">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -267,7 +267,7 @@ drivers/base/power/main.c
 <li>kernel/power  </li>
 <li>drivers/base/power  </li>
 </ol>
-<h2 id="待机及唤醒流程分析"><a href="#待机及唤醒流程分析" class="headerlink" title="待机及唤醒流程分析"></a>待机及唤醒流程分析</h2><p>可以查看<a href="https://blog.csdn.net/CODINGCS/article/details/80148069" target="_blank" rel="external">我的csdn博客</a></p>
+<h2 id="待机及唤醒流程分析"><a href="#待机及唤醒流程分析" class="headerlink" title="待机及唤醒流程分析"></a>待机及唤醒流程分析</h2><p>可以查看我的csdn博客<a href="https://blog.csdn.net/CODINGCS/article/details/80148069" target="_blank" rel="external">Linux Kernel and Android 休眠与唤醒(中文版)</a></p>
 <h2 id="如何统计模块唤醒时长"><a href="#如何统计模块唤醒时长" class="headerlink" title="如何统计模块唤醒时长"></a>如何统计模块唤醒时长</h2><p>废话不多说，直接贴代码：</p>
 <p>drivers/base/power/main.c</p>
 <figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">static int dpm_run_callback(pm_callback_t cb, struct device *dev,</div><div class="line">			    pm_message_t <span class="keyword">state</span>, char *info)</div><div class="line">&#123;</div><div class="line">	ktime_t calltime;</div><div class="line">	int error;</div><div class="line"></div><div class="line">	if (!cb)</div><div class="line">		return <span class="number">0</span>;</div><div class="line"></div><div class="line">	calltime = initcall_debug_start(dev);</div><div class="line"></div><div class="line">	pm_dev_dbg(dev, <span class="keyword">state</span>, info);</div><div class="line">	trace_device_pm_callback_start(dev, info, <span class="keyword">state</span>.event);</div><div class="line">	error = cb(dev);</div><div class="line">	trace_device_pm_callback_end(dev, error);</div><div class="line">	suspend_report_result(cb, error);</div><div class="line"></div><div class="line">	initcall_debug_report(dev, calltime, error, <span class="keyword">state</span>, info);</div><div class="line"></div><div class="line">	return error;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
