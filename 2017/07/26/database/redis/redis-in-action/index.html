@@ -16,7 +16,7 @@ redis非事务流水线可以提高redis命令执行的效率，特别是在通�
 <meta property="og:description" content="性能工具：redis-benchmarkredis-benchmark -c 1 -q
 redis事务同数据库事务的概念一样，具有ACID性质。为了支持事务，数据库使用锁机制，redis中通过使用watch/unwatch语法来达到互斥访问的目的。使用watch命令支持redis事务
 redis非事务流水线可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。pi">
-<meta property="og:updated_time" content="2017-08-06T06:34:20.000Z">
+<meta property="og:updated_time" content="2018-08-28T23:58:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis实战书籍笔记">
 <meta name="twitter:description" content="性能工具：redis-benchmarkredis-benchmark -c 1 -q
@@ -253,6 +253,7 @@ redis非事务流水线可以提高redis命令执行的效率，特别是在通�
 <p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
 <p>redis锁<br>细粒度锁</p>
 <p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
+<p>yU#705501</p>
 
       
     </div>

@@ -10,7 +10,7 @@
 存储引擎哈希存储引擎：BitcaskB-树存储引擎：InnoDB MySQL
 索引分类聚集索引
 一级索引和二级索引
-容错和故障恢复 P37 故障恢复">
+容错和故障恢复 P37 故障恢复 容错方式：Master-slave架构 Data Server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式存储系统">
 <meta property="og:url" content="http://yoursite.com/2018/06/17/distributed_system/introduce-of-distribute-system/index.html">
@@ -19,15 +19,15 @@
 存储引擎哈希存储引擎：BitcaskB-树存储引擎：InnoDB MySQL
 索引分类聚集索引
 一级索引和二级索引
-容错和故障恢复 P37 故障恢复">
-<meta property="og:updated_time" content="2018-06-24T15:26:46.000Z">
+容错和故障恢复 P37 故障恢复 容错方式：Master-slave架构 Data Server">
+<meta property="og:updated_time" content="2018-08-12T08:07:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式存储系统">
 <meta name="twitter:description" content="分类根据处理数据类型划分：-分布式文件系统：非结构化数据-分布式键值(K-V)：半结构化数据，分布式键值系统是分布式表格系统的简化实现-分布式表格：半结构化数据-分布式数据库：结构化数据
 存储引擎哈希存储引擎：BitcaskB-树存储引擎：InnoDB MySQL
 索引分类聚集索引
 一级索引和二级索引
-容错和故障恢复 P37 故障恢复">
+容错和故障恢复 P37 故障恢复 容错方式：Master-slave架构 Data Server">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -250,7 +250,7 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存储引擎"><span class="toc-text">存储引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引分类"><span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容错和故障恢复"><span class="toc-text">容错和故障恢复</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存储引擎"><span class="toc-text">存储引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引分类"><span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容错和故障恢复"><span class="toc-text">容错和故障恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载均衡"><span class="toc-text">负载均衡</span></a></li></ol>
 </div>
 
          
@@ -258,7 +258,10 @@
 <h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>哈希存储引擎：Bitcask<br>B-树存储引擎：InnoDB MySQL</p>
 <h2 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h2><p>聚集索引</p>
 <p>一级索引和二级索引</p>
-<h2 id="容错和故障恢复"><a href="#容错和故障恢复" class="headerlink" title="容错和故障恢复"></a>容错和故障恢复</h2><p> P37 故障恢复</p>
+<h2 id="容错和故障恢复"><a href="#容错和故障恢复" class="headerlink" title="容错和故障恢复"></a>容错和故障恢复</h2><p> P37 故障恢复<br> 容错方式：Master-slave架构<br> Data Server数据备份</p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>负载均衡软件：<br>LVS<br>Haproxy<br>分级存储：合理利用SSD/SAS/SATA磁盘<br>功耗：I/O密集型和CPU密集型<br>计算数据的hash值，然后分布到不同的bucket中</p>
+<p>思维导向图工具<br>向量时钟<br>数据回传<br>Merkle树<br>冲突处理等复杂的P2P技术</p>
+<p>paxos数据复制<br>俩阶段提交协议？<br>LinuxHA软件？实现高可用<br>Zookeeper协议</p>
 
       
     </div>

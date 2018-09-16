@@ -300,7 +300,7 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存储引擎"><span class="toc-text">存储引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引分类"><span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容错和故障恢复"><span class="toc-text">容错和故障恢复</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存储引擎"><span class="toc-text">存储引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引分类"><span class="toc-text">索引分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#容错和故障恢复"><span class="toc-text">容错和故障恢复</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载均衡"><span class="toc-text">负载均衡</span></a></li></ol>
 </div>
 
          
@@ -308,7 +308,10 @@
 <h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>哈希存储引擎：Bitcask<br>B-树存储引擎：InnoDB MySQL</p>
 <h2 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h2><p>聚集索引</p>
 <p>一级索引和二级索引</p>
-<h2 id="容错和故障恢复"><a href="#容错和故障恢复" class="headerlink" title="容错和故障恢复"></a>容错和故障恢复</h2><p> P37 故障恢复</p>
+<h2 id="容错和故障恢复"><a href="#容错和故障恢复" class="headerlink" title="容错和故障恢复"></a>容错和故障恢复</h2><p> P37 故障恢复<br> 容错方式：Master-slave架构<br> Data Server数据备份</p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>负载均衡软件：<br>LVS<br>Haproxy<br>分级存储：合理利用SSD/SAS/SATA磁盘<br>功耗：I/O密集型和CPU密集型<br>计算数据的hash值，然后分布到不同的bucket中</p>
+<p>思维导向图工具<br>向量时钟<br>数据回传<br>Merkle树<br>冲突处理等复杂的P2P技术</p>
+<p>paxos数据复制<br>俩阶段提交协议？<br>LinuxHA软件？实现高可用<br>Zookeeper协议</p>
 
       
     </div>
@@ -658,6 +661,97 @@
 
 
   
+    <article id="post-nginx/nginx" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/04/nginx/nginx/" class="article-date">
+  	<time datetime="2017-12-04T14:53:25.000Z" itemprop="datePublished">2017-12-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/04/nginx/nginx/">nginx</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx安装"><span class="toc-text">nginx安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx模块"><span class="toc-text">nginx模块</span></a></li></ol>
+</div>
+
+         
+        <h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><ul>
+<li><p>下载链接：<br><a href="http://nginx.org/download/" target="_blank" rel="external">http://nginx.org/download/</a><br>依赖库<a href="http://zlib.net/" target="_blank" rel="external">zlib</a>, <a href="http://www.pcre.org/" target="_blank" rel="external">pcre</a></p>
+</li>
+<li><p>编译及安装<br>./configure –prefix=/home/mycount/software/nginx-1.13.6 –with-pcre=/home/mycount/pcre-8.39 –with-zlib=/home/mycount/Downloads/zlib-1.2.11<br>make install<br>其中pcre-8.39及zlib-1.2.11 为pcre和zlib的源码目录（注意是源码目录）</p>
+</li>
+<li><p>运行<br>启动和停止nginx需要以root身份运行，或者使用sudo命令<br>sbin/nginx  #使用默认的配置文件conf/nginx.conf</p>
+</li>
+<li>验证安装<br>nginx的默认配置文件开启了localhost:80服务</li>
+</ul>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]<span class="comment"># curl -v -o /dev/null http://localhost/index.html</span></div><div class="line">* About to connect() to localhost port<span class="number"> 80 </span>(<span class="comment">#0)</span></div><div class="line">*   Trying 127.0.0.1... connected</div><div class="line">* Connected to localhost (127.0.0.1) port<span class="number"> 80 </span>(<span class="comment">#0)</span></div><div class="line">&gt; GET /index.html HTTP/1.1</div><div class="line">&gt; User-Agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2</div><div class="line">&gt; Host: localhost</div><div class="line">&gt; Accept: */*</div><div class="line">&gt; </div><div class="line">&lt; HTTP/1.1<span class="number"> 403 </span>Forbidden</div><div class="line">&lt; Server: nginx/1.13.6</div><div class="line">&lt; Date: Tue,<span class="number"> 05 </span>Dec<span class="number"> 2017 </span>14:35:32 GMT</div><div class="line">&lt; Content-Type: text/html</div><div class="line">&lt; Content-Length: 169</div><div class="line">&lt; Connection: keep-alive</div><div class="line">&lt; </div><div class="line">&#123; [data not shown]</div><div class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</div><div class="line">                                 Dload  Upload   Total   Spent    Left  Speed</div><div class="line">169  <span class="number"> 169 </span><span class="number"> 169 </span> <span class="number"> 169 </span>  <span class="number"> 0 </span>   <span class="number"> 0 </span> <span class="number"> 8154 </span>    <span class="number"> 0 </span>--:--:-- --:--:-- --:--:--     0* Connection <span class="comment">#0 to host localhost left intact</span></div><div class="line"></div><div class="line">* Closing connection <span class="comment">#0</span></div></pre></td></tr></table></figure>
+<p>使用ps命令也可以看到所有nginx进程，也可以验证nginx是否正常运行：  </p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ps aux |greo nignx</div><div class="line">[root@localhost 13.6]<span class="comment"># ps aux |grep nginx</span></div><div class="line">root    <span class="number"> 109323 </span> 0.0  0.0 <span class="number"> 15768 </span> <span class="number"> 624 </span>?        Ss   22:34   0:00 nginx: master process /home/hy/software/nginx-1/13.6/sbin/nginx</div><div class="line">nobody  <span class="number"> 109324 </span> 0.0  0.1 <span class="number"> 16212 </span><span class="number"> 1532 </span>?        S    22:34   0:00 nginx: worker process</div></pre></td></tr></table></figure>
+<h2 id="nginx模块"><a href="#nginx模块" class="headerlink" title="nginx模块"></a>nginx模块</h2><p>编译<br>[root@localhost nginx-1.13.6]# ./configure –prefix=/home/hy/software/nginx-1.13.6 –add-module=/home/hy/Documents/nginx-1.13.6/src/test/ –with-pcre=/home/hy/Downloads/pcre-8.39 –with-zlib=/home/hy/Downloads/zlib-1.2.11</p>
+<p>编译时会提示：<br>configuring additional modules<br>adding module in /home/hy/Documents/nginx-1.13.6/src/test/</p>
+<ul>
+<li>ngx_http_hello_module was configured<br>creating objs/Makefile</li>
+</ul>
+<p>如何支持C++文件？<br>需要简单了解下nginx的编译过程<br>1、直接修改Makefile文件<br>2、通过修改auto目录下的文件</p>
+<p>使用<br>使用一个模块需要根据这个模块定义的配置指令来做。比如我们这个简单的hello handler module的使用就很简单。在我的测试服务器的配置文件里，就是在http里面的默认的server里面加入如下的配置：</p>
+<p>location /test {<br>                hello_string jizhao;<br>                hello_counter on;<br>}<br>当我们访问这个地址的时候, lynx <a href="http://127.0.0.1/test的时候，就可以看到返回的结果。" target="_blank" rel="external">http://127.0.0.1/test的时候，就可以看到返回的结果。</a></p>
+<p>jizhao Visited Times:1</p>
+<p>当然你访问多次，这个次数是会增加的。</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-nginx/nginx-module-analysis" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -725,97 +819,6 @@
 <p>load-balance模块</p>
 <p>filter模块</p>
 <p>http模块</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-nginx/nginx" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/04/nginx/nginx/" class="article-date">
-  	<time datetime="2017-12-04T14:53:25.000Z" itemprop="datePublished">2017-12-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/04/nginx/nginx/">nginx</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx安装"><span class="toc-text">nginx安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx模块"><span class="toc-text">nginx模块</span></a></li></ol>
-</div>
-
-         
-        <h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><ul>
-<li><p>下载链接：<br><a href="http://nginx.org/download/" target="_blank" rel="external">http://nginx.org/download/</a><br>依赖库<a href="http://zlib.net/" target="_blank" rel="external">zlib</a>, <a href="http://www.pcre.org/" target="_blank" rel="external">pcre</a></p>
-</li>
-<li><p>编译及安装<br>./configure –prefix=/home/mycount/software/nginx-1.13.6 –with-pcre=/home/mycount/pcre-8.39 –with-zlib=/home/mycount/Downloads/zlib-1.2.11<br>make install<br>其中pcre-8.39及zlib-1.2.11 为pcre和zlib的源码目录（注意是源码目录）</p>
-</li>
-<li><p>运行<br>启动和停止nginx需要以root身份运行，或者使用sudo命令<br>sbin/nginx  #使用默认的配置文件conf/nginx.conf</p>
-</li>
-<li>验证安装<br>nginx的默认配置文件开启了localhost:80服务</li>
-</ul>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]<span class="comment"># curl -v -o /dev/null http://localhost/index.html</span></div><div class="line">* About to connect() to localhost port<span class="number"> 80 </span>(<span class="comment">#0)</span></div><div class="line">*   Trying 127.0.0.1... connected</div><div class="line">* Connected to localhost (127.0.0.1) port<span class="number"> 80 </span>(<span class="comment">#0)</span></div><div class="line">&gt; GET /index.html HTTP/1.1</div><div class="line">&gt; User-Agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.21 Basic ECC zlib/1.2.3 libidn/1.18 libssh2/1.4.2</div><div class="line">&gt; Host: localhost</div><div class="line">&gt; Accept: */*</div><div class="line">&gt; </div><div class="line">&lt; HTTP/1.1<span class="number"> 403 </span>Forbidden</div><div class="line">&lt; Server: nginx/1.13.6</div><div class="line">&lt; Date: Tue,<span class="number"> 05 </span>Dec<span class="number"> 2017 </span>14:35:32 GMT</div><div class="line">&lt; Content-Type: text/html</div><div class="line">&lt; Content-Length: 169</div><div class="line">&lt; Connection: keep-alive</div><div class="line">&lt; </div><div class="line">&#123; [data not shown]</div><div class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</div><div class="line">                                 Dload  Upload   Total   Spent    Left  Speed</div><div class="line">169  <span class="number"> 169 </span><span class="number"> 169 </span> <span class="number"> 169 </span>  <span class="number"> 0 </span>   <span class="number"> 0 </span> <span class="number"> 8154 </span>    <span class="number"> 0 </span>--:--:-- --:--:-- --:--:--     0* Connection <span class="comment">#0 to host localhost left intact</span></div><div class="line"></div><div class="line">* Closing connection <span class="comment">#0</span></div></pre></td></tr></table></figure>
-<p>使用ps命令也可以看到所有nginx进程，也可以验证nginx是否正常运行：  </p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ps aux |greo nignx</div><div class="line">[root@localhost 13.6]<span class="comment"># ps aux |grep nginx</span></div><div class="line">root    <span class="number"> 109323 </span> 0.0  0.0 <span class="number"> 15768 </span> <span class="number"> 624 </span>?        Ss   22:34   0:00 nginx: master process /home/hy/software/nginx-1/13.6/sbin/nginx</div><div class="line">nobody  <span class="number"> 109324 </span> 0.0  0.1 <span class="number"> 16212 </span><span class="number"> 1532 </span>?        S    22:34   0:00 nginx: worker process</div></pre></td></tr></table></figure>
-<h2 id="nginx模块"><a href="#nginx模块" class="headerlink" title="nginx模块"></a>nginx模块</h2><p>编译<br>[root@localhost nginx-1.13.6]# ./configure –prefix=/home/hy/software/nginx-1.13.6 –add-module=/home/hy/Documents/nginx-1.13.6/src/test/ –with-pcre=/home/hy/Downloads/pcre-8.39 –with-zlib=/home/hy/Downloads/zlib-1.2.11</p>
-<p>编译时会提示：<br>configuring additional modules<br>adding module in /home/hy/Documents/nginx-1.13.6/src/test/</p>
-<ul>
-<li>ngx_http_hello_module was configured<br>creating objs/Makefile</li>
-</ul>
-<p>如何支持C++文件？<br>需要简单了解下nginx的编译过程<br>1、直接修改Makefile文件<br>2、通过修改auto目录下的文件</p>
-<p>使用<br>使用一个模块需要根据这个模块定义的配置指令来做。比如我们这个简单的hello handler module的使用就很简单。在我的测试服务器的配置文件里，就是在http里面的默认的server里面加入如下的配置：</p>
-<p>location /test {<br>                hello_string jizhao;<br>                hello_counter on;<br>}<br>当我们访问这个地址的时候, lynx <a href="http://127.0.0.1/test的时候，就可以看到返回的结果。" target="_blank" rel="external">http://127.0.0.1/test的时候，就可以看到返回的结果。</a></p>
-<p>jizhao Visited Times:1</p>
-<p>当然你访问多次，这个次数是会增加的。</p>
 
       
     </div>
@@ -966,16 +969,26 @@
 <li>智能指针<br>将boost库的shared_ptr和unique_ptr引入到c++标准库    </li>
 <li>范围for语句<br>语法如下（java类似）： </li>
 </ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">for</span><span class="params">(declaration: expression)</span></span></div><div class="line">	statement</div></pre></td></tr></table></figure>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">for</span>(declaration: <span class="keyword">expression</span>)</div><div class="line">		statement</div><div class="line"><span class="string">``</span><span class="string">`  </span></div><div class="line">示例代码：</div></pre></td></tr></table></figure>
+<p>#include <iostream></iostream></p>
+<p>#include <string><br>using namespace std;</string></p>
+<p>int main() {<br>    int a[3] = {1,2,3};<br>    //string a(“Hello”);<br>    for(auto var: a)<br>    {<br>        cout &lt;&lt; var &lt;&lt; endl;<br>    }<br>    return 0;<br>}<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="bullet">- </span>auto关键字  </div><div class="line">支持使用auto关键字自动推断变量类型</div><div class="line"><span class="bullet">- </span>lambda表达式    </div><div class="line">一个lambda表达式表示一个可调用的代码单元(类似于一个匿名函数)。与函数类似，lambda表达式具有一个返回类型，一个参数列表和一个函数体。其具有如下形式：  </div><div class="line">[<span class="string">capture list</span>](<span class="link">parameter list</span>)-&gt;return type &#123;function body&#125;  </div><div class="line">其中capture list为捕获的参数列表，即为函数外的变量，通常为空；parameter list为参数列表，可以省略;其中return type为返回值类型，可以省略。  </div><div class="line"></div><div class="line">示例代码：</div></pre></td></tr></table></figure></p>
+<pre><code>auto f = [](int a, int b)-&gt;int{ return a+b;};
+cout &lt;&lt; &quot;2+3=&quot; &lt;&lt; f(2,3) &lt;&lt; endl;
+</code></pre><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">-<span class="ruby"> 使用 = default生成默认构造函数  </span></div><div class="line">使用场景：在我们即需要其它形式的构造函数（通常为拷贝构造函数），也需要默认的构造函数时。  </div><div class="line">示例代码：</div></pre></td></tr></table></figure>
+<pre><code>Class Base{
+public:
+    Base() = default;
+    Base(int sz): size(sz) {}
+private:
+    int size;
+};
+</code></pre><p>```</p>
 <ul>
-<li>auto关键字<br>支持使用auto关键字自动推断变量类型</li>
-<li><p>lambda表达式<br>一个lambda表达式表示一个可调用的代码单元(类似于一个匿名函数)。与函数类似，lambda表达式具有一个返回类型，一个参数列表和一个函数体。其具有如下形式：<br><a href="parameter list">capture list</a>[return type]{function body}<br>其中capture list为捕获的参数列表，即为函数外的变量;其中return type为返回值类型，可以省略。</p>
+<li><p>移动语义<br>为了支持移动操作，新标准引入了一种新的引用类型——右值引用。所谓右值引用就是必须绑定到右值的引用。通过&amp;&amp;来获取右值引用。右值引用有一个重要的性质，只能绑定到一个将要销毁的对象（如形参），因此，我们可以自由地将一个优质引用的资源“移动”到另一个对象中<br>例子：<br>int i = 1;<br>int &amp;&amp;ri = i <em> 42; //因为i </em> 42 会生成个临时的变量，将其移动到ri上<br>int &amp;&amp;ri1= i; //错误，不能将一个右值引用绑定到一个左值上。这种其实可以通过move函数来实现，但是使用这种操作后以为着不能再使用i了，所有对i的操作应该变为对ri1操作，有点像auto_ptr指针<br>合适使用右值引用能减少不必要的对象构造和析构，提高程序运行的效率，这边就不继续展开了<br>另一个与右值引用相关的概念是move函数：move函数告诉编译器，我们有一个左值，但是我们希望像一个右值一样处理他（需要由调用者保证后续不再使用这个左值，因为其会被销毁）<br>此外，还有移动构造函数和移动赋值函数    </p>
 </li>
-<li><p>使用 = default生成默认构造函数<br>使用场景：在我们即需要其它形式的构造函数（通常为拷贝构造函数），也需要默认的构造函数时。</p>
+<li><p>正则表达式<br>c++11引入了regex类来处理正则表达式</p>
 </li>
-<li><p>移动语义<br>为了支持移动操作，新标准引入了一种新的引用类型——右值引用。所谓右值引用就是必须绑定到右值的引用。通过&amp;&amp;来获取右值引用。右值引用有一个重要的性质，只能绑定到一个将要销毁的对象（如形参），因此，我们可以自由地将一个优质引用的资源“移动”到另一个对象中<br>例子：<br>int i = 1;<br>int &amp;&amp;ri = i <em> 42; //因为i </em> 42 会生成个临时的变量，将其移动到ri上<br>int &amp;&amp;ri1= i; //错误，不能将一个右值引用绑定到一个左值上。这种其实可以通过move函数来实现，但是使用这种操作后以为着不能再使用i了，所有对i的操作应该变为对ri1操作，有点像auto_ptr指针<br>合适使用右值引用能减少不必要的对象构造和析构，提高程序运行的效率，这边就不继续展开了  </p>
-</li>
-<li>正则表达式<br>c++11引入了regex类来处理正则表达式</li>
 <li>其它<br>还有很多其它的新特性，如随机数，概率分布，final关键字，override指示符（尾置），可变参数模版，mem_fn类膜拜等等</li>
 </ul>
 

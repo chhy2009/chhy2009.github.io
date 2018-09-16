@@ -196,10 +196,10 @@
 
       <div class="body-wrap">
   
-    <article id="post-python/crawel/argpaser" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-python/crawel/crawel-primary" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/13/python/crawel/argpaser/" class="article-date">
+      <a href="/2017/08/13/python/crawel/crawel-primary/" class="article-date">
   	<time datetime="2017-08-13T14:07:03.000Z" itemprop="datePublished">2017-08-13</time>
 </a>
     </div>
@@ -213,7 +213,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/13/python/crawel/argpaser/">python argparser解析</a>
+      <a class="article-title" href="/2017/08/13/python/crawel/crawel-primary/">python 爬虫初窥</a>
     </h1>
   
 
@@ -224,32 +224,32 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建"><span class="toc-text">创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加参数"><span class="toc-text">添加参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解析参数"><span class="toc-text">解析参数</span></a></li></ol>
+    
 </div>
 
          
-        <p>parser是python标准库的一个参数解析模块，通过使用’import argparse’即可导入使用，可方便编写命令行接口。当命令有错时其会自动产生错误提示信息。  </p>
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;</span>&gt; parser = argparse.ArgumentParser(description=<span class="string">'Process some integers.'</span>)</div></pre></td></tr></table></figure>
-<h2 id="添加参数"><a href="#添加参数" class="headerlink" title="添加参数"></a>添加参数</h2><p>通过使用add_argument函数可以添加参数信息，其原型为：  </p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ArgumentParser.add_argument(name or flags…[<span class="string">, action</span>][<span class="symbol">, nargs</span>][<span class="string">, const</span>][<span class="symbol">, default</span>][<span class="string">, type</span>][<span class="symbol">, choices</span>][<span class="string">, required</span>][<span class="symbol">, help</span>][<span class="string">, metavar</span>][<span class="symbol">, dest</span>])</div></pre></td></tr></table></figure>
-<p>示例如下  </p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; parser.add_argument(<span class="string">'integers'</span>, metavar=<span class="string">'N'</span>, <span class="keyword">type</span>=int, nargs=<span class="string">'+'</span>,</div><div class="line"><span class="params">...</span>                     help=<span class="string">'an integer for the accumulator'</span>)</div><div class="line">&gt;&gt;&gt; parser.add_argument(<span class="string">'--sum'</span>, dest=<span class="string">'accumulate'</span>, action=<span class="string">'store_const'</span>,</div><div class="line"><span class="params">...</span>                     const=<span class="keyword">sum</span>, default=<span class="keyword">max</span>,</div><div class="line"><span class="params">...</span>                     help=<span class="string">'sum the integers (default: find the max)'</span>)</div></pre></td></tr></table></figure>
-<p>函数中的参数说明如下：</p>
+        <p>github下了个crawel入门的python 源码，我fork了一份，研究下看看：<br><a href="https://github.com/chhy2009/Mini-Spider.git" target="_blank" rel="external">Mini-Spider</a></p>
+<p>代码调用关系：<br>入口(执行方式):<br>test_all.sh</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python3 mini-spider -<span class="selector-tag">a</span> http:<span class="comment">//bbs.fengniao.com/forum/9373824.html jpg html</span></div></pre></td></tr></table></figure>
+<p>先由<strong>main</strong>.py中调用parser.parse_args解析参数，match规则为：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Add arguments.</span></div><div class="line">    analysis_help = <span class="string">'Analysis a URL.'</span></div><div class="line">    parser.add_argument(<span class="string">'-a'</span>, <span class="built_in">help</span>=analysis_help, nargs=<span class="string">'+'</span>, dest=<span class="string">'analysis_url'</span>, metavar=<span class="string">'[URL]'</span>)</div></pre></td></tr></table></figure>
+<p>进一步调用：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Parse analysis url.</span></div><div class="line">    <span class="keyword">if</span> args.analysis_url:</div><div class="line">        <span class="keyword">if</span> len(args.analysis_url) == <span class="number">1</span>:  <span class="comment">#需要至少指定两个参数，指定需要获取的资源类型</span></div><div class="line">            print(<span class="string">'Error: Please input what resource you are looking for!'</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        timeout = <span class="number">2.0</span></div><div class="line">        <span class="keyword">if</span> args.time_out:</div><div class="line">            timeout = args.time_out[<span class="number">0</span>]</div><div class="line">        <span class="keyword">if</span> args.similarity:</div><div class="line">            spider = MiniSpider(args.analysis_url[<span class="number">0</span>], search=args.analysis_url[<span class="number">1</span>:],</div><div class="line">                                similarity_threshold=args.similarity[<span class="number">0</span>], timeout=timeout)</div><div class="line">            spider.analysis_url()</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            spider = MiniSpider(args.analysis_url[<span class="number">0</span>], search=args.analysis_url[<span class="number">1</span>:], similarity_threshold=<span class="number">0.6</span>,</div><div class="line">                                timeout=timeout)</div><div class="line">            spider.analysis_url()</div></pre></td></tr></table></figure>
+<p>解析args  </p>
+<p>最后调用spider.analysis_url做实际性的工作（解析url并获取资源）.  </p>
+<p>来看下MiniSpider这个类（scheduler.py）：  </p>
+<ol>
+<li>调用<strong>init</strong>函数解析url及资源类型列表</li>
+<li>调用analysis_url函数下载资源,具体如下：</li>
+</ol>
 <ul>
-<li>type<br>type 指出了参数的类型，如int, double<br>parser.add_argument(‘intergers’, type=int, nargs=’+’)</li>
-<li>nargs<br>表示参数的个数，’+’表示1个以上，’*’表示0个以上</li>
-<li>action<br>action 参数指出了解析参数的动作, 如count表示计数，store_const</li>
-<li>help<br>为该参数的帮助信息</li>
-<li>default<br>默认值或者默认行为</li>
-<li>metavar<br>usage提示信息中的参数名</li>
-<li>const<br>常量或者固定的行为，通过匹配参数选项来决定，但不能通过输入指定，如例子中的const=sum</li>
-<li>dest<br>parse_args的返回值名称</li>
+<li>调用_url_read下载网页</li>
+<li>使用python正则表达式查找匹配的资源<code>match = re.findall(i, content)</code></li>
+<li>使用_handle_match处理结果<code>self._handle_match(match_list)</code></li>
+<li>使用_save_temp保存结果</li>
 </ul>
-<h2 id="解析参数"><a href="#解析参数" class="headerlink" title="解析参数"></a>解析参数</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;</span>&gt; args = parser.parse_args()</div><div class="line"><span class="meta">&gt;&gt;</span>&gt; print args.accumulate(args.integers)</div></pre></td></tr></table></figure>
-<p>运行上面的例子：  </p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ python prog.py <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></div><div class="line"><span class="number">4</span></div><div class="line"></div><div class="line">$ python prog.py <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> --sum</div><div class="line"><span class="number">10</span></div></pre></td></tr></table></figure>
-<p>parser支持更多选项，请查阅其官网文档<a href="https://docs.python.org/2/library/argparse.html#module-argparse" target="_blank" rel="external">argparse — Parser for command-line options, arguments and sub-commands</a></p>
-<p>入门资料：<br><a href="https://docs.python.org/2/howto/argparse.html" target="_blank" rel="external">Argparse Tutorial</a></p>
+<p>进阶：</p>
+<p><a href="https://seofangfa.com/other-note/python网络爬虫实战项目代码大全（长期更新，欢迎补.html" target="_blank" rel="external">Python网络爬虫实战项目代码大全（长期更新，欢迎补充） – Python中文社区 – 知乎专栏</a></p>
 
       
     </div>
@@ -261,7 +261,7 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/argpaser/">argpaser</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/crawel/">crawel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
 	</div>
 
       
@@ -475,6 +475,7 @@
 <p>redis非事务流水线<br>可以提高redis命令执行的效率，特别是在通信的双方tcp链路传输耗时的情况下尤为明显。<br>pipeline=conn.pipeline()<br>pipeline.execute()</p>
 <p>redis锁<br>细粒度锁</p>
 <p>redis信号量<br>当需要限制资源的使用个数时，锁机制就不适用了，这时候需要信号量。</p>
+<p>yU#705501</p>
 
       
     </div>
