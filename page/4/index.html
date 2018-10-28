@@ -278,6 +278,84 @@
 
 
   
+    <article id="post-kernel/netlink" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/21/kernel/netlink/" class="article-date">
+  	<time datetime="2017-07-21T14:38:39.000Z" itemprop="datePublished">2017-07-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/21/kernel/netlink/">netlink详解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#netlink机制"><span class="toc-text">netlink机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义的netlink例子"><span class="toc-text">自定义的netlink例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用NETLINK-GENERIC"><span class="toc-text">使用NETLINK_GENERIC</span></a></li></ol>
+</div>
+
+         
+        <h2 id="netlink机制"><a href="#netlink机制" class="headerlink" title="netlink机制"></a>netlink机制</h2><p>参考链接：<br><a href="http://people.netfilter.org/pablo/netlink/netlink-libmnl-manual.pdf" target="_blank" rel="external">Communicating between the kernel and user-space in Linux using Netlink Sockets: Source code reference</a></p>
+<p><a href="http://www.cnblogs.com/ck1020/p/7120457.html" target="_blank" rel="external">内核通信之Netlink源码分析-用户内核通信原理</a></p>
+<h2 id="自定义的netlink例子"><a href="#自定义的netlink例子" class="headerlink" title="自定义的netlink例子"></a>自定义的netlink例子</h2><p>代码参考：<br><a href="https://stackoverflow.com/questions/3299386/how-to-use-netlink-socket-to-communicate-with-a-kernel-module" target="_blank" rel="external">How to use netlink socket to communicate with a kernel module?
+</a></p>
+<h2 id="使用NETLINK-GENERIC"><a href="#使用NETLINK-GENERIC" class="headerlink" title="使用NETLINK_GENERIC"></a>使用NETLINK_GENERIC</h2><p>参考链接：<br><a href="http://www.xuebuyuan.com/1769856.html" target="_blank" rel="external">Generic Netlink详解</a></p>
+<p>更多学习资料参考百度文库： Netlink详解</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/netlink/">netlink</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-kernel/kernel-program" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -337,84 +415,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-kernel/netlink" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/21/kernel/netlink/" class="article-date">
-  	<time datetime="2017-07-21T14:38:39.000Z" itemprop="datePublished">2017-07-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/21/kernel/netlink/">netlink详解</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#netlink机制"><span class="toc-text">netlink机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义的netlink例子"><span class="toc-text">自定义的netlink例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用NETLINK-GENERIC"><span class="toc-text">使用NETLINK_GENERIC</span></a></li></ol>
-</div>
-
-         
-        <h2 id="netlink机制"><a href="#netlink机制" class="headerlink" title="netlink机制"></a>netlink机制</h2><p>参考链接：<br><a href="http://people.netfilter.org/pablo/netlink/netlink-libmnl-manual.pdf" target="_blank" rel="external">Communicating between the kernel and user-space in Linux using Netlink Sockets: Source code reference</a></p>
-<p><a href="http://www.cnblogs.com/ck1020/p/7120457.html" target="_blank" rel="external">内核通信之Netlink源码分析-用户内核通信原理</a></p>
-<h2 id="自定义的netlink例子"><a href="#自定义的netlink例子" class="headerlink" title="自定义的netlink例子"></a>自定义的netlink例子</h2><p>代码参考：<br><a href="https://stackoverflow.com/questions/3299386/how-to-use-netlink-socket-to-communicate-with-a-kernel-module" target="_blank" rel="external">How to use netlink socket to communicate with a kernel module?
-</a></p>
-<h2 id="使用NETLINK-GENERIC"><a href="#使用NETLINK-GENERIC" class="headerlink" title="使用NETLINK_GENERIC"></a>使用NETLINK_GENERIC</h2><p>参考链接：<br><a href="http://www.xuebuyuan.com/1769856.html" target="_blank" rel="external">Generic Netlink详解</a></p>
-<p>更多学习资料参考百度文库： Netlink详解</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/netlink/">netlink</a></li></ul>
 	</div>
 
       
@@ -519,81 +519,6 @@
 
 
   
-    <article id="post-kernel/kernel-thread" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/13/kernel/kernel-thread/" class="article-date">
-  	<time datetime="2017-07-13T14:50:17.000Z" itemprop="datePublished">2017-07-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/13/kernel/kernel-thread/">内核线程详解</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div id="toc" class="toc-article">
-    <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内核线程的概念，和pthread-create创建的线程有什么区别"><span class="toc-text">内核线程的概念，和pthread_create创建的线程有什么区别</span></a></li></ol>
-</div>
-
-         
-        <h2 id="内核线程的概念，和pthread-create创建的线程有什么区别"><a href="#内核线程的概念，和pthread-create创建的线程有什么区别" class="headerlink" title="内核线程的概念，和pthread_create创建的线程有什么区别"></a>内核线程的概念，和pthread_create创建的线程有什么区别</h2><p>如何创建内核线程</p>
-<p><a href="http://blog.chinaunix.net/uid-24782829-id-3211009.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-24782829-id-3211009.html</a><br>增加linux内核系统调用 </p>
-<p><a href="http://blog.csdn.net/eroswang/article/details/3007390" target="_blank" rel="external">http://blog.csdn.net/eroswang/article/details/3007390</a><br>老手经验谈：Linux驱动程序开发学习步骤</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-kernel/kernel-modules" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -660,6 +585,81 @@ clean:
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel-modules/">kernel modules</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-kernel/kernel-thread" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/13/kernel/kernel-thread/" class="article-date">
+  	<time datetime="2017-07-13T14:50:17.000Z" itemprop="datePublished">2017-07-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/13/kernel/kernel-thread/">内核线程详解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内核线程的概念，和pthread-create创建的线程有什么区别"><span class="toc-text">内核线程的概念，和pthread_create创建的线程有什么区别</span></a></li></ol>
+</div>
+
+         
+        <h2 id="内核线程的概念，和pthread-create创建的线程有什么区别"><a href="#内核线程的概念，和pthread-create创建的线程有什么区别" class="headerlink" title="内核线程的概念，和pthread_create创建的线程有什么区别"></a>内核线程的概念，和pthread_create创建的线程有什么区别</h2><p>如何创建内核线程</p>
+<p><a href="http://blog.chinaunix.net/uid-24782829-id-3211009.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-24782829-id-3211009.html</a><br>增加linux内核系统调用 </p>
+<p><a href="http://blog.csdn.net/eroswang/article/details/3007390" target="_blank" rel="external">http://blog.csdn.net/eroswang/article/details/3007390</a><br>老手经验谈：Linux驱动程序开发学习步骤</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li></ul>
 	</div>
 
       

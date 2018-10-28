@@ -11,7 +11,8 @@
 智能指针将boost库的shared_ptr和unique_ptr引入到c++标准库    
 范围for语句语法如下（java类似）： 
 
-1234	for(declaration: expression)		statement```">
+12for(declaration: expression)	statement
+示例代码：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c++11新特性">
 <meta property="og:url" content="http://yoursite.com/2017/10/08/c-11-new-character/index.html">
@@ -21,8 +22,9 @@
 智能指针将boost库的shared_ptr和unique_ptr引入到c++标准库    
 范围for语句语法如下（java类似）： 
 
-1234	for(declaration: expression)		statement```">
-<meta property="og:updated_time" content="2018-09-16T12:35:42.000Z">
+12for(declaration: expression)	statement
+示例代码：">
+<meta property="og:updated_time" content="2018-10-28T14:22:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="c++11新特性">
 <meta name="twitter:description" content="c++11相对c++99引入了很多新特性（很多特性是从boost库引入的），详细说明可以查看C++ primer 5下面列出一些个人认为比较实用的新特性：    
@@ -30,7 +32,8 @@
 智能指针将boost库的shared_ptr和unique_ptr引入到c++标准库    
 范围for语句语法如下（java类似）： 
 
-1234	for(declaration: expression)		statement```">
+12for(declaration: expression)	statement
+示例代码：">
   
     <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
   
@@ -256,21 +259,19 @@
 <li>智能指针<br>将boost库的shared_ptr和unique_ptr引入到c++标准库    </li>
 <li>范围for语句<br>语法如下（java类似）： </li>
 </ul>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">for</span>(declaration: <span class="keyword">expression</span>)</div><div class="line">		statement</div><div class="line"><span class="string">``</span><span class="string">`  </span></div><div class="line">示例代码：</div></pre></td></tr></table></figure>
-<p>#include <iostream></iostream></p>
-<p>#include <string><br>using namespace std;</string></p>
-<p>int main() {<br>    int a[3] = {1,2,3};<br>    //string a(“Hello”);<br>    for(auto var: a)<br>    {<br>        cout &lt;&lt; var &lt;&lt; endl;<br>    }<br>    return 0;<br>}<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="bullet">- </span>auto关键字  </div><div class="line">支持使用auto关键字自动推断变量类型</div><div class="line"><span class="bullet">- </span>lambda表达式    </div><div class="line">一个lambda表达式表示一个可调用的代码单元(类似于一个匿名函数)。与函数类似，lambda表达式具有一个返回类型，一个参数列表和一个函数体。其具有如下形式：  </div><div class="line">[<span class="string">capture list</span>](<span class="link">parameter list</span>)-&gt;return type &#123;function body&#125;  </div><div class="line">其中capture list为捕获的参数列表，即为函数外的变量，通常为空；parameter list为参数列表，可以省略;其中return type为返回值类型，可以省略。  </div><div class="line"></div><div class="line">示例代码：</div></pre></td></tr></table></figure></p>
-<pre><code>auto f = [](int a, int b)-&gt;int{ return a+b;};
-cout &lt;&lt; &quot;2+3=&quot; &lt;&lt; f(2,3) &lt;&lt; endl;
-</code></pre><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">-<span class="ruby"> 使用 = default生成默认构造函数  </span></div><div class="line">使用场景：在我们即需要其它形式的构造函数（通常为拷贝构造函数），也需要默认的构造函数时。  </div><div class="line">示例代码：</div></pre></td></tr></table></figure>
-<pre><code>Class Base{
-public:
-    Base() = default;
-    Base(int sz): size(sz) {}
-private:
-    int size;
-};
-</code></pre><p>```</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">for</span><span class="params">(declaration: expression)</span></span></div><div class="line">	statement</div></pre></td></tr></table></figure>
+<p>示例代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</div><div class="line">    <span class="comment">//string a("Hello");</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> var: a)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; var &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>auto关键字<br>支持使用auto关键字自动推断变量类型</li>
+<li>lambda表达式<br>一个lambda表达式表示一个可调用的代码单元(类似于一个匿名函数)。与函数类似，lambda表达式具有一个返回类型，一个参数列表和一个函数体。其具有如下形式：<br><a href="parameter list">capture list</a>-&gt;return type {function body}<br>其中capture list为捕获的参数列表，即为函数外的变量，通常为空；parameter list为参数列表，可以省略;其中return type为返回值类型，可以省略。  </li>
+</ul>
+<p>示例代码：  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">auto</span> f = [](<span class="keyword">int</span> a, <span class="keyword">int</span> b)-&gt;<span class="keyword">int</span>&#123; <span class="keyword">return</span> a+b;&#125;;</div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"2+3="</span> &lt;&lt; f(<span class="number">2</span>,<span class="number">3</span>) &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用 = default生成默认构造函数<br>使用场景：在我们即需要其它形式的构造函数（通常为拷贝构造函数），也需要默认的构造函数时。<br>示例代码：  </li>
+</ul>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Class</span> Base&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	Base() = <span class="keyword">default</span>;</div><div class="line">	Base(<span class="built_in">int</span> sz): <span class="built_in">size</span>(sz) &#123;&#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="built_in">int</span> <span class="built_in">size</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <ul>
 <li><p>移动语义<br>为了支持移动操作，新标准引入了一种新的引用类型——右值引用。所谓右值引用就是必须绑定到右值的引用。通过&amp;&amp;来获取右值引用。右值引用有一个重要的性质，只能绑定到一个将要销毁的对象（如形参），因此，我们可以自由地将一个优质引用的资源“移动”到另一个对象中<br>例子：<br>int i = 1;<br>int &amp;&amp;ri = i <em> 42; //因为i </em> 42 会生成个临时的变量，将其移动到ri上<br>int &amp;&amp;ri1= i; //错误，不能将一个右值引用绑定到一个左值上。这种其实可以通过move函数来实现，但是使用这种操作后以为着不能再使用i了，所有对i的操作应该变为对ri1操作，有点像auto_ptr指针<br>合适使用右值引用能减少不必要的对象构造和析构，提高程序运行的效率，这边就不继续展开了<br>另一个与右值引用相关的概念是move函数：move函数告诉编译器，我们有一个左值，但是我们希望像一个右值一样处理他（需要由调用者保证后续不再使用这个左值，因为其会被销毁）<br>此外，还有移动构造函数和移动赋值函数    </p>
 </li>
