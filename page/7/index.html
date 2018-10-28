@@ -287,6 +287,7 @@
 
 
 
+
   
     <article id="post-tools/vim/vim-configuration" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -377,6 +378,7 @@
 
 
 
+
   
     <article id="post-OperateSystem/software-of-mac" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -455,6 +457,7 @@
 
 
 
+
   
     <article id="post-OpenSource/encrypt_algorithm" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -510,6 +513,7 @@
   </div>
   
 </article>
+
 
 
 
@@ -613,6 +617,7 @@
 
 
 
+
   
     <article id="post-OpenSource/openssl-program" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -676,6 +681,85 @@
   </div>
   
 </article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Makefile" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/02/Makefile/" class="article-date">
+  	<time datetime="2016-10-02T04:48:53.000Z" itemprop="datePublished">2016-10-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/02/Makefile/">一个工程的Makefile模版</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+         
+        <p>Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：</p>
+<p><a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">Makefile-template</a></p>
+<p>工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到<a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">https://github.com/chhy2009/Makefile-template.git</a> 下载。</p>
+<p>make install 时指定安装路径：<br><code>export DESTDIR=install_dir</code> , 然后 <code>make install</code>  </p>
+<p>make时存在库依赖问题，解决方法如下：<br><code>export PKG_CONFIG_PATH=/.../software_name/lib/pkgconfig/</code><br>即设置被依赖库路径到PKG_CONFIG_PATH变量  </p>
+<h2 id="编译动态库"><a href="#编译动态库" class="headerlink" title="编译动态库"></a>编译动态库</h2><ul>
+<li><p>由源文件直接编译<br><code>gcc–shared –fpic –o libtest.so  test.c</code></p>
+</li>
+<li><p>由.o文件编译<br><code>gcc -shared *.o -o libtest.so</code></p>
+</li>
+</ul>
+<h2 id="编译静态库"><a href="#编译静态库" class="headerlink" title="编译静态库"></a>编译静态库</h2><p>先gcc源文件为<em>.o，再执行 ar –rc libtest.a </em>.o打包成静态库</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
 
 
 
@@ -771,82 +855,6 @@
 
 
 
-  
-    <article id="post-Makefile" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/02/Makefile/" class="article-date">
-  	<time datetime="2016-10-02T04:48:53.000Z" itemprop="datePublished">2016-10-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/Makefile/">一个工程的Makefile模版</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-         
-        <p>Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：</p>
-<p><a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">Makefile-template</a></p>
-<p>工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到<a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">https://github.com/chhy2009/Makefile-template.git</a> 下载。</p>
-<p>make install 时指定安装路径：<br><code>export DESTDIR=install_dir</code> , 然后 <code>make install</code>  </p>
-<p>make时存在库依赖问题，解决方法如下：<br><code>export PKG_CONFIG_PATH=/.../software_name/lib/pkgconfig/</code><br>即设置被依赖库路径到PKG_CONFIG_PATH变量  </p>
-<h2 id="编译动态库"><a href="#编译动态库" class="headerlink" title="编译动态库"></a>编译动态库</h2><ul>
-<li><p>由源文件直接编译<br><code>gcc–shared –fpic –o libtest.so  test.c</code></p>
-</li>
-<li><p>由.o文件编译<br><code>gcc -shared *.o -o libtest.so</code></p>
-</li>
-</ul>
-<h2 id="编译静态库"><a href="#编译静态库" class="headerlink" title="编译静态库"></a>编译静态库</h2><p>先gcc源文件为<em>.o，再执行 ar –rc libtest.a </em>.o打包成静态库</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
 
   
     <article id="post-OperateSystem/mac-shortcuts" class="article article-type-post" itemscope itemprop="blogPost">
@@ -923,6 +931,7 @@
   </div>
   
 </article>
+
 
 
 
@@ -1036,6 +1045,7 @@
   </div>
   
 </article>
+
 
 
 
