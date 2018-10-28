@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>谈谈Linux kernel的list结构 | chenhy&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在解决关于关于cfg80211.ko的问题，需要阅读net/wireless目录下的代码，看到如下代码感觉有点懵逼：include/net/regulatory.h  
+123456789101112struct regulatory_request &amp;#123;	struct rcu_head rcu_head;	int wiphy_idx;	enum nl80211_reg_initiat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈Linux kernel的list结构">
+<meta property="og:url" content="http://yoursite.com/2018/05/20/kernel/kernel-list/index.html">
+<meta property="og:site_name" content="chenhy's blog">
+<meta property="og:description" content="最近在解决关于关于cfg80211.ko的问题，需要阅读net/wireless目录下的代码，看到如下代码感觉有点懵逼：include/net/regulatory.h  
+123456789101112struct regulatory_request &amp;#123;	struct rcu_head rcu_head;	int wiphy_idx;	enum nl80211_reg_initiat">
+<meta property="og:updated_time" content="2018-06-06T15:30:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谈谈Linux kernel的list结构">
+<meta name="twitter:description" content="最近在解决关于关于cfg80211.ko的问题，需要阅读net/wireless目录下的代码，看到如下代码感觉有点懵逼：include/net/regulatory.h  
+123456789101112struct regulatory_request &amp;#123;	struct rcu_head rcu_head;	int wiphy_idx;	enum nl80211_reg_initiat">
+  
+    <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://odizoogtm.bkt.clouddn.com/Octocat_GitHub.png?imageView2/2/w/300" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">chenhy</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/chhy2009" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+								<a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 14px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 16px;">TCP/IP</a> <a href="/tags/Wi-Fi/" style="font-size: 12px;">Wi-Fi</a> <a href="/tags/argpaser/" style="font-size: 10px;">argpaser</a> <a href="/tags/awk/" style="font-size: 10px;">awk</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/c-11/" style="font-size: 10px;">c++11</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/compile-and-debug-tools/" style="font-size: 10px;">compile and debug tools</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/crawel/" style="font-size: 10px;">crawel</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/epoll/" style="font-size: 12px;">epoll</a> <a href="/tags/github/" style="font-size: 12px;">github</a> <a href="/tags/googletest/" style="font-size: 10px;">googletest</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/kernel/" style="font-size: 20px;">kernel</a> <a href="/tags/kernel-modules/" style="font-size: 10px;">kernel modules</a> <a href="/tags/levelDB/" style="font-size: 10px;">levelDB</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/lock-guard/" style="font-size: 10px;">lock_guard</a> <a href="/tags/logrotate/" style="font-size: 10px;">logrotate</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/memcache/" style="font-size: 10px;">memcache</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/mysql/" style="font-size: 12px;">mysql</a> <a href="/tags/netlink/" style="font-size: 10px;">netlink</a> <a href="/tags/network/" style="font-size: 12px;">network</a> <a href="/tags/nginx/" style="font-size: 12px;">nginx</a> <a href="/tags/openssl/" style="font-size: 14px;">openssl</a> <a href="/tags/protobuf/" style="font-size: 10px;">protobuf</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/redis/" style="font-size: 18px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/suspend/" style="font-size: 10px;">suspend</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/syslog-ng/" style="font-size: 16px;">syslog-ng</a> <a href="/tags/unique-lock/" style="font-size: 10px;">unique_lock</a> <a href="/tags/unit-test/" style="font-size: 10px;">unit test</a> <a href="/tags/vim/" style="font-size: 12px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 12px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/yaml/" style="font-size: 10px;">yaml</a> <a href="/tags/算法，排序/" style="font-size: 10px;">算法，排序</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/codingcs">我的csdn博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">程序员，编程爱好者</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">chenhy</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="/http://odizoogtm.bkt.clouddn.com/Octocat_GitHub.png?imageView2/2/w/300" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">chenhy</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/chhy2009" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+						<a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-kernel/kernel-list" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/05/20/kernel/kernel-list/" class="article-date">
+  	<time datetime="2018-05-20T06:50:30.000Z" itemprop="datePublished">2018-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      谈谈Linux kernel的list结构
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kernel/">kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/list/">list</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+         
+        <p>最近在解决关于关于cfg80211.ko的问题，需要阅读net/wireless目录下的代码，看到如下代码感觉有点懵逼：<br>include/net/regulatory.h  </p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">regulatory_request</span> &#123;</span></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">rcu_head</span> <span class="title">rcu_head</span>;</span></div><div class="line">	int wiphy_idx;</div><div class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">nl80211_reg_initiator</span> <span class="title">initiator</span>;</span></div><div class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">nl80211_user_reg_hint_type</span> <span class="title">user_reg_hint_type</span>;</span></div><div class="line">	char alpha2[<span class="number">2</span>];</div><div class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">nl80211_dfs_regions</span> <span class="title">dfs_region</span>;</span></div><div class="line">	bool intersect;</div><div class="line">	bool processed;</div><div class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">environment_cap</span> <span class="title">country_ie_env</span>;</span></div><div class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">list</span>;</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>net/wireless/reg.c  </p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">static LIST_HEAD(reg_requests_list);</div><div class="line">...</div><div class="line">static void queue_regulatory_request(struct regulatory_request *request)</div><div class="line">&#123;</div><div class="line">	<span class="function"><span class="title">request</span>-&gt;</span><span class="function"><span class="title">alpha2</span>[0] = toupper(request-&gt;</span>alpha2[<span class="number">0</span>]);</div><div class="line">	<span class="function"><span class="title">request</span>-&gt;</span><span class="function"><span class="title">alpha2</span>[1] = toupper(request-&gt;</span>alpha2[<span class="number">1</span>]);</div><div class="line"></div><div class="line">	spin_lock(&amp;reg_requests_lock);</div><div class="line">	<span class="function"><span class="title">list_add_tail</span>(&amp;request-&gt;</span>list, &amp;reg_requests_list);</div><div class="line">	spin_unlock(&amp;reg_requests_lock);</div><div class="line"></div><div class="line">	schedule_work(&amp;reg_work);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>list_add_tail(&amp;request-&gt;list, &amp;reg_requests_list);</code> 这行代码把request-&gt;list成员的地址(而不是request结构的地址)加到以reg_list_list为head节点的链表中，那么后面怎么访问除了list外的其他成员呢？且看下文分解：<br>net/wireless/reg.c </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">reg_process_pending_hints</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">struct</span> regulatory_request *reg_request, *lr;</div><div class="line"></div><div class="line">	lr = get_last_request();</div><div class="line"></div><div class="line">	<span class="comment">/* When last_request-&gt;processed becomes true this will be rescheduled */</span></div><div class="line">	<span class="keyword">if</span> (lr &amp;&amp; !lr-&gt;processed) &#123;</div><div class="line">		reg_process_hint(lr);</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	spin_lock(&amp;reg_requests_lock);</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (list_empty(&amp;reg_requests_list)) &#123;</div><div class="line">		spin_unlock(&amp;reg_requests_lock);</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	</div><div class="line"></div><div class="line">	reg_request = list_first_entry(&amp;reg_requests_list,</div><div class="line">				       <span class="keyword">struct</span> regulatory_request,</div><div class="line">				       <span class="built_in">list</span>);</div><div class="line">	list_del_init(&amp;reg_request-&gt;<span class="built_in">list</span>);</div><div class="line"></div><div class="line">	spin_unlock(&amp;reg_requests_lock);</div><div class="line"></div><div class="line">	reg_process_hint(reg_request);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>list_first_entry方法用于访问reg_requests_list为head的链表的首元素，继续跟踪下其实现，如下(以下代码片段位于include/linux/list.h)：  </p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * list_entry - get the <span class="keyword">struct</span> <span class="keyword">for</span> this entry</div><div class="line"> * @ptr:	the &amp;<span class="keyword">struct</span> list_head pointer.</div><div class="line"> * @<span class="keyword">type</span>:	the <span class="keyword">type</span> <span class="keyword">of</span> the <span class="keyword">struct</span> this is embedded <span class="keyword">in</span>.</div><div class="line"> * @member:	the name <span class="keyword">of</span> the list_struct within the <span class="keyword">struct</span>.</div><div class="line"> */</div><div class="line">#define list_entry(ptr, <span class="keyword">type</span>, member) \</div><div class="line">	container_of(ptr, <span class="keyword">type</span>, member)</div><div class="line"></div><div class="line">/**</div><div class="line"> * list_first_entry - get the first element from a <span class="built_in">list</span></div><div class="line"> * @ptr:	the <span class="built_in">list</span> head <span class="keyword">to</span> take the element from.</div><div class="line"> * @<span class="keyword">type</span>:	the <span class="keyword">type</span> <span class="keyword">of</span> the <span class="keyword">struct</span> this is embedded <span class="keyword">in</span>.</div><div class="line"> * @member:	the name <span class="keyword">of</span> the list_struct within the <span class="keyword">struct</span>.</div><div class="line"> *</div><div class="line"> * <span class="type">Note</span>, that <span class="built_in">list</span> is expected <span class="keyword">to</span> be not empty.</div><div class="line"> */</div><div class="line">#define list_first_entry(ptr, <span class="keyword">type</span>, member) \</div><div class="line">	list_entry((ptr)-&gt;next, <span class="keyword">type</span>, member)</div></pre></td></tr></table></figure>
+<p>接近真相了，奥秘就在container_of这个方法中:<br>include/stddef.h  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __compiler_offsetof</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> offsetof(TYPE,MEMBER) __compiler_offsetof(TYPE,MEMBER)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> offsetof(TYPE, MEMBER) ((size_t) &amp;((TYPE *)0)-&gt;MEMBER)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<p>include/kernel.h  </p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * container_of - cast a member of a structure out to the containing structure</div><div class="line"> * @ptr:	the pointer to the member.</div><div class="line"> * @type:	the type of the container struct this is embedded in.</div><div class="line"> * @member:	the name of the member within the struct.</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="comment">#define container_of(ptr, type, member) (&#123;			\</span></div><div class="line">	<span class="keyword">const</span> <span class="keyword">typeof</span><span class="function"><span class="params">( ((type *)<span class="number">0</span>)-&gt;member )</span> *<span class="title">__mptr</span> = <span class="params">(ptr)</span>;	</span></div><div class="line">	<span class="params">(type *)( (char *)__mptr - offsetof(type,member) )</span>;&#125;)</div></pre></td></tr></table></figure>
+<p>结合一下，就是  </p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define container_of(ptr, <span class="built_in">type</span>, member) \</div><div class="line">    (<span class="built_in">type</span> *)(<span class="function"><span class="params">(char *)(ptr)</span> - <span class="params">(char *)</span> &amp;(<span class="params">(<span class="built_in">type</span> *)</span>0)-&gt;</span>member)</div></pre></td></tr></table></figure>
+<p>看到这句代码(char <em>) &amp;((type </em>)0)-&gt;member), 还能这样玩，顿时感觉c的指针确实能做很多事，像magic一样，研究了下，这句代码是用于获取type结构的member成员的相对首地址的偏移。<br>所以kernel中list使用原理：获取结构中list成员的地址，然后－list成员在结构中的相对偏移，从而得到type结构的地址，很巧妙。  </p>
+<p>下面是我的一段测试代码，不明白的话可以再自己研究下：    </p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * <span class="type">Returns</span> a pointer <span class="keyword">to</span> the container <span class="keyword">of</span> this <span class="built_in">list</span> element.</div><div class="line"> *</div><div class="line"> * <span class="type">Example</span>:</div><div class="line"> * <span class="keyword">struct</span> foo* f;</div><div class="line"> * f = container_of(&amp;foo-&gt;entry, <span class="keyword">struct</span> foo, entry);</div><div class="line"> * <span class="keyword">assert</span>(f == foo);</div><div class="line"> *</div><div class="line"> * @param ptr <span class="type">Pointer</span> <span class="keyword">to</span> the <span class="keyword">struct</span> list_head.</div><div class="line"> * @param <span class="keyword">type</span> <span class="type">Data</span> <span class="keyword">type</span> <span class="keyword">of</span> the <span class="built_in">list</span> element.</div><div class="line"> * @param member <span class="type">Member</span> name <span class="keyword">of</span> the <span class="keyword">struct</span> list_head field <span class="keyword">in</span> the <span class="built_in">list</span> element.</div><div class="line"> * @return <span class="type">A</span> pointer <span class="keyword">to</span> the data <span class="keyword">struct</span> containing the <span class="built_in">list</span> head.</div><div class="line"> */</div><div class="line">#<span class="keyword">include</span> &lt;stdio.h&gt;</div><div class="line">#ifndef container_of</div><div class="line">#define container_of(ptr, <span class="keyword">type</span>, member) \</div><div class="line">    (<span class="keyword">type</span> *)((<span class="built_in">char</span> *)(ptr) - (<span class="built_in">char</span> *) &amp;((<span class="keyword">type</span> *)<span class="number">0</span>)-&gt;member)</div><div class="line">#endif</div><div class="line"></div><div class="line"><span class="keyword">struct</span> entry&#123;</div><div class="line">    <span class="built_in">int</span> a;    </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> foo&#123;</div><div class="line">    <span class="built_in">int</span> data;</div><div class="line">    <span class="built_in">int</span> key;</div><div class="line">    <span class="keyword">struct</span> entry <span class="built_in">list</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">int</span>  main<span class="literal">()</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">struct</span> foo f;</div><div class="line">    <span class="keyword">struct</span> foo *ptr;</div><div class="line">    ptr = container_of(&amp;(f.<span class="built_in">list</span>), <span class="keyword">struct</span> foo, <span class="built_in">list</span>);</div><div class="line"></div><div class="line">    printf(<span class="string">"ptr address of foo:  %p \n"</span>, (<span class="built_in">char</span> *)&amp;f);</div><div class="line">    printf(<span class="string">"ptr address of foo list :  %p \n"</span>,(<span class="built_in">char</span> *) &amp;(f.<span class="built_in">list</span>));</div><div class="line">    printf(<span class="string">"ptr address of 0-&gt;member: %p \n"</span>, (<span class="built_in">char</span> *)&amp;((<span class="keyword">struct</span> foo*)<span class="number">0</span>)-&gt;<span class="built_in">list</span>);</div><div class="line">    <span class="keyword">if</span> (ptr == &amp;f)</div><div class="line">    &#123;</div><div class="line">        printf(<span class="string">"return ok\n"</span>);</div><div class="line">        return <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return -<span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译运行后，输出：  </p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ptr</span> address <span class="keyword">of</span> foo:  <span class="number">0x7fff587c1af0</span> </div><div class="line"><span class="keyword">ptr</span> address <span class="keyword">of</span> foo list :  <span class="number">0x7fff587c1af8</span> </div><div class="line"><span class="keyword">ptr</span> address <span class="keyword">of</span> <span class="number">0</span>-&gt;member: <span class="number">0x8</span> </div><div class="line"><span class="keyword">return</span> ok</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+      
+    
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/10/kernel/kernel-resume/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          谈谈kernel待机及唤醒
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/07/memcache/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">memcache、redis原理对比</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+
+
+  
+  <!-- Gitment评论插件通用代码 -->
+<div id="gitment"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: "chhy2009",//github用户名
+  repo: "chhy2009.github.io",//用户存储评论的github项目名称
+  oauth: {
+    client_id: "3f6bd1489db3014bdb3f",//注册OAuth Application时生产的ClinetID
+    client_secret:"6774951c67a864b14b1a38dea0d8e2168a2e7d9e",//注册OAuth Application时生成的Client Secret
+  },
+})
+gitment.render('git')
+</script>
+<!-- Gitment代码结束 -->
+
+  
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 chenhy
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: /
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

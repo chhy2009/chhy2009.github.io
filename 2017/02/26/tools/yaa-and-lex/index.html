@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>yaa and lex | chenhy&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="lex就是语法扫描器，yacc就是语法分析器。lex 源文件中的yywrap函数是必须的，因为给出了这个函数实现之后可以不需要依赖flex库了。yywrap直接返回1，表示输入已经结束了。基本的lex文件：
+1%&amp;#123;int yywrap(void);%&amp;#125;%%%%int yywrap(void)&amp;#123;return 1;&amp;#125;
+基本的yacc文件:
+12%">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yaa and lex">
+<meta property="og:url" content="http://yoursite.com/2017/02/26/tools/yaa-and-lex/index.html">
+<meta property="og:site_name" content="chenhy's blog">
+<meta property="og:description" content="lex就是语法扫描器，yacc就是语法分析器。lex 源文件中的yywrap函数是必须的，因为给出了这个函数实现之后可以不需要依赖flex库了。yywrap直接返回1，表示输入已经结束了。基本的lex文件：
+1%&amp;#123;int yywrap(void);%&amp;#125;%%%%int yywrap(void)&amp;#123;return 1;&amp;#125;
+基本的yacc文件:
+12%">
+<meta property="og:updated_time" content="2017-06-17T14:21:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="yaa and lex">
+<meta name="twitter:description" content="lex就是语法扫描器，yacc就是语法分析器。lex 源文件中的yywrap函数是必须的，因为给出了这个函数实现之后可以不需要依赖flex库了。yywrap直接返回1，表示输入已经结束了。基本的lex文件：
+1%&amp;#123;int yywrap(void);%&amp;#125;%%%%int yywrap(void)&amp;#123;return 1;&amp;#125;
+基本的yacc文件:
+12%">
+  
+    <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://odizoogtm.bkt.clouddn.com/Octocat_GitHub.png?imageView2/2/w/300" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">chenhy</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/chhy2009" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+								<a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 14px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 16px;">TCP/IP</a> <a href="/tags/Wi-Fi/" style="font-size: 12px;">Wi-Fi</a> <a href="/tags/argpaser/" style="font-size: 10px;">argpaser</a> <a href="/tags/awk/" style="font-size: 10px;">awk</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/c-11/" style="font-size: 10px;">c++11</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/compile-and-debug-tools/" style="font-size: 10px;">compile and debug tools</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/crawel/" style="font-size: 10px;">crawel</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/epoll/" style="font-size: 12px;">epoll</a> <a href="/tags/github/" style="font-size: 12px;">github</a> <a href="/tags/googletest/" style="font-size: 10px;">googletest</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/kernel/" style="font-size: 20px;">kernel</a> <a href="/tags/kernel-modules/" style="font-size: 10px;">kernel modules</a> <a href="/tags/levelDB/" style="font-size: 10px;">levelDB</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/lock-guard/" style="font-size: 10px;">lock_guard</a> <a href="/tags/logrotate/" style="font-size: 10px;">logrotate</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/memcache/" style="font-size: 10px;">memcache</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/mysql/" style="font-size: 12px;">mysql</a> <a href="/tags/netlink/" style="font-size: 10px;">netlink</a> <a href="/tags/network/" style="font-size: 12px;">network</a> <a href="/tags/nginx/" style="font-size: 12px;">nginx</a> <a href="/tags/openssl/" style="font-size: 14px;">openssl</a> <a href="/tags/protobuf/" style="font-size: 10px;">protobuf</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/redis/" style="font-size: 18px;">redis</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/suspend/" style="font-size: 10px;">suspend</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/syslog-ng/" style="font-size: 16px;">syslog-ng</a> <a href="/tags/unique-lock/" style="font-size: 10px;">unique_lock</a> <a href="/tags/unit-test/" style="font-size: 10px;">unit test</a> <a href="/tags/vim/" style="font-size: 12px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 12px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/yaml/" style="font-size: 10px;">yaml</a> <a href="/tags/算法，排序/" style="font-size: 10px;">算法，排序</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/codingcs">我的csdn博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">程序员，编程爱好者</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">chenhy</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="/http://odizoogtm.bkt.clouddn.com/Octocat_GitHub.png?imageView2/2/w/300" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">chenhy</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/chhy2009" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+						<a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-tools/yaa-and-lex" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/26/tools/yaa-and-lex/" class="article-date">
+  	<time datetime="2017-02-26T02:00:08.000Z" itemprop="datePublished">2017-02-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      yaa and lex
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lex/">lex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/yacc/">yacc</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    
+</div>
+
+         
+        <p>lex就是语法扫描器，yacc就是语法分析器。<br>lex 源文件中的yywrap函数是必须的，因为给出了这个函数实现之后可以不需要依赖flex库了。<br>yywrap直接返回1，表示输入已经结束了。<br>基本的lex文件：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%&#123;<span class="function"><span class="keyword">int</span> <span class="title">yywrap</span><span class="params">(<span class="keyword">void</span>)</span></span>;%&#125;%%%%<span class="function"><span class="keyword">int</span> <span class="title">yywrap</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;</div></pre></td></tr></table></figure>
+<p>基本的yacc文件:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">%&#123;<span class="function"><span class="keyword">void</span> <span class="title">yyerror</span>(<span class="params"><span class="keyword">const</span> <span class="keyword">char</span> *s</span>)</span>;%&#125;%%program:	;%%<span class="function"><span class="keyword">void</span> <span class="title">yyerror</span>(<span class="params"><span class="keyword">const</span> <span class="keyword">char</span> *s</span>)</span>&#123;&#125;<span class="function"><span class="keyword">int</span> <span class="title">main</span>(<span class="params"></span>)%%</span>&#123;</div><div class="line">yyparse();<span class="keyword">return</span> <span class="number">0</span>;&#125;</div></pre></td></tr></table></figure>
+<p>yacc文件中的代码被%%分成3个部分，第一部分表示要写入到c文件的c/c++代码，由%{和%}括起来；中间部分是yacc的语法规则；第三部分是可以直接写入c/c++代码，不需要任何的修饰。</p>
+
+      
+    </div>
+    
+      
+    
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/05/tools/IDE/visual-2010-quickButton/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          visual studio快捷键
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/23/tcp_ip/tcp-keepalive/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">tcp_keepalive编程</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+
+
+  
+  <!-- Gitment评论插件通用代码 -->
+<div id="gitment"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: "chhy2009",//github用户名
+  repo: "chhy2009.github.io",//用户存储评论的github项目名称
+  oauth: {
+    client_id: "3f6bd1489db3014bdb3f",//注册OAuth Application时生产的ClinetID
+    client_secret:"6774951c67a864b14b1a38dea0d8e2168a2e7d9e",//注册OAuth Application时生成的Client Secret
+  },
+})
+gitment.render('git')
+</script>
+<!-- Gitment代码结束 -->
+
+  
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 chenhy
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: /
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
