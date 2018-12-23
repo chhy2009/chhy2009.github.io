@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>socket通信服务端编程 | chenhy&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="当开发一个Unix服务器程序时，需要处理的1对多或者多对更多的问题，我们有如下类型的进程控制可供选择：
+多进程通过调用fork派生出一个子进程来处理客户端请求，但子进程的最大数目受限于由于操作系统对用户可以派生的子进程数的限制（这种情况可以使用预先派生子进程的进程池技术）。缺点：执行fork是一个耗时操作，且最多数目有限制整体流程图如下：  
+编程注意点：  
+
+父进程需要处理子进程的SIGCHL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="socket通信服务端编程">
+<meta property="og:url" content="http://yoursite.com/2017/09/08/tcp-ip-server/index.html">
+<meta property="og:site_name" content="chenhy's blog">
+<meta property="og:description" content="当开发一个Unix服务器程序时，需要处理的1对多或者多对更多的问题，我们有如下类型的进程控制可供选择：
+多进程通过调用fork派生出一个子进程来处理客户端请求，但子进程的最大数目受限于由于操作系统对用户可以派生的子进程数的限制（这种情况可以使用预先派生子进程的进程池技术）。缺点：执行fork是一个耗时操作，且最多数目有限制整体流程图如下：  
+编程注意点：  
+
+父进程需要处理子进程的SIGCHL">
+<meta property="og:image" content="http://yoursite.com/img/tcpip_server_fork.png">
+<meta property="og:updated_time" content="2017-09-09T07:50:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="socket通信服务端编程">
+<meta name="twitter:description" content="当开发一个Unix服务器程序时，需要处理的1对多或者多对更多的问题，我们有如下类型的进程控制可供选择：
+多进程通过调用fork派生出一个子进程来处理客户端请求，但子进程的最大数目受限于由于操作系统对用户可以派生的子进程数的限制（这种情况可以使用预先派生子进程的进程池技术）。缺点：执行fork是一个耗时操作，且最多数目有限制整体流程图如下：  
+编程注意点：  
+
+父进程需要处理子进程的SIGCHL">
+<meta name="twitter:image" content="http://yoursite.com/img/tcpip_server_fork.png">
+  
+    <link rel="alternative" href="/atom.xml" title="chenhy&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://odizoogtm.bkt.clouddn.com/Octocat_GitHub.png?imageView2/2/w/300" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">chenhy</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/chhy2009" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+								<a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/IPD-process/" style="font-size: 10px;">IPD process</a> <a href="/tags/Linux-signal/" style="font-size: 10px;">Linux signal</a> <a href="/tags/Makefile/" style="font-size: 10px;">Makefile</a> <a href="/tags/Markdown/" style="font-size: 14px;">Markdown</a> <a href="/tags/TCP-IP/" style="font-size: 16px;">TCP/IP</a> <a href="/tags/Wi-Fi/" style="font-size: 12px;">Wi-Fi</a> <a href="/tags/argpaser/" style="font-size: 10px;">argpaser</a> <a href="/tags/awk/" style="font-size: 10px;">awk</a> <a href="/tags/c/" style="font-size: 12px;">c++</a> <a href="/tags/c-11/" style="font-size: 10px;">c++11</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/compile-and-debug-tools/" style="font-size: 10px;">compile and debug tools</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/crawel/" style="font-size: 10px;">crawel</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/design-pattern/" style="font-size: 10px;">design pattern</a> <a href="/tags/distribute-system/" style="font-size: 10px;">distribute system</a> <a href="/tags/epoll/" style="font-size: 12px;">epoll</a> <a href="/tags/github/" style="font-size: 12px;">github</a> <a href="/tags/googletest/" style="font-size: 10px;">googletest</a> <a href="/tags/keepalive/" style="font-size: 10px;">keepalive</a> <a href="/tags/kernel/" style="font-size: 20px;">kernel</a> <a href="/tags/kernel-modules/" style="font-size: 10px;">kernel modules</a> <a href="/tags/levelDB/" style="font-size: 10px;">levelDB</a> <a href="/tags/lex/" style="font-size: 10px;">lex</a> <a href="/tags/list/" style="font-size: 10px;">list</a> <a href="/tags/load-balance/" style="font-size: 10px;">load balance</a> <a href="/tags/lock-guard/" style="font-size: 10px;">lock_guard</a> <a href="/tags/logrotate/" style="font-size: 10px;">logrotate</a> <a href="/tags/mac-shortcut/" style="font-size: 10px;">mac shortcut</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/memcache/" style="font-size: 10px;">memcache</a> <a href="/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/tags/mutex/" style="font-size: 10px;">mutex</a> <a href="/tags/mysql/" style="font-size: 12px;">mysql</a> <a href="/tags/netlink/" style="font-size: 10px;">netlink</a> <a href="/tags/network/" style="font-size: 12px;">network</a> <a href="/tags/nginx/" style="font-size: 12px;">nginx</a> <a href="/tags/openssl/" style="font-size: 14px;">openssl</a> <a href="/tags/protobuf/" style="font-size: 10px;">protobuf</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/redis/" style="font-size: 18px;">redis</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/software/" style="font-size: 10px;">software</a> <a href="/tags/suspend/" style="font-size: 10px;">suspend</a> <a href="/tags/syslog/" style="font-size: 10px;">syslog</a> <a href="/tags/syslog-ng/" style="font-size: 16px;">syslog-ng</a> <a href="/tags/unique-lock/" style="font-size: 10px;">unique_lock</a> <a href="/tags/unit-test/" style="font-size: 10px;">unit test</a> <a href="/tags/vim/" style="font-size: 12px;">vim</a> <a href="/tags/visual-studio/" style="font-size: 10px;">visual studio</a> <a href="/tags/web/" style="font-size: 12px;">web</a> <a href="/tags/yacc/" style="font-size: 10px;">yacc</a> <a href="/tags/yaml/" style="font-size: 10px;">yaml</a> <a href="/tags/算法，排序/" style="font-size: 10px;">算法，排序</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a> <a href="/tags/非阻塞connect/" style="font-size: 10px;">非阻塞connect</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/codingcs">我的csdn博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">程序员，编程爱好者</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">chenhy</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="/http://odizoogtm.bkt.clouddn.com/Octocat_GitHub.png?imageView2/2/w/300" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">chenhy</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/chhy2009" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+						<a class="linkedin" target="_blank" href="#" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-tcp-ip-server" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/08/tcp-ip-server/" class="article-date">
+  	<time datetime="2017-09-08T15:46:42.000Z" itemprop="datePublished">2017-09-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      socket通信服务端编程
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP-IP/">TCP/IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/epoll/">epoll</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div id="toc" class="toc-article">
+    <div class="toc-title">目录</div>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#多进程"><span class="toc-text">多进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程"><span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程池（进程池）技术"><span class="toc-text">线程池（进程池）技术</span></a></li></ol>
+</div>
+
+         
+        <p>当开发一个Unix服务器程序时，需要处理的1对多或者多对更多的问题，我们有如下类型的进程控制可供选择：</p>
+<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><p>通过调用fork派生出一个子进程来处理客户端请求，但子进程的最大数目受限于由于操作系统对用户可以派生的子进程数的限制（这种情况可以使用预先派生子进程的进程池技术）。<br>缺点：执行fork是一个耗时操作，且最多数目有限制<br>整体流程图如下：<br><img src="/img/tcpip_server_fork.png" alt="tcpip_sever_fork">  </p>
+<p>编程注意点：  </p>
+<ol>
+<li><p>父进程需要处理子进程的SIGCHLD信号，做一些子进程结束后的清理工作，释放资源（调用waitpid等待子进程退出，防止出现僵尸进程及关闭accept的套接字）。  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_chld</span><span class="params">(<span class="keyword">int</span> signo)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">pid_t</span> pid;</div><div class="line">	<span class="keyword">int</span> status;</div><div class="line">	<span class="keyword">while</span>((pid=waitpid(<span class="number">-1</span>, &amp;status, WNOHANG)) &gt; <span class="number">0</span>) <span class="comment">//WNOHANG 若pid指定的子进程没有结束，则waitpid()函数返回0，不予以等待。若结束，则返回该子进程的ID。</span></div><div class="line">		<span class="built_in">printf</span>(<span class="string">"child %d terminated\n"</span>, pid);</div><div class="line">	<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>由于fork的写时复制特性，子进程执行fork后需要关闭父进程listen的描述符，然后再处理客户端的请求，处理完后关闭该socket</p>
+</li>
+</ol>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>多线程技术相比多进程来说，由于线程是轻量级的进程，创建线程的速度和效率要高很多（需要指出的是，有的操作系统不支持多线程）。其流程和多进程一致（只是fork换成了pthread_create），代码框架如下（摘自unp源码）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* include serv06 */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span>	<span class="meta-string">"unpthread.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span></span></div><div class="line"><span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span>				listenfd, connfd;</div><div class="line">	<span class="function"><span class="keyword">void</span>			<span class="title">sig_int</span><span class="params">(<span class="keyword">int</span>)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">void</span>			*<span class="title">doit</span><span class="params">(<span class="keyword">void</span> *)</span></span>;</div><div class="line">	<span class="keyword">pthread_t</span>		tid;</div><div class="line">	<span class="keyword">socklen_t</span>		clilen, addrlen;</div><div class="line">	<span class="keyword">struct</span> sockaddr	*cliaddr;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (argc == <span class="number">2</span>)</div><div class="line">		listenfd = Tcp_listen(<span class="literal">NULL</span>, argv[<span class="number">1</span>], &amp;addrlen);</div><div class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (argc == <span class="number">3</span>)</div><div class="line">		listenfd = Tcp_listen(argv[<span class="number">1</span>], argv[<span class="number">2</span>], &amp;addrlen);</div><div class="line">	<span class="keyword">else</span></div><div class="line">		err_quit(<span class="string">"usage: serv06 [ &lt;host&gt; ] &lt;port#&gt;"</span>);</div><div class="line">	cliaddr = Malloc(addrlen);</div><div class="line"></div><div class="line">	Signal(SIGINT, sig_int);</div><div class="line"></div><div class="line">	<span class="keyword">for</span> ( ; ; ) &#123;</div><div class="line">		clilen = addrlen;</div><div class="line">		connfd = Accept(listenfd, cliaddr, &amp;clilen);</div><div class="line"></div><div class="line">		Pthread_create(&amp;tid, <span class="literal">NULL</span>, &amp;doit, (<span class="keyword">void</span> *) connfd); 	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> *</span></div><div class="line"><span class="title">doit</span><span class="params">(<span class="keyword">void</span> *arg)</span></div><div class="line">&#123;</div><div class="line">	<span class="function"><span class="keyword">void</span>	<span class="title">web_child</span><span class="params">(<span class="keyword">int</span>)</span></span>;</div><div class="line"></div><div class="line">	Pthread_detach(pthread_self());</div><div class="line">	web_child((<span class="keyword">int</span>) arg);</div><div class="line">	Close((<span class="keyword">int</span>) arg);</div><div class="line">	<span class="keyword">return</span>(<span class="literal">NULL</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">/* end serv06 */</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span></span></div><div class="line"><span class="title">sig_int</span><span class="params">(<span class="keyword">int</span> signo)</span></div><div class="line">&#123;</div><div class="line">	<span class="function"><span class="keyword">void</span>	<span class="title">pr_cpu_time</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"></div><div class="line">	pr_cpu_time();</div><div class="line">	<span class="built_in">exit</span>(<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编程注意点：<br>子线程要调用pthread_detach，由自己释放资源，避免资源泄露。</p>
+<h2 id="线程池（进程池）技术"><a href="#线程池（进程池）技术" class="headerlink" title="线程池（进程池）技术"></a>线程池（进程池）技术</h2><p>线程池技术的原理：类似于某企业的客服系统，假设共有10个客服（相当于线程池中有10个线程），当业务繁忙时（服务人数大于10），则后面来的只能等待，直到有客服人员处理完业务后才能处理  </p>
+<ul>
+<li><p>进程池技术<br>对应于多进程并发服务器，可以使用预先派生子进程的方法，然后将客户端的请求交给子进程处理。<br>程序流程：父进程在调用listen后，fork出一一定数量的子进程，然后可以执行下面的1)或2) ：<br>  1） 各个子进程在函数体内循环调用accept等待客户端连接，并处理客户端请求<br>  2） 由父进程监听描述符，然后传递给各个子进程<br>方法1）存在accept惊群现象：当有客户端连接时，所有N个子进程均被唤醒（因为他们监听的同一个listen socket）；尽管所有N个子进程均被唤醒，但只有最先运行的子进程获得此客户端连接，其余子进程继续恢复睡眠(accept执行过程中发现accept队列长度为0)，可以通过对accept调用加锁或者信号量来减少该问题带来的性能影响<br>方法2) 需要增加对子进程的管理和调度，监控各个子进程的状态，然后通过描述符传递机制（可以通过socketpair机制来实现）将该描述符传递给空闲的子进程（同时也涉及accept fd队列管理，毕竟可能存在所有子进程都满载的情况）  </p>
+</li>
+<li><p>线程池技术<br>类似进程池技术，但由于线程可以访问进程的全局变量空间，主程序可以维持一个队列，然后各个子进程从队列中获取connfd然后进行处理（需要添加互斥变量控制），不用进行父子进程间的描述符传递操作，更加实用。</p>
+</li>
+</ul>
+<p>综上，如果系统支持多线程的话，使用多线程技术可以获得更高的效率。</p>
+<p>tips：</p>
+<ol>
+<li>如何修改用户能fork的最大子进程数？  </li>
+</ol>
+<ul>
+<li>通过ulimit -a查看用户能fork的最大子进程数目：<br><code>max user processes              (-u) 3810</code>  </li>
+<li>通过修改/etc/sercurity/limits.conf，增加用户限制条目：<br>@user hard nproc 65535</li>
+<li>由于操作系统对系统最多pid数有限制，如果要突破该限制的话需要更改kernel.pid_max参数<br>sysctl kernel.pid_max  #查看<br>sysctl -w kernel.pid_max=num #修改，其中num为进程数</li>
+</ul>
+<ol>
+<li>如何获取进程耗费的cpu时间？<br>使用getrusage函数，设置第一个参数为RUSAGE_SELF和RUSAGE_CHILDREN分别获取父子进程的cpu使用情况，在分别统计用户态耗时(ru_utime结构)及内核态耗时(ru_stime结构)</li>
+</ol>
+
+      
+    </div>
+    
+      
+    
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/13/syslog-ng/syslog-ng-logrotate/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          syslog-ng详解——日志备份
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/27/info_security/信息安全技术/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">信息安全技术</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+<div class="share_addthis">
+  <div class="sharing addthis_toolbox share">
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+
+
+  
+  <!-- Gitment评论插件通用代码 -->
+<div id="gitment"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "Fri Sep 08 2017 23:46:42 GMT+0800"
+  owner: "chhy2009",//github用户名
+  repo: "chhy2009.github.io",//用户存储评论的github项目名称
+  oauth: {
+    client_id: "3f6bd1489db3014bdb3f",//注册OAuth Application时生产的ClinetID
+    client_secret: "6774951c67a864b14b1a38dea0d8e2168a2e7d9e",//注册OAuth Application时生成的Client Secret
+  },
+})
+gitment.render('gitment')
+</script>
+<!-- Gitment代码结束 -->
+
+  
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 chenhy
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+</footer>
+
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: /
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
