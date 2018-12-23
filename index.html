@@ -224,11 +224,42 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#负载均衡组件"><span class="toc-text">负载均衡组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#负载均衡策略"><span class="toc-text">负载均衡策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务可用性探测"><span class="toc-text">服务可用性探测</span></a></li></ol>
 </div>
 
          
-        
+        <h2 id="负载均衡组件"><a href="#负载均衡组件" class="headerlink" title="负载均衡组件"></a>负载均衡组件</h2><ul>
+<li>硬件负载均衡-F5，流量百万级</li>
+<li>传输层负载均衡-LVS，十万级</li>
+<li>应用层负责均衡-nignx,万级 </li>
+<li>NAT技术其实也是一种负载均衡</li>
+</ul>
+<p><img src="img/lb.png" alt="load_balance"></p>
+<h2 id="负载均衡策略"><a href="#负载均衡策略" class="headerlink" title="负载均衡策略"></a>负载均衡策略</h2><ul>
+<li>轮询</li>
+<li>weight round robbin  </li>
+<li>random  </li>
+<li>最少连接数（需要清楚服务端状态，属于动态负载均衡）</li>
+<li>最快响应（需要记录不同机器上服务的响应速度，属于动态负载均衡）</li>
+<li>hash(可以实现有状态的调度)</li>
+</ul>
+<p><img src="img/lb_algorithm.jpg" alt="lb_algorithm">  </p>
+<h2 id="服务可用性探测"><a href="#服务可用性探测" class="headerlink" title="服务可用性探测"></a>服务可用性探测</h2><ul>
+<li><p>HTTP探测</p>
+<pre><code>使用Get/Post的方式请求服务端的某个固定的URL，判断返回的内容是否符合预期。一般使用Http状态码、response中的内容来判断。
+</code></pre></li>
+<li><p>TCP探测</p>
+<pre><code>基于Tcp的三次握手机制来探测指定的IP + 端口(握手成功后马上发一个rst
+请求断开连接［可以使用linger选项］)。最佳实践可以借鉴阿里云的SLB机制
+值得注意的是，为了尽早释放连接，在三次握手结束后立马跟上RST来中断TCP连接。
+</code></pre></li>
+<li><p>UDP探测</p>
+<pre><code>可能有部分应用使用的UDP协议。在此协议下可以通过报文来进行探测指定的IP + 端口。最佳实践同样可以借鉴阿里云的SLB机制
+结果的判定方式是：在服务端没有返回任何信息的情况下，默认正常状态。否则会返回一个ICMP的报错信息。
+</code></pre></li>
+</ul>
+<p>下面的几篇文章还不错，mark下：<br><a href="https://www.cnblogs.com/Zachary-Fan/archive/2018/10/08/LoadBalance.html" target="_blank" rel="external">分布式系统关注点——仅需这一篇，吃透「负载均衡」妥妥的</a><br><a href="https://www.cnblogs.com/Zachary-Fan/p/DoLoadBalance.html" target="_blank" rel="external">分布式系统关注点——「负载均衡」到底该如何实施？</a></p>
+
       
     </div>
     

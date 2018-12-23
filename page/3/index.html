@@ -196,10 +196,10 @@
 
       <div class="body-wrap">
   
-    <article id="post-syslog-ng/syslog-ng-install" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-syslog-ng/syslog-ng-configuration" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/13/syslog-ng/syslog-ng-install/" class="article-date">
+      <a href="/2017/09/13/syslog-ng/syslog-ng-configuration/" class="article-date">
   	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
 </a>
     </div>
@@ -213,7 +213,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-install/">syslog-ng详解——简介及安装syslog-ng</a>
+      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-configuration/">syslog-ng配置语法</a>
     </h1>
   
 
@@ -224,28 +224,80 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装syslog-ng"><span class="toc-text">安装syslog-ng</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#日志级别及日志设备"><span class="toc-text">日志级别及日志设备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用syslog函数打印日志到syslog"><span class="toc-text">使用syslog函数打印日志到syslog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置syslog-ng"><span class="toc-text">配置syslog-ng</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本语法"><span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#格式化输出"><span class="toc-text">格式化输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLS传输"><span class="toc-text">TLS传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它"><span class="toc-text">其它</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-text">结语</span></a></li></ol>
 </div>
 
          
-        <p>日志管理模块作为软件系统的一个重要子模块，其记录着系统运行的有关信息。当系统故障时，日志是用于问题定位的必备信息。所以，一个设计良好的日志模块及其重要，在Linux系统上往往用syslog(rsyslogd及klogd程序)来管理系统的日志。本文介绍的syslog-ng是syslog的next generation，具有比syslog更强大的功能和性能，优势体现在以下几个方面：  </p>
-<ul>
-<li>兼容syslog的功能，可扩展性强(支持plugin)，更新速度快 </li>
-<li>更多的配置语法，管理日志方式更加(日志源和日志目的地很丰富)  </li>
-<li>支持网络日志传输(TLS方式传输)，即分布式日志管理功能  </li>
+        <p>在“运行syslog-ng”中我们简单介绍了一个基本配置文件的大概结构，保证syslog-ng能正常运行起来。这边将详细介绍下syslog-ng的日志配置及如何进行高效的配置，先介绍下syslog的一些基本知识：</p>
+<h2 id="日志级别及日志设备"><a href="#日志级别及日志设备" class="headerlink" title="日志级别及日志设备"></a>日志级别及日志设备</h2><p>syslog-ng和syslog一样，日志级别都有以下8种：<br><img src="/img/syslog-ng/loglevel.png" alt="img1"></p>
+<p>级别越低代表越重要的日志。</p>
+<p>设备号有以下几种：<br><img src="/img/syslog-ng/logfacility.png" alt="img"></p>
+<p>由设备号和日志级别我们可以计算出log的级别(facility_num * 8 + level_num)</p>
+<h2 id="使用syslog函数打印日志到syslog"><a href="#使用syslog函数打印日志到syslog" class="headerlink" title="使用syslog函数打印日志到syslog"></a>使用syslog函数打印日志到syslog</h2><p>了解了日志级别及日志设备后，我们就可以使用syslog函数来往设备(/dev/log)发送日志了（syslog-ng的system()设备其实就是获取送往/dev/log设备的日志,传统的syslog也会监控该设备）。函数用法可以使用man 3 syslog查看：  </p>
+<pre><code>NAME
+   closelog, openlog, syslog, vsyslog - send messages to the system logger
+
+SYNOPSIS
+   #include &lt;syslog.h&gt;
+
+   void openlog(const char *ident, int option, int facility);
+   void syslog(int priority, const char *format, ...);
+   void closelog(void);
+</code></pre><p>使用例子如下：  </p>
+<pre><code>openlog(&quot;redis_server&quot;, LOG_PID, 1);  //设置设备号为1，ident(标识为redis_server),option为LOG_PID
+syslog(LOG_DEBUG, &quot;%s&quot;, “redis_server is started!”); //打印debug日志信息
+loselog(); //使用完后关闭
+</code></pre><p>了解完上面知识后，我们来看看如何对syslog-ng进行日志配置：</p>
+<h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p>syslog-ng的配置文件为syslog-ng.conf,syslog-ng 运行时会解析该配置文件，然后对日志来源进行监听(看描述符是否可读)，再对收集来的日志做一些指定的处理（如过滤，替换，格式化等）后，将日志写往各个destination：<br>    log{<br>        source(s_xxx);<br>        filter(f_xxx);<br>        destination(d_xxx)<br>    };</p>
+<p>其中source支持的设备主要有：file，network, tcp, udp, pipe, unix-dgram等<br>具体参见说明文档：Chapter 6. Collecting log messages — sources and source drivers</p>
+<p>destination支持的有：file, network, syslog, redis, sql, hdfs, mongodb<br>具体参见说明文档：Chapter 7. Sending and storing log messages — destinations and destination drivers<br>（随着大数据和分布式时代的到来，syslog-ng也增加了对redis,hdfs等的支持，更新很快的，这也是开源的优势）  </p>
+<p>syslog-ng支持将收集的日志进行不同的处理，然后写入不同的目的地，这时候语法如下：<br>    log{<br>        source(s1);<br>        source(s2);<br>        {filter(f1); destination(d1);}<br>        {filter(f2); destination(d2);}<br>    };</p>
+<h3 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h3><p>格式化输出就是对捕获的日志进行排版，以一种方便阅读和使用的格式存储日志(如方便使用awk等进行日志诊断)。在日志格式化时，就不能不提syslog协议，其格式如下： </p>
+<pre><code>HEADER SYSLOGPRO_VERSION ISOTIMESTAMP HOSTNAME APPLICATION PROC_ID MESSAGEID STRUCTURED-DATA BOM(\xEF\BB\xBF) MSG  
+</code></pre><p>其中HEADER为信息头，通常包含信息长度(HEADER以后内容的长度)及日志优先级PRI(logFacility * 8 + logLevel), 具体说明请参考RFC5424<a href="https://tools.ietf.org/html/rfc5424" target="_blank" rel="external">The Syslog Protocol</a><br>举例：</p>
+<pre><code>&lt;34&gt;1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - BOM&apos;su root&apos; failed for lonvick on /dev/pts/8  
+</code></pre><p> 对应的格式如下(这边没有proc_id，也没有structured data，两者都用’-‘替代了, BOM指出使用的是UTF-8编码)：</p>
+<pre><code>&lt;PRI&gt;SYSLOGPRO_VERSION ISOTIMESTAMP HOSTNAME APPLICATION PROC_ID MESSAGEID STRUCTURED-DATA BOM MSG  
+</code></pre><p>在syslog-ng中，支持自定义日志格式，这时候我们可以使用template语法：</p>
+<pre><code>template global_format{
+    template(&quot;&lt;${PRI}&gt; ${ISODATE} ${HOST} ${PROGRAM} ${PID} ${MESSAGE}\n&quot;);
+};
+options { proto-template(global_format); };  #用于protocol-like destination, like syslog() and network()   
+options { file-template(global_format); }; #用于file-like destination
+</code></pre><p>其中也可以使用${MSGHDR}来替代$PROGRAM[${PID}]的使用；新的syslog-ng版本也支持单独在template destination中指定template，则该template只会在该destination中生效（需要较新的syslog-ng版本才支持，比如3.4.2版本就不支持这种语法）。如：  </p>
+<pre><code>destination d_file {
+    file (&quot;/var/log/messages&quot;
+    template(&quot;${ISODATE} ${HOST} ${MESSAGE}\n&quot;) );  #或template(template_name)
+};
+</code></pre><p>下面我们在syslog-ng.conf中实际操作以下，增加上面的template语法，然后启动syslog-ng,输出的日志变为： </p>
+<pre><code>&lt;45&gt; 2017-09-16T09:16:35+08:00 localhost syslog-ng 86650 syslog-ng starting up; version=&apos;3.4.2&apos;
+</code></pre><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>syslog-ng中的marco变量十分丰富（如HOST, LEVEL_NUM等等）。此外，其还支持变量展开，作用类似shell脚本的$var功能： <code>var＝hello;  echo $var</code>  ,下面来看看如何自定义和使用变量.</p>
+<ol>
+<li><p>定义语法<br>使用@define语句定义一个变量(或者叫宏)，如下：  </p>
+<p> @define local_loglevel 5<br> @define local_file “/va/log/messages”  </p>
+</li>
+<li><p>使用语法<br>使用``符号进行变量展开，如：    </p>
+<p> filter f_level{“${LEVEL_NUM}” &lt;= “`local_loglevel`“;}  </p>
+</li>
+<li><p>文件包含<br>可以使用@include ‘filename’，将某个配置文件包含进syslog-ng.conf，这种语法在需要对配置文件拆分的场合很有用，如有个配置文件中的参数会变化(被外部修改)，这时可以单独把这些参数放到另外的文件中，方便修改，也减少了破坏syslog-ng.conf文件的可能</p>
+</li>
+</ol>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>日志处理中最常用的filter当属级别过滤。此外，filter还具有很强大的关键字过滤功能，支持多个filter同时使用，具体语法参考Chapter 8. Routing messages: log paths and filters。</p>
+<h3 id="TLS传输"><a href="#TLS传输" class="headerlink" title="TLS传输"></a>TLS传输</h3><p>详见Chapter 10. TLS-encrypted message transfer<br>关于证书生成和配置的操作可参考<a href="http://blog.csdn.net/codingcs/article/details/51816115" target="_blank" rel="external">证书相关概念及使用openssl生成自认证证书</a></p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><ul>
+<li>关键字替换 </li>
 </ul>
-<h2 id="安装syslog-ng"><a href="#安装syslog-ng" class="headerlink" title="安装syslog-ng"></a>安装syslog-ng</h2><p>本文只介绍从源码包安装syslog-ng的方法，掌握了源码包安装后，就可以在嵌入式系统(如Android)上用类似的方法集成syslog-ng。<br>a)    下载源码包<br>    在<a href="https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。" target="_blank" rel="external">https://my.balabit.com/downloads/syslog-ng/open-source-edition上下载syslog-ng源码包，这边我们选择3.4.2(因为带依赖库eventlog源码包，可以一起下载)。</a></p>
-<p>b)    编译及安装<br>由于syslog-ng依赖于eventlog和glib，所以需要先编译eventlog和 glib （这边用的glib为2.46.2版本，依赖zlib, libffi，可以从<a href="http://ftp.gnome.org/pub/gnome/sources/glib/上下载）" target="_blank" rel="external">http://ftp.gnome.org/pub/gnome/sources/glib/上下载）</a> </p>
-<p>从源码包编译软件的步骤如下(以eventlog为例，假设系统用户为user)：</p>
-<pre><code>#./configure –-prefix=/home/user/software/eventlog-0.2.13
-#make install
-</code></pre><p>然后eventlog软件就被安装到了~/software/eventlog-0.2.13目录下。</p>
-<p>用同样的方法编译安装glib到/home/user/software/glib-2.46.2/目录，然后就可以编译安装syslog-ng.详细步骤如下：</p>
-<p>在syslog-ng-3.4.2源码包下执行  </p>
-<pre><code>#export PKG_CONFIG_PATH＝/home/user/software/eventlog-0.2.13/lib/pkgconfig/:/home/user/software/glib-2.46.2/lib/pkgconfig/:$PKG_CONFIG_PATH
-#./configure –-prefix=~/software/syslog-ng－3.4.2
-#make install
-</code></pre><p>其中，PKG_CONFIG_PATH用于告诉configure依赖库的安装路径，否则configure的时候会报No package ‘xxx’ found<br>这样，就是成功安装了syslog-ng到~/software/syslog-ng－3.4.2目录下，下一篇讲解如何运行syslog-ng及其配置文件语法。</p>
+<p><code>rewrite r_rewrite_set{set(&quot;myhost&quot;, value(&quot;HOST&quot;)};
+    condition(program(&quot;myapplication&quot;)));}; 
+    log {   
+        source(s1);  
+        rewrite(r_rewrite_set);  
+        destination(d1);  
+    };</code></p>
+<ul>
+<li>flow control<br>tcp： max-connections(300)<br>指定发送往网络目的地的日志缓冲区大小： log-fifo-size(40000)<br>在destination中启用flow control： flags(flow-control)  </li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>syslog-ng支持的配置语法众多，具体可根据使用时查阅手册进行配置，本文讲解的是一些比较常用的操作，如有错误，欢迎指出。<br>后续会讲解下syslog-ng的源码，作为一个优秀的日志服务器和客户端，深入理解下应该还是能有不少收获的</p>
 
       
     </div>
@@ -286,10 +338,10 @@
 
 
   
-    <article id="post-syslog-ng/syslog-ng-run" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-dataStructure/RB-tree" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/13/syslog-ng/syslog-ng-run/" class="article-date">
+      <a href="/2017/09/13/dataStructure/RB-tree/" class="article-date">
   	<time datetime="2017-09-13T14:33:12.000Z" itemprop="datePublished">2017-09-13</time>
 </a>
     </div>
@@ -303,7 +355,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/13/syslog-ng/syslog-ng-run/">syslog-ng详解——运行syslog-ng</a>
+      <a class="article-title" href="/2017/09/13/dataStructure/RB-tree/">红黑树</a>
     </h1>
   
 
@@ -314,97 +366,41 @@
       
         <div id="toc" class="toc-article">
     <div class="toc-title">目录</div>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装目录结构介绍"><span class="toc-text">安装目录结构介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置syslog-ng"><span class="toc-text">配置syslog-ng</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行syslog-ng"><span class="toc-text">运行syslog-ng</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#树的旋转"><span class="toc-text">树的旋转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#红黑树的插入"><span class="toc-text">红黑树的插入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#红黑树的删除"><span class="toc-text">红黑树的删除</span></a></li></ol>
 </div>
 
          
-        <p>安装完syslog-ng后，就是如何使用的问题了。在<a href="https://syslog-ng.org" target="_blank" rel="external">https://syslog-ng.org</a> 上可以下载syslog-ng的说明文档syslog-ng-ose-guide-admin.pdf,文档中介绍了syslog-ng的用法，很详细。下面介绍下如何使用syslog-ng。</p>
-<h2 id="安装目录结构介绍"><a href="#安装目录结构介绍" class="headerlink" title="安装目录结构介绍"></a>安装目录结构介绍</h2><p>在syslog-ng安装目录下，文件夹及作用如下：  </p>
+        <p>红黑树的5条性质：<br>1）每个结点要么是红的，要么是黑的。<br>2）根结点是黑的。<br>3）每个叶结点（叶结点即指树尾端NIL指针或NULL结点）是黑的。<br>4）如果一个结点是红的，那么它的俩个儿子都是黑的。<br>5）对于任一结点而言，其到叶结点树尾端NIL指针的每一条路径都包含相同数目的黑结点。<br>这决定了红黑树是相对平衡的二叉树，其查找，删除和插入的的时间复杂度为O(log n)</p>
+<h2 id="树的旋转"><a href="#树的旋转" class="headerlink" title="树的旋转"></a>树的旋转</h2><p>树的旋转，分为左旋和右旋，下面介绍下左旋(右旋的原理类似)<br>左旋是指以某个结点current和他的右子结点right为“支轴”，使right结点成为current子树新的根结点。即将right结点成为current结点的父结点，right结点的左子结点成为current结点的右子结点。其原理图如下：<br><img src="/img/tree_left_rotate.png" alt="left-rotate">  </p>
+<p>左旋操作的伪代码如下(x为上图的pivot结点)：  </p>
+<pre><code>LEFT-ROTATE(T, x)  
+y ← right[x] //Set y.  
+right[x] ← left[y]      //Turn y&apos;s left subtree into x&apos;s right subtree.  
+p[left[y]] ← x  
+p[y] ← p[x]             //Link x&apos;s parent to y.  
+if p[x] = nil[T]        //Set P&apos;s child node
+   then root[T] ← y  
+   else if x = left[p[x]]  
+           then left[p[x]] ← y  
+           else right[p[x]] ← y  
+ left[y] ← x             //Put x on y&apos;s left.  
+ p[x] ← y
+</code></pre><h2 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h2><p>1、 先按照二叉查找树插入的方式插入节点，然后把插入节点的左右孩子都置为叶结点nil，将插入节点涂色成红色。</p>
+<p>2、在插入节点后，对节点进行旋转并重新着色，使整棵树保持红黑树的性质</p>
+<p>这时会有下面几种情况：</p>
 <ul>
-<li>bin 存放一些用于测试syslog-ng的工具，如loggen， pdbtool   </li>
-<li>etc 存放syslog-ng的配置文件，⚠主要为syslog-ng.conf   </li>
-<li>include 头文件  </li>
-<li>lib syslog-ng相关库文件，如libsyslog-ng.so已经syslog-ng的各种plugin  </li>
-<li>sbin syslog-ng可执行程序syslog-ng及交互程序syslog-ng-ctl  </li>
-<li>share 帮助文档  </li>
-<li>var存放syslog-ng运行时的一些信息  </li>
+<li>如果插入的是根结点，因为原树是空树，此情况只会违反性质2，所以直接把此结点涂为黑色。</li>
+<li>如果插入的结点的父结点是黑色，由于此不会违反性质2和性质4，红黑树没有被破坏，所以此时也是什么也不做。</li>
 </ul>
-<h2 id="配置syslog-ng"><a href="#配置syslog-ng" class="headerlink" title="配置syslog-ng"></a>配置syslog-ng</h2><p>在使用syslog-ng前，需要先对其进行配置，其对应的配置文件为syslog-ng.conf(位于syslog-ng安装目录etc下面),默认配置如下（为了能更好的描述配置文件，我加了个filter语法）：</p>
-<pre><code>@version: 3.4
-@include &quot;scl.conf&quot;
-
-source s_local {
-    system();
-    internal();
-};
-
-source s_network {
-    udp();
-};
-
-destination d_local {
-    file(&quot;/var/log/messages&quot;);
-};
-
-filter f_level {
-    &quot;${LEVEL_NUM}&quot; &gt; &quot;5&quot;;
-};
-
-log {
-    source(s_local);
-    # uncomment this line to open port 514 to receive messages
-    #source(s_network);
-    filter(f_level);
-    destination(d_local);
-};
-</code></pre><p>上边配置了两个日志源:s_local及s_network， 一个日志目的地:d_local;<br>然后定义了日志收集语法 log {source(s_xxx); filter(f_xxx); destination(d_xxx);};.<br>即收集system(指送往/dev/log及/proc/kmsg的日志)及internal(指syslog-ng进程本身的日志)，然后日志经过filter，将日志级别小于等于7(debug)级别的日志输出到/var/log/messages目录。  </p>
-<p>配置完syslog-ng后，便可以运行syslog-ng了。</p>
-<h2 id="运行syslog-ng"><a href="#运行syslog-ng" class="headerlink" title="运行syslog-ng"></a>运行syslog-ng</h2><p>进入sbin目录，执行./syslog-ng运行syslog-ng.如果用上面的配置文件，会发现运行时报错：  </p>
-<pre><code>system(): /proc/kmsg is not readable, please check permissions if this is     unintentional.; error=&apos;Permission denied (13)&apos;
-Error binding socket; addr=&apos;AF_UNIX(/dev/log)&apos;, error=&apos;Address already in     use (98)&apos;
-Error initializing message pipeline;
-</code></pre><p>这是因为我们现在是以非root用户运行的，所以无法读取/proc/kmsg文件；另外/dev/log这个socket，当前rsyslogd进程正在使用，你也无法使用；<br>所以先将system这个语法用’#’注释掉，换成file(“…/syslog-ng-3.4.2/syslog-ng.in”);<br>还有d_local中的目的文件可以改成…/syslog-ng-3.4.2/syslog-ng.out，方便我们分析(这边我们也没有操作/var/log/messages的权限)。<br>其中…为软件的安装上级目录，且配置文件中的路径要使用绝对路径。  </p>
-<p>修改后的配置文件如下：</p>
-<pre><code>@include &quot;scl.conf&quot;
-
-source s_local {
-    #system();
-    file(&quot;/home/user/software/syslog-ng-3.4.2/syslog-ng.in&quot;);
-    internal();
-};
-
-source s_network {
-    udp();
-};
-
-destination d_local {
-    #file(&quot;/var/log/messages&quot;);
-    file(&quot;/home/user/software/syslog-ng-3.4.2/syslog-ng.out&quot;);
-};
-
-filter f_level {
-    &quot;${LEVEL_NUM}&quot; &lt;= &quot;7&quot;;
-};
-
-log {
-    source(s_local);
-    # uncomment this line to open port 514 to receive messages
-    #source(s_network);
-    filter(f_level);
-    destination(d_local);
-};
-</code></pre><p>再次运行syslog-ng，可见在安装目录下生成了syslog-ng.out文件，cat看一下,输出：  </p>
-<pre><code>Sep 13 22:17:28 localhost syslog-ng[84496]: syslog-ng starting up;     version=&apos;3.4.2&apos;
-</code></pre><p>这说明syslog-ng已经成功运行起来了。用ps命令看下：</p>
-<pre><code>$ps -elf|grep syslog-ng 
-1 S user        84495      1  0  80   0 -  6150 wait   22:17 ?            00:00:00 supervising syslog-ng
-1 S user        84496  84495  0  80   0 -  8832 ep_pol 22:17 ?            00:00:00 ./syslog-ng
-</code></pre><p>其中，主进程为./syslog-ng</p>
-<p>这时，我们可以试下往/home/user/software/syslog-ng-3.4.2/syslog-ng.in文件中输入一条信息，syslog-ng将会把此信息一起收集到syslog-ng.out文件中。</p>
-<pre><code>$echo &quot;Hello, syslog-ng&quot;  &gt; syslog-ng.in
-$cat syslog-ng.out
-Sep 13 22:46:49 localhost Hello, syslog-ng
-</code></pre><p>这样，我们就大概清楚了syslog-ng运行的原理：即将某个日志源的信息进行收集，然后对日志进行一些处理（如果过滤，文本替换等），然后输出到指定的目的地(本地或者网络)。</p>
+<p>但遇到下述三种情况时：</p>
+<ul>
+<li>插入修复情况1：如果当前结点的父结点是红色且祖父结点的另一个子结点（叔叔结点）是红色</li>
+<li>插入修复情况2：当前结点的父结点是红色,叔叔结点是黑色，当前结点是其父结点的右子</li>
+<li>插入修复情况3：当前结点的父结点是红色,叔叔结点是黑色，当前结点是其父结点的左子</li>
+</ul>
+<p>对于插入修复情况1，对策：将当前结点的父结点和叔叔结点涂黑，祖父结点涂红，把当前结点指向祖父结点，从新的当前结点重新开始算法<br>对于插入修复情况2，对策：当前结点的父结点做为新的当前结点，以新当前结点为支点左旋，把当前结点指向祖父结点，从新的当前结点重新开始算法  ，。<br>对于插入修复情况3，对策：父结点变为黑色，祖父结点变为红色，在祖父结点为支点右旋</p>
+<p>可以将上面5种情况看成状态机的5种状态，包括红黑树（已经调整到位，终止状态）共6种状态。红黑树的插入就是状态机几种状态的转移。</p>
+<h2 id="红黑树的删除"><a href="#红黑树的删除" class="headerlink" title="红黑树的删除"></a>红黑树的删除</h2><p>先按照二叉查找树删除结点的方式删除结点，然后再对整棵树进行调整，使其保持红黑树的性质<br>也是分为几种情况分别处理（其中可能发生情况的转化），略</p>
 
       
     </div>
@@ -416,7 +412,7 @@ Sep 13 22:46:49 localhost Hello, syslog-ng
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/syslog-ng/">syslog-ng</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/data-structure/">data structure</a></li></ul>
 	</div>
 
       
