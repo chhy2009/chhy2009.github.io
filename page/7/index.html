@@ -326,7 +326,7 @@
 <li>EPOLLOUT: 描述符可写  </li>
 <li>EPOLLRDHUP(since Linux 2.6.17): 流套接字对端关闭连接或者关闭写端  </li>
 <li>EPOLLPRI: 紧急数据可读  </li>
-<li>EPOLLERR: 描述符发生错误，该事件由内核一直监听  </li>
+<li>EPOLLERR: 描述符发生错误，该事件由内核一直监听（比如connect套接字失败会返回EPOLLERR）  </li>
 <li>EPOLLHUP: 文件秒杀符被中断，该事件由内核一直监听  </li>
 <li>EPOLLET: 开启边缘触发，默认是水平触发</li>
 <li>EPOLLONESHOT: 一个事件发生并读取之后，fd自动不再监控；若要重新监控需要使用EPOLL_CTL_MOD重新设置<br>返回值: 成功返回0，失败返回－1并设置errno  <h3 id="等待epoll事件"><a href="#等待epoll事件" class="headerlink" title="等待epoll事件"></a><strong>等待epoll事件</strong></h3></li>
@@ -667,73 +667,6 @@
 
 
   
-    <article id="post-OpenSource/encrypt_algorithm" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/18/OpenSource/encrypt_algorithm/" class="article-date">
-  	<time datetime="2016-12-18T03:15:15.000Z" itemprop="datePublished">2016-12-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/18/OpenSource/encrypt_algorithm/">加解密算法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-         
-        <p>转载一篇aes加解密的文章：<br><a href="https://blog.poxiao.me/p/advanced-encryption-standard-and-block-cipher-mode/#nothing" target="_blank" rel="external">高级加密标准AES的工作模式（ECB、CBC、CFB、OFB）</a></p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openssl/">openssl</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-OpenSource/openssl-cmd" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -787,6 +720,73 @@
 <li>公钥持有端使用RSA_public_encrypt和RSA_public_decrypt进行加解密（openssl中的函数）</li>
 <li>私钥持有端使用RSA_private_encrypt和RSA_private_decrypt进行加解密</li>
 </ol>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openssl/">openssl</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-OpenSource/encrypt_algorithm" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/18/OpenSource/encrypt_algorithm/" class="article-date">
+  	<time datetime="2016-12-18T03:15:15.000Z" itemprop="datePublished">2016-12-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/18/OpenSource/encrypt_algorithm/">加解密算法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+         
+        <p>转载一篇aes加解密的文章：<br><a href="https://blog.poxiao.me/p/advanced-encryption-standard-and-block-cipher-mode/#nothing" target="_blank" rel="external">高级加密标准AES的工作模式（ECB、CBC、CFB、OFB）</a></p>
 
       
     </div>
@@ -902,6 +902,84 @@
 
 
   
+    <article id="post-Makefile" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/02/Makefile/" class="article-date">
+  	<time datetime="2016-10-02T04:48:53.000Z" itemprop="datePublished">2016-10-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/02/Makefile/">一个工程的Makefile模版</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+         
+        <p>Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：</p>
+<p><a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">Makefile-template</a></p>
+<p>工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到<a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">https://github.com/chhy2009/Makefile-template.git</a> 下载。</p>
+<p>make install 时指定安装路径：<br><code>export DESTDIR=install_dir</code> , 然后 <code>make install</code>  </p>
+<p>make时存在库依赖问题，解决方法如下：<br><code>export PKG_CONFIG_PATH=/.../software_name/lib/pkgconfig/</code><br>即设置被依赖库路径到PKG_CONFIG_PATH变量  </p>
+<h2 id="编译动态库"><a href="#编译动态库" class="headerlink" title="编译动态库"></a>编译动态库</h2><ul>
+<li><p>由源文件直接编译<br><code>gcc–shared –fpic –o libtest.so  test.c</code></p>
+</li>
+<li><p>由.o文件编译<br><code>gcc -shared *.o -o libtest.so</code></p>
+</li>
+</ul>
+<h2 id="编译静态库"><a href="#编译静态库" class="headerlink" title="编译静态库"></a>编译静态库</h2><p>先gcc源文件为<em>.o，再执行 ar –rc libtest.a </em>.o打包成静态库</p>
+
+      
+    </div>
+    
+      
+    
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/coding/">编程</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-network/network_command" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -959,84 +1037,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/">network</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/coding/">编程</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Makefile" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/02/Makefile/" class="article-date">
-  	<time datetime="2016-10-02T04:48:53.000Z" itemprop="datePublished">2016-10-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/Makefile/">一个工程的Makefile模版</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-         
-        <p>Makefile作为Linux下的源码编译规则说明，配合make命令使用，可以快速编译出库及可执行文件。经过整理，已经将一个简单工程的Makefile代码归档到github上，工程代码及Makefile见：</p>
-<p><a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">Makefile-template</a></p>
-<p>工程中包含三个Makefile（最外层的称为总控makefile），各个makefile中有相关的注释说明，有需要的自行到<a href="https://github.com/chhy2009/Makefile-template.git" target="_blank" rel="external">https://github.com/chhy2009/Makefile-template.git</a> 下载。</p>
-<p>make install 时指定安装路径：<br><code>export DESTDIR=install_dir</code> , 然后 <code>make install</code>  </p>
-<p>make时存在库依赖问题，解决方法如下：<br><code>export PKG_CONFIG_PATH=/.../software_name/lib/pkgconfig/</code><br>即设置被依赖库路径到PKG_CONFIG_PATH变量  </p>
-<h2 id="编译动态库"><a href="#编译动态库" class="headerlink" title="编译动态库"></a>编译动态库</h2><ul>
-<li><p>由源文件直接编译<br><code>gcc–shared –fpic –o libtest.so  test.c</code></p>
-</li>
-<li><p>由.o文件编译<br><code>gcc -shared *.o -o libtest.so</code></p>
-</li>
-</ul>
-<h2 id="编译静态库"><a href="#编译静态库" class="headerlink" title="编译静态库"></a>编译静态库</h2><p>先gcc源文件为<em>.o，再执行 ar –rc libtest.a </em>.o打包成静态库</p>
-
-      
-    </div>
-    
-      
-    
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Makefile/">Makefile</a></li></ul>
 	</div>
 
       

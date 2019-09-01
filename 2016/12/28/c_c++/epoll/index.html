@@ -16,7 +16,7 @@ epoll_create中，size只是给内核">
 <meta property="og:description" content="epoll接口函数头文件: #include&amp;lt;sys/epoll.h&amp;gt;可以通过man epoll查看对应的帮助信息最大描述符限制：/proc/sys/fs/epoll/max_user_watches  
 创建epoll实例12int epoll_create(int size); int epoll_create1(int flag);
 epoll_create中，size只是给内核">
-<meta property="og:updated_time" content="2017-10-30T15:05:49.000Z">
+<meta property="og:updated_time" content="2019-09-01T14:05:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="epoll讲解">
 <meta name="twitter:description" content="epoll接口函数头文件: #include&amp;lt;sys/epoll.h&amp;gt;可以通过man epoll查看对应的帮助信息最大描述符限制：/proc/sys/fs/epoll/max_user_watches  
@@ -273,7 +273,7 @@ epoll_create中，size只是给内核">
 <li>EPOLLOUT: 描述符可写  </li>
 <li>EPOLLRDHUP(since Linux 2.6.17): 流套接字对端关闭连接或者关闭写端  </li>
 <li>EPOLLPRI: 紧急数据可读  </li>
-<li>EPOLLERR: 描述符发生错误，该事件由内核一直监听  </li>
+<li>EPOLLERR: 描述符发生错误，该事件由内核一直监听（比如connect套接字失败会返回EPOLLERR）  </li>
 <li>EPOLLHUP: 文件秒杀符被中断，该事件由内核一直监听  </li>
 <li>EPOLLET: 开启边缘触发，默认是水平触发</li>
 <li>EPOLLONESHOT: 一个事件发生并读取之后，fd自动不再监控；若要重新监控需要使用EPOLL_CTL_MOD重新设置<br>返回值: 成功返回0，失败返回－1并设置errno  <h3 id="等待epoll事件"><a href="#等待epoll事件" class="headerlink" title="等待epoll事件"></a><strong>等待epoll事件</strong></h3></li>
